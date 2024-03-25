@@ -28,7 +28,7 @@ error_reporting(E_ALL);
 	//NB : Modifs pour la gestion de session
 		if ($formOk) {
 			initSession($login);
-			header("Location: ./pages/accueil.html");
+			header("Location: ./pages/accueil.php");
 		} else {
 			formulaire($erreur);
 		}  	
