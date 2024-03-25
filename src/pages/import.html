@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Accueil</title>
+	<link rel="stylesheet" href="../styles/import.css">
+</head>
+<body>
+	<div class="container">
+		<div class="menu">
+			<a href="#">Import</a>
+			<hr>
+			<a href="#">Visualisation</a>
+			<hr>
+			<a href="#">Export</a>
+		</div>
+		<form action="../fonctionsPHP/enregistrement.php" method="post" enctype="multipart/form-data">
+			<h2>Déposer un fichier</h2>
+			<input type="file" name="file" id="file" required><br>
+			<input type="submit" value="Enregistrer">
+		</form>
+	</div>
+</body>
+</html>
