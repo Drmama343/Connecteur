@@ -59,3 +59,7 @@ input[type="submit"]:hover {
 .custom-shape-divider-top-1711373449 .shape-fill {
     fill: #E1FFC2;
 }
+
+#erreur {
+	color: lightcoral;
+}
