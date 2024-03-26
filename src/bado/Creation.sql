@@ -1,42 +1,42 @@
 -- Table Promotion
 CREATE TABLE Promotion (
     idPromo INT PRIMARY KEY,
-    nbEtud INT
+    nbEtud INT NOT NULL
 );
 
 -- Table Etudiant
 CREATE TABLE Etudiant (
     codeNip INT PRIMARY KEY,
-    nom VARCHAR(50),
-    prenom VARCHAR(50),
-    cursus VARCHAR(50),
-    rang INT,
+    nom VARCHAR(50) NOT NULL,
+    prenom VARCHAR(50) NOT NULL,
+    cursus VARCHAR(50) NOT NULL,
+    rang INT NOT NULL,
     parcours VARCHAR(50)
 );
 
 -- Table Semestre
 CREATE TABLE Semestre (
     idSem INT PRIMARY KEY,
-    nomSem VARCHAR(50)
+    nomSem VARCHAR(50) NOT NULL
 );
 
 -- Table Competences
 CREATE TABLE Competences (
     idComp INT PRIMARY KEY,
-    nomComp VARCHAR(50)
+    nomComp VARCHAR(50) NOT NULL
 );
 
 -- Table Ressources
 CREATE TABLE Ressources (
     idRess INT PRIMARY KEY,
-    nomRess VARCHAR(50)
+    nomRess VARCHAR(50) NOT NULL
 );
 
 -- Table Annee
 CREATE TABLE Annee (
     idAnnee INT PRIMARY KEY,
-    nomAnnee VARCHAR(50),
-    Sem1 INT,
+    nomAnnee VARCHAR(50) NOT NULL,
+    Sem1 INT NOT NULL,
     Sem2 INT,
     FOREIGN KEY (Sem1) REFERENCES Semestre(idSem),
     FOREIGN KEY (Sem2) REFERENCES Semestre(idSem)
@@ -64,7 +64,7 @@ CREATE TABLE PromoAnnee (
 CREATE TABLE CompRess (
     idComp INT,
     idRess INT,
-    coeff FLOAT,
+    coeff INT NOT NULL,
     FOREIGN KEY (idComp) REFERENCES Competences(idComp),
     FOREIGN KEY (idRess) REFERENCES Ressources(idRess),
     PRIMARY KEY (idComp, idRess)
@@ -83,7 +83,7 @@ CREATE TABLE CompSem (
 CREATE TABLE MoyRess (
     codeNip INT,
     idRess INT,
-    moyRess FLOAT,
+    moyRess FLOAT NOT NULL,
     FOREIGN KEY (codeNip) REFERENCES Etudiant(codeNip),
     FOREIGN KEY (idRess) REFERENCES Ressources(idRess),
     PRIMARY KEY (codeNip, idRess)
@@ -93,8 +93,8 @@ CREATE TABLE MoyRess (
 CREATE TABLE JurySem (
     codeNip INT,
     idSem INT,
-    moySem FLOAT,
-    UE VARCHAR(50),
+    moySem FLOAT NOT NULL,
+    UE VARCHAR(50) NOT NULL,
     bonus FLOAT,
     FOREIGN KEY (codeNip) REFERENCES Etudiant(codeNip),
     FOREIGN KEY (idSem) REFERENCES Semestre(idSem),
@@ -118,7 +118,7 @@ CREATE TABLE MoyCompSem (
     codeNip INT,
     idComp INT,
     idSem INT,
-    moyCompSem FLOAT,
+    moyCompSem FLOAT NOT NULL,
     avis VARCHAR(50),
     FOREIGN KEY (codeNip) REFERENCES Etudiant(codeNip),
     FOREIGN KEY (idComp) REFERENCES Competences(idComp),
