@@ -16,16 +16,8 @@ echo enTete("Accueil",["../styles/classique.css"/*, "../styles/accueil.css"*/]);
 		echo "</div>\n";*/
 
 		$string = 
-		'<header class="menu">
+		'<header>
         <h1>Bienvenue sur [Nom de votre site]</h1>
-        <nav>
-            <ul>
-                <li><a href="#">Accueil</a></li>
-                <li><a href="#">Importation</a></li>
-                <li><a href="#">Visualisation</a></li>
-                <li><a href="#">Exportation</a></li>
-            </ul>
-        </nav>
     </header>
     <div class="container">
         <section class="content">
@@ -36,16 +28,8 @@ echo enTete("Accueil",["../styles/classique.css"/*, "../styles/accueil.css"*/]);
                 <li><strong>Exportation en PDF ou Excel :</strong> Exportez vos données sous forme de PDF pour une présentation professionnelle ou sous forme Excel pour un traitement ultérieur.</li>
             </ol>
         </section>
-        <aside class="menu">
-            <div class="id">
-                <p>Connecté en tant que :</p>
-                <p>Nom Utilisateur</p>
-            </div>
-            <hr class="hrmenu">
-            <a href="#" class="logout">Déconnexion</a>
-        </aside>
     </div>
-    <footer class="menu">
+    <footer>
         <h3>Suivez-nous sur les réseaux sociaux pour les dernières mises à jour :</h3>
         <!-- Liens vers les réseaux sociaux -->
         <ul><!-- Vos liens vers les réseaux sociaux ici --></ul>
