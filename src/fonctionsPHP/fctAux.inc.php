@@ -52,7 +52,7 @@
 		<a href=\"#\">Export</a>";
 		}
 
-		$string .= '<hr> <a href="../connexion.php"> <img src="chemin_vers_image.jpg" alt="logout" width="300" height="200">
+		$string .= '<hr> <a class="logout" href="../connexion.php"> <img src="../images/logout.png" alt="logout" width="50" height="40">
 		</a> </div>';
 
 		return $string;

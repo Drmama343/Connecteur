@@ -3,7 +3,7 @@
 
 	session_start();
 	
-	echo enTete("Export",["../styles/acceuil.css"]);
+	echo enTete("Export",["../styles/classique.css"]);
 	echo menu($_SESSION['nom'], $_SESSION['droitAcces']);
 	contenu();
 	echo pied();

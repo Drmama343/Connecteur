@@ -11,9 +11,10 @@ try {
 	$conn = new PDO("pgsql:host=$host;port=$port;dbname=$dbname;user=$user;password=$password");
 	// Définir le mode d'erreur PDO sur Exception
 	$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-	echo "Connexion à la base de données PostgreSQL réussie.";
 } catch (PDOException $e) {
-	echo "Erreur de connexion à la base de données PostgreSQL : " . $e->getMessage();
+	session_start();
+	$_SESSION['info_import'] = "Connexion à la base de données impossible";
+	header("Location: ../pages/import.php");
 }
 
 // Vérifier si le formulaire a été soumis et le fichier téléchargé
@@ -43,14 +44,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["file"])) {
 			}
 
 			// Insérer les données dans la base de données
-			$sql = "INSERT INTO nom_de_votre_table (colonne1, colonne2, colonne3) VALUES (?, ?, ?)";
+			$sql = "INSERT INTO Test VALUES (?, ?, ?)";
 			$stmt = $conn->prepare($sql);
 			$stmt->execute($rowData);
 		}
 
-		echo "Les données du fichier $fileName ont été insérées avec succès dans la base de données.";
+		session_start();
+		$_SESSION['info_import'] = "Les données du fichier $fileName ont été insérées avec succès dans la base de données";
+		header("Location: ../pages/import.php");
 	} else {
-		echo "Seuls les fichiers .xlsx sont autorisés.";
+		session_start();
+		$_SESSION['info_import'] = "Seuls les fichiers .xlsx sont autorisés";
+		header("Location: ../pages/import.php");
 	}
 }
 

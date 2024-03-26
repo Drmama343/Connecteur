@@ -54,3 +54,9 @@ body {
 	border-radius: 15px;
 	padding: 5px;
 }
+
+.logout {
+	position: absolute;
+	top: 87%;
+	left: 80px;
+}
