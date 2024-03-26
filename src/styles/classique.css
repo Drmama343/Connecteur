@@ -2,46 +2,37 @@ body {
 	font-family: Arial, sans-serif;
 	margin: 0;
 	padding: 0;
-	height: 100vh; /* Fait en sorte que le corps prenne toute la hauteur de la fenêtre */
-	display: flex;
 }
-.container {
-	display: flex;
-	flex: 1; /* Fait en sorte que le container prenne toute la hauteur du corps */
-}
-.menu {
+
+nav {
+	position:absolute;
+	top: 0px;
+	left: 0px;
 	background-color: #e1ffc2;
 	width: 250px;
+	height: 100%;
 	padding: 20px;
 	box-sizing: border-box;
-	height: 100%; /* Fait en sorte que le menu prenne toute la hauteur du container */
 	border-right: 0.5px gray solid;
-	margin-right: 25px;
+	margin-right: 45px;
 	text-align: center;
 }
 
-.menu p {
+nav p {
 	color: black;
 }
 
-.menu a {
+nav a {
 	display: block;
 	color: black;
 	font-family: Arial, sans-serif;
 	text-decoration: none;
 	margin: 20px;
 	margin-bottom: 20px;
-	margin-top: 20px;
 }
-.menu a:hover {
+
+nav a:hover {
 	font-size: larger;
-}
-.menu a:visited {
-	font-weight: bold;
-}
-.content {
-	flex-grow: 1;
-	padding: 20px;
 }
 
 .hrmenu {
@@ -59,4 +50,26 @@ body {
 	position: absolute;
 	top: 87%;
 	left: 80px;
+}
+
+header {
+	position: relative;
+	left: 300px;
+	width: 80%;
+}
+
+section {
+	position: relative;
+	left: 300px;
+	width: 80%;
+	height: 100%;
+}
+
+footer {
+	position: fixed;
+    left: 300px;
+    bottom: 0px;
+    width: 80%;
+    padding: 20px 0;
+    text-align: center;
 }
