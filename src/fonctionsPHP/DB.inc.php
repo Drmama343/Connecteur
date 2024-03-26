@@ -1,5 +1,7 @@
 <?php
 
+require ("Test.inc.php");
+
 class DB {
       private static $instance = null; //mémorisation de l'instance de DB pour appliquer le pattern Singleton
       private $connect=null; //connexion PDO à la base
@@ -119,10 +121,10 @@ class DB {
        * Fonctions qui peuvent être utilisées dans les scripts PHP
        *************************************************************************/
       
-      // public function getAchats() {
-      //             $requete = 'select * from Achat';
-      //       return $this->execQuery($requete,null,'Achat');
-      // }
+      public function getTout() {
+                  $requete = 'select * from Test';
+            return $this->execQuery($requete,null,'Test');
+      }
       // public function deleteAchat($idcli,$np) {
       //       $requete = 'delete from achat where ncli = ? and np = ?';
 	//       $tparam = array($idcli,$np);
@@ -133,6 +135,7 @@ class DB {
 	//       $tparam = array($lib,$np);
 	//       return $this->execMaj($requete,$tparam);
       // }
+
       public function insertTest($nom,$prenom,$moyenne) {
             $requete = 'INSERT INTO Test VALUES (?, ?, ?)';
 	      $tparam = array($nom,$prenom,$moyenne);

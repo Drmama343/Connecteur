@@ -1,59 +1,63 @@
 <?php
 	function enTete($titre,$css) {
 		$string  = "<!DOCTYPE html>
-		<html lang=\"fr\">
-		<head>
-			<meta charset=\"UTF-8\">
-			<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
-			<title>". $titre ."</title>";
+<html lang=\"fr\">
+	<head>
+		<meta charset=\"UTF-8\">
+		<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
+		<title>". $titre ."</title>";
 
-			for ($i = 0; $i < count($css); $i++) {
-				$string .= "<link rel=\"stylesheet\" href=\"". $css[$i] ."\">";
-			}
+		for ($i = 0; $i < count($css); $i++) {
+			$string .= "<link rel=\"stylesheet\" href=\"". $css[$i] ."\">";
+		}
 
-		$string .= "</head>
-		<body>";
+		$string .= "
+	</head>
+	<body>\n";
 
 		return $string;
 	}
 
 	function pied() {
-		$string  ="</body>
-		</html>";
+		$string  ="	</body>
+</html>";
 
 		return $string;
 	}
 
 	function menu($nom, $droit) {
 		if ( $droit === 2 ) {
-			$string  ="<div class=\"menu\">
-		<div class=\"id\">
-		<p>$nom</p>\n
-		<p>Mode : Administrateur</p>\n
-		</div>
-		<a href=\"./accueil.php\">Accueil</a>
-		<hr class=\"hrmenu\">
-		<a href=\"./import.php\">Import</a>
-		<hr class=\"hrmenu\">
-		<a href=\"./visualisation.php\">Visualisation</a>
-		<hr class=\"hrmenu\">
-		<a href=\"./export.php\">Export</a>";
+			$string  ="		<nav>
+			<div class=\"id\">
+				<p>$nom</p>
+				<p>Mode : Administrateur</p>
+			</div>
+
+			<a href=\"./accueil.php\">Accueil</a>
+			<hr class=\"hrmenu\">
+			<a href=\"./import.php\">Import</a>
+			<hr class=\"hrmenu\">
+			<a href=\"./visualisation.php\">Visualisation</a>
+			<hr class=\"hrmenu\">
+			<a href=\"./export.php\">Export</a>";
 		}
 		else {
-			$string  ="<div class=\"menu\">
-		<div class=\"id\">
-		<p>$nom</p>\n
-		<p>Mode : Utilisateur</p>\n
-		</div>
-		<a href=\"./accueil.php\">Accueil</a>
-		<hr class=\"hrmenu\">
-		<a href=\"./visualisation.php\">Visualisation</a>
-		<hr class=\"hrmenu\">
-		<a href=\"./export.php\">Export</a>";
+			$string  ="		<nav>
+			<div class=\"id\">
+				<p>$nom</p>
+				<p>Mode : Utilisateur</p>
+			</div>
+
+			<a href=\"./accueil.php\">Accueil</a>
+			<hr class=\"hrmenu\">
+			<a href=\"./visualisation.php\">Visualisation</a>
+			<hr class=\"hrmenu\">
+			<a href=\"./export.php\">Export</a>";
 		}
 
-		$string .= '<hr> <a class="logout" href="../connexion.php"> <img src="../images/logout.png" alt="logout" width="50" height="40">
-		</a> </div>';
+		$string .= '
+			<a class="logout" href="../connexion.php"> <img src="../images/logout.png" alt="logout" width="50" height="40"></a>
+		</nav>' . "\n";
 
 		return $string;
 	}

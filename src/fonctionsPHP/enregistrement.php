@@ -49,7 +49,7 @@ else {
 	} //fin try
 	catch (Exception $e) {
 		echo $e->getMessage();
-	}  
+	}
 	$db->close();
 } //fin du else connexion reussie
 ?>

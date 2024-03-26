@@ -12,11 +12,13 @@
 	echo pied();
 
 	function contenu ($info) {
-		echo "<form action=\"../fonctionsPHP/enregistrement.php\" method=\"post\" enctype=\"multipart/form-data\">";
-		echo "	<h2>Déposer un fichier</h2>";
-		echo "	<input type=\"file\" name=\"file\" id=\"file\" required><br>";
-		echo "	<input type=\"submit\" value=\"Importer\">";
-		echo "<p>$info</p>";
-		echo "</form>";
+		echo "		<section>\n";
+		echo "			<form action=\"../fonctionsPHP/enregistrement.php\" method=\"post\" enctype=\"multipart/form-data\">\n";
+		echo "				<h2>Déposer un fichier</h2>\n";
+		echo "				<input type=\"file\" name=\"file\" id=\"file\" required><br>\n";
+		echo "				<input type=\"submit\" value=\"Importer\">\n";
+		echo "				<p>$info</p>\n";
+		echo "			</form>\n";
+		echo "		</section>\n";
 	}
 ?>
