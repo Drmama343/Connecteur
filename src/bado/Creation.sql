@@ -2,6 +2,8 @@
 CREATE TABLE Promotion (
     idPromo INT PRIMARY KEY,
     nbEtud INT NOT NULL
+	idAnnee INT,
+    FOREIGN KEY (idAnnee) REFERENCES Annee(idAnnee),
 );
 
 -- Table Etudiant
