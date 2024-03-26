@@ -69,9 +69,9 @@ error_reporting(E_ALL);
         echo '        <input type="text" name="username" placeholder="Nom d\'utilisateur" value="" required><br>' . "\n";
 		echo '        <input type="password" name="password" placeholder="Mot de passe" value="" required><br>' . "\n";
 		echo "		  <div id=\"erreur\"><b>$erreur</b></div>\n";
-        echo '        <input type="submit" value="Se connecter">';
-        echo '    </form>';
-        echo '</div>';
+        echo '        <input type="submit" value="Se connecter">' . "\n";
+        echo '    </form>' . "\n";
+        echo '</div>' . "\n";
 
 		echo pied();
 	}

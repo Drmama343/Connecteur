@@ -34,10 +34,9 @@
 		<hr class=\"hrmenu\">
 		<a href=\"./import.php\">Import</a>
 		<hr class=\"hrmenu\">
-		<a href=\"#\">Visualisation</a>
+		<a href=\"./visualisation.php\">Visualisation</a>
 		<hr class=\"hrmenu\">
-		<a href=\"#\">Export</a>
-	</div>";
+		<a href=\"./export.php\">Export</a>";
 		}
 		else {
 			$string  ="<div class=\"menu\">
@@ -48,9 +47,11 @@
 		<hr class=\"hrmenu\">
 		<a href=\"#\">Visualisation</a>
 		<hr class=\"hrmenu\">
-		<a href=\"#\">Export</a>
-	</div>";
+		<a href=\"#\">Export</a>";
 		}
+
+		$string .= '<hr> <a href="../connexion.php"> <img src="chemin_vers_image.jpg" alt="logout" width="300" height="200">
+		</a> </div>';
 
 		return $string;
 	}
