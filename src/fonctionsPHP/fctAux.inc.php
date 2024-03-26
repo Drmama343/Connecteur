@@ -19,8 +19,29 @@
 		return $string;
 	}
 
-	function menu() {
-		$string  ="";
+	function menu($nom, $droit) {
+		if ( $droit === 2 ) {
+			$string  ="<div class=\"menu\">
+		<p>$nom</p>\n
+		<p>Mode : Administrateur</p>\n
+		<hr>
+		<a href=\"./import.html\">Import</a>
+		<hr class=\"hrmenu\">
+		<a href=\"#\">Visualisation</a>
+		<hr class=\"hrmenu\">
+		<a href=\"#\">Export</a>
+	</div>";
+		}
+		else {
+			$string  ="<div class=\"menu\">
+		<p>$nom</p>\n
+		<p>Mode : Utilisateur</p>\n
+		<hr>
+		<a href=\"#\">Visualisation</a>
+		<hr class=\"hrmenu\">
+		<a href=\"#\">Export</a>
+	</div>";
+		}
 
 		return $string;
 	}
