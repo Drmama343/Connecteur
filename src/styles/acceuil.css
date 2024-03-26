@@ -36,6 +36,9 @@ body {
 .menu a:hover {
 	font-size: larger;
 }
+.menu a:visited {
+	font-weight: bold;
+}
 .content {
 	flex-grow: 1;
 	padding: 20px;
