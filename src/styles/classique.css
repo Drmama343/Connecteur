@@ -48,3 +48,9 @@ body {
 	width: 70%;
 	color: gray;
 }
+
+.id {
+	background-color: olivedrab;
+	border-radius: 15px;
+	padding: 5px;
+}
