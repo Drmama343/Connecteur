@@ -9,35 +9,71 @@
 	echo pied();
 
 	function contenu () {
-		$string =
-		"<h1>Téléchargement de fichiers</h1>".
-		"<form id=\"downloadForm\" action=\"download.php\" method=\"get\">".
+		$string = "<section><h1>Téléchargement de fichiers</h1></section>";
 
-			"<label>Choisir le fichier à télécharger :</label><br>".
+		$string .=
+		"<section>".
+		"<form action=\"../fonctionsPHP/telechargementCommission.php\" method=\"get\">".
+
+			"<label>Commission</label><br><br>".
+
+			"<input type=\"text\" id=\"year\" name=\"year\" placeholder=\"Année (ex: 2022-2023)\"><br>".
 
 			"<label for=\"semester\">Semestre :</label>".
 			"<input type=\"radio\" id=\"semester1\" name=\"semester\" value=\"S1\">".
 			"<label for=\"semester1\">S1</label>".
-			
 			"<input type=\"radio\" id=\"semester2\" name=\"semester\" value=\"S2\">".
-			"<label for=\"semester2\">S2</label>".
-			
-			"<br><br>".
-			"<label for=\"file1\">Fichier 1 :</label>".
-			"<input type=\"radio\" id=\"file1\" name=\"fileType\" value=\"file1.txt\">".
-			"<label for=\"file1\">Fichier 1 (.txt)</label>".
-			
-			"<label for=\"file2\">Fichier 2 :</label>".
-			"<input type=\"radio\" id=\"file2\" name=\"fileType\" value=\"file2.pdf\">".
-			"<label for=\"file2\">Fichier 2 (.pdf)</label>".
-			
-			"<label for=\"file3\">Fichier 3 :</label>".
-			"<input type=\"radio\" id=\"file3\" name=\"fileType\" value=\"file3.doc\">".
-			"<label for=\"file3\">Fichier 3 (.doc)</label>".
+			"<label for=\"semester1\">S2</label>".
+			"<input type=\"radio\" id=\"semester3\" name=\"semester\" value=\"S3\">".
+			"<label for=\"semester1\">S3</label>".
+			"<input type=\"radio\" id=\"semester4\" name=\"semester\" value=\"S4\">".
+			"<label for=\"semester1\">S4</label>".
+			"<input type=\"radio\" id=\"semester5\" name=\"semester\" value=\"S5\">".
+			"<label for=\"semester1\">S5</label>".
+			"<input type=\"radio\" id=\"semester6\" name=\"semester\" value=\"S6\">".
+			"<label for=\"semester1\">S6</label>".
 
+			"<br><br>".
+			"<button type=\"submit\">Télécharger</button>".
+		"</form>".
+		"</section>";
+
+		$string .=
+		"<section>".
+		"<form action=\"../fonctionsPHP/telechargementJury.php\" method=\"get\">".
+
+			"<label>Jury</label><br><br>".
+
+			"<input type=\"text\" id=\"year\" name=\"year\" placeholder=\"Année (ex: 2022-2023)\"><br>".
+
+			"<label for=\"semester\">Semestre :</label>".
+			"<input type=\"radio\" id=\"semester1\" name=\"semester\" value=\"S1\">".
+			"<label for=\"semester1\">S1</label>".
+			"<input type=\"radio\" id=\"semester2\" name=\"semester\" value=\"S2\">".
+			"<label for=\"semester1\">S2</label>".
+			"<input type=\"radio\" id=\"semester3\" name=\"semester\" value=\"S3\">".
+			"<label for=\"semester1\">S3</label>".
+			"<input type=\"radio\" id=\"semester4\" name=\"semester\" value=\"S4\">".
+			"<label for=\"semester1\">S4</label>".
+			"<input type=\"radio\" id=\"semester5\" name=\"semester\" value=\"S5\">".
+			"<label for=\"semester1\">S5</label>".
+			"<input type=\"radio\" id=\"semester6\" name=\"semester\" value=\"S6\">".
+			"<label for=\"semester1\">S6</label>".
+
+			"<br><br>".
+			"<button type=\"submit\">Télécharger</button>".
+		"</form>".
+		"</section>";
+
+		$string .=
+		"<section>".
+		"<form action=\"../fonctionsPHP/telechargementPoursuite.php\" method=\"get\">".
+
+			"<label>Fiche de poursuite d'études</label><br>".
 			"<br>".
 			"<button type=\"submit\">Télécharger</button>".
-		"</form>";
+		"</form>".
+		"</section>";
 
 		return $string;
 	}
