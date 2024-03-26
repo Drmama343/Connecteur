@@ -47,9 +47,9 @@
 		</div>
 		<a href=\"./accueil.php\">Accueil</a>
 		<hr class=\"hrmenu\">
-		<a href=\"#\">Visualisation</a>
+		<a href=\"./visualisation.php\">Visualisation</a>
 		<hr class=\"hrmenu\">
-		<a href=\"#\">Export</a>";
+		<a href=\"./export.php\">Export</a>";
 		}
 
 		$string .= '<hr> <a class="logout" href="../connexion.php"> <img src="../images/logout.png" alt="logout" width="50" height="40">
