@@ -27,9 +27,10 @@
 	function menu($nom, $droit) {
 		if ( $droit === 2 ) {
 			$string  ="<div class=\"menu\">
+		<div class=\"id\">
 		<p>$nom</p>\n
 		<p>Mode : Administrateur</p>\n
-		<hr>
+		</div>
 		<a href=\"./accueil.php\">Accueil</a>
 		<hr class=\"hrmenu\">
 		<a href=\"./import.php\">Import</a>
@@ -40,9 +41,10 @@
 		}
 		else {
 			$string  ="<div class=\"menu\">
+		<div class=\"id\">
 		<p>$nom</p>\n
 		<p>Mode : Utilisateur</p>\n
-		<hr>
+		</div>
 		<a href=\"./accueil.php\">Accueil</a>
 		<hr class=\"hrmenu\">
 		<a href=\"#\">Visualisation</a>

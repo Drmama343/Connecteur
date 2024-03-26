@@ -3,7 +3,7 @@
 
 	session_start();
 	
-	echo enTete("Import",["../styles/import.css", "../styles/acceuil.css"]);
+	echo enTete("Import",["../styles/import.css", "../styles/classique.css"]);
 	echo menu($_SESSION['nom'], $_SESSION['droitAcces']);
 	contenu();
 	echo pied();
