@@ -5,7 +5,7 @@
 
 	session_start();
 	
-	echo enTete("Visualisation",["../styles/classique.css"]);
+	echo enTete("Visualisation",["../styles/classique.css", "../styles/virtualisation.css"]);
 	echo menu($_SESSION['nom'], $_SESSION['droitAcces']);
 	contenu();
 	echo pied();
@@ -25,15 +25,16 @@
 			$db->close();
 		} //fin du else connexion reussie
 
-		echo "		<table>
-			<thead>
-				<tr>
-					<th>nom</th>
-					<th>prenom</th>
-					<th>moyenne</th>
-				</tr>
-			</thead>
-			<tbody>";
+		echo "		<section>
+			<table>
+				<thead>
+					<tr>
+						<th>nom</th>
+						<th>prenom</th>
+						<th>moyenne</th>
+					</tr>
+				</thead>
+				<tbody>\n";
 
 	foreach ($t as &$v) {
 		$nom = $v->getNom();
@@ -48,8 +49,9 @@
 	}
 
 	echo "
-			</tbody>
-		</table>\n";
+				</tbody>
+			</table>
+		</section>\n";
 	}
 	
 ?>
