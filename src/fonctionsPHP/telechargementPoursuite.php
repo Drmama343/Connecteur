@@ -12,33 +12,38 @@ if ($db == null) {
 	$_SESSION['info_poursuite'] = "Connexion à la base de données impossible";
 	header("Location: ../pages/export.php");
 }
+else {
+	// Créer un objet FPDI
+	$pdf = new Fpdi();
 
-$year = 2023;
-$semester = 3;
+	// Chemin vers le fichier PDF modèle
+	$pdfTemplate = '../images/Avis_Poursuite_etudes_modele.pdf';
 
-// Créer un nouvel objet FPDF
-$pdf = new Fpdi();
+	// Définir le fichier PDF modèle
+	$pdf->setSourceFile($pdfTemplate);
 
-// Ajouter une nouvelle page
-$pdf->AddPage();
+	// Ajouter une page vide
+	$pdf->AddPage();
 
-// Paramètres du document
-$pdf->SetTitle('Rapport_' . $year . '_' . $semester);
+	// Importer la première page du modèle PDF
+	$templateId = $pdf->importPage(1);
 
-// Contenu du PDF
-$pdf->SetFont('Arial', 'B', 16);
-$pdf->Cell(0, 10, 'Rapport', 0, 1, 'C');
-$pdf->SetFont('Arial', '', 12);
-$pdf->Cell(0, 10, 'Année : ' . $year, 0, 1, 'L');
-$pdf->Cell(0, 10, 'Semestre : ' . $semester, 0, 1, 'L');
+	// Utiliser la page importée comme modèle
+	$pdf->useTemplate($templateId);
 
-// Nom du fichier à télécharger
-$filename = 'rapport_' . $year . '_' . $semester . '.pdf';
+	// Ajouter du texte sur la page importée
+	$pdf->SetFont('Arial', 'B', 10);
+	$pdf->SetTextColor(0, 0, 0);
+	$pdf->SetXY(0, 44); // Position du texte
+	$pdf->Cell(0, 10, 'Lecarpentier Luc', 0, 1, 'C');
 
-// Définir les en-têtes HTTP pour le téléchargement du fichier
-header('Content-Type: application/pdf');
-header('Content-Disposition: attachment; filename="' . $filename . '"');
+	// Nom du fichier du nouveau PDF
+	$newPdfFile = 'nouveau_pdf.pdf';
 
-// Sortie du PDF vers le navigateur
-echo $pdf->Output('D');
+	// Enregistrer le nouveau PDF
+	$pdf->Output($newPdfFile, 'D');
+
+	$_SESSION['info_poursuite'] = "Votre fichier pdf est exporté";
+	header("Location: ../pages/export.php");
+}
 ?>
