@@ -84,9 +84,9 @@
 			$db->close();
 		} //fin du else connexion reussie
 
-		echo "<header>";
-		echo "<h1>Visualisation</h1>";
-		echo "</header>";
+		echo "		<header>\n";
+		echo "			<h1>Visualisation</h1>\n";
+		echo "		</header>\n";
 
 		echo "		<section>
 			<table>
@@ -98,7 +98,8 @@
 						<th class=\"colonneBtn\"></th>
 					</tr>
 				</thead>
-				<tbody>\n";
+				<tbody>
+					<tr>\n";
 
 		foreach ($t as &$v) {
 			$nom = $v->getNom();
@@ -107,33 +108,30 @@
 
 			if ( isset($_GET['updateCli'], $_GET['updateNp']) && $_GET['updateCli'] == $nom && $_GET['updateNp'] == $prenom)
 			{
-				echo "<td>$nom</td>\n";
-				echo "<td>$prenom</td>\n";
-				echo "<form action=\"visualisation.php?updateCli=".$nom."&updateNp=".$prenom."\" method=\"post\">\n";
+				echo "						<td>$nom</td>\n";
+				echo "						<td>$prenom</td>\n";
 
-				echo "<td><input type=\"text\" name=\"moy\" value=\"$moy\" required></td>\n";
-
-				echo "<td class=\"colonneBtn\"><input name=\"annuler\" type=\"submit\" value=\"annuler\"></td>";
-				echo "<td class=\"colonneBtn\"><input name=\"valider\" type=\"submit\" value=\"valider\"></td>\n";
-
-				echo "</form>\n";
+				echo "						<form action=\"visualisation.php?updateCli=".$nom."&updateNp=".$prenom."\" method=\"post\">\n";
+				echo "							<td><input type=\"text\" name=\"moy\" value=\"$moy\" required></td>\n";
+				echo "							<td class=\"colonneBtn\"><input name=\"annuler\" type=\"submit\" value=\"annuler\"><input name=\"valider\" type=\"submit\" value=\"valider\"></td>\n";
+				echo "						</form>\n";
 			}
 			else
 			{
-				echo "<td>$nom</td>\n";
-				echo "<td>$prenom</td>\n";
-				echo "<td>$moy</td>\n";
-				echo "<td><a class=\"btnAJour\" href='visualisation.php?updateCli=".$nom."&updateNp=".$prenom."'>mettre à jour</a></td>\n";
+				echo "					<tr>\n";
+				echo "						<td>$nom</td>\n";
+				echo "						<td>$prenom</td>\n";
+				echo "						<td>$moy</td>\n";
 			}
-			echo "</tr>\n";
+			echo "					</tr>\n";
 		}
 
-		echo "
-					</tbody>
+		echo "					</tbody>
 				</table>
 			</section>\n";
 
-		echo "</div>\n";
+		
+		echo "		<aside><a class=\"btnAJour\" href='visualisation.php?updateCli=".$nom."&updateNp=".$prenom."'>mettre à jour</a></aside>\n";
 	}
 	
 ?>
