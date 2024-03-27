@@ -2,8 +2,8 @@
 
 session_start();
 require ("DB.inc.php");
-require_once('fpdf/fpdf.php');
-require_once('fpdi/src/autoload.php');
+require_once('../../fpdf/fpdf.php');
+require_once('../../vendor/autoload.php');
 
 use setasign\Fpdi\Fpdi;
 
@@ -12,6 +12,9 @@ if ($db == null) {
 	$_SESSION['info_poursuite'] = "Connexion à la base de données impossible";
 	header("Location: ../pages/export.php");
 }
+
+$year = 2023;
+$semester = 3;
 
 // Créer un nouvel objet FPDF
 $pdf = new Fpdi();
