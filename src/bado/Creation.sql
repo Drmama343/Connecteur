@@ -1,39 +1,41 @@
--- Suppression des tables liées aux clés étrangères
-DROP TABLE IF EXISTS PromoCompSem;
-DROP TABLE IF EXISTS PromoCompAnnee;
-DROP TABLE IF EXISTS JurySem;
-DROP TABLE IF EXISTS JuryAnnee;
-DROP TABLE IF EXISTS MoyRess;
-DROP TABLE IF EXISTS CompRess;
-DROP TABLE IF EXISTS CompSem;
-DROP TABLE IF EXISTS PromoEtud;
-DROP TABLE IF EXISTS PromoAnnee;
-DROP TABLE IF EXISTS Promotion;
-DROP TABLE IF EXISTS Annee;
-DROP TABLE IF EXISTS Ressources;
-DROP TABLE IF EXISTS Competences;
-DROP TABLE IF EXISTS Etudiant;
-DROP TABLE IF EXISTS Semestre;
+-- Suppression des tables liées aux clés étrangères avec CASCADE
+DROP TABLE IF EXISTS MoyCompAnnee CASCADE;
+DROP TABLE IF EXISTS MoyCompSem CASCADE;
+DROP TABLE IF EXISTS JurySem CASCADE;
+DROP TABLE IF EXISTS JuryAnnee CASCADE;
+DROP TABLE IF EXISTS MoyRess CASCADE;
+DROP TABLE IF EXISTS CompRess CASCADE;
+DROP TABLE IF EXISTS CompSem CASCADE;
+DROP TABLE IF EXISTS PromoEtud CASCADE;
+DROP TABLE IF EXISTS PromoAnnee CASCADE;
+DROP TABLE IF EXISTS Promotion CASCADAE;
+DROP TABLE IF EXISTS Annee CASCADE;
+DROP TABLE IF EXISTS Ressources CASCADE;
+DROP TABLE IF EXISTS Competences CASCADE;
+DROP TABLE IF EXISTS Etudiant CASCADE;
+DROP TABLE IF EXISTS Semestre CASCADE;
+
 
 -- Création des tables
 CREATE TABLE Semestre (
-    idSem INT PRIMARY KEY AUTO_INCREMENT,
+    idSem SERIAL PRIMARY KEY,
     nomSem VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE Competences (
-    idComp INT PRIMARY KEY AUTO_INCREMENT,
+    idComp SERIAL PRIMARY KEY,
     nomComp VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE Ressources (
-    idRess INT PRIMARY KEY AUTO_INCREMENT,
+    idRess SERIAL PRIMARY KEY,
     nomRess VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE Annee (
-    idAnnee INT PRIMARY KEY AUTO_INCREMENT,
+    idAnnee SERIAL PRIMARY KEY,
     nomAnnee VARCHAR(50) NOT NULL,
+    numAnnee VARCHAR(50) NOT NULL,
     Sem1 INT NOT NULL,
     Sem2 INT,
     FOREIGN KEY (Sem1) REFERENCES Semestre(idSem),
@@ -50,15 +52,14 @@ CREATE TABLE Etudiant (
 );
 
 CREATE TABLE Promotion (
-    idPromo VARCHAR(50),
+    idPromo VARCHAR(50) PRIMARY KEY,
     nbEtud INT NOT NULL,
     idAnnee INT NOT NULL,
-    PRIMARY KEY (idPromo, idAnnee),
     FOREIGN KEY (idAnnee) REFERENCES Annee(idAnnee)
 );
 
 CREATE TABLE PromoEtud (
-    idPromo INT,
+    idPromo VARCHAR(50),
     codeNip INT,
     FOREIGN KEY (idPromo) REFERENCES Promotion(idPromo),
     FOREIGN KEY (codeNip) REFERENCES Etudiant(codeNip),
@@ -66,7 +67,7 @@ CREATE TABLE PromoEtud (
 );
 
 CREATE TABLE PromoAnnee (
-    idPromo INT,
+    idPromo VARCHAR(50),
     idAnnee INT,
     FOREIGN KEY (idPromo) REFERENCES Promotion(idPromo),
     FOREIGN KEY (idAnnee) REFERENCES Annee(idAnnee),
