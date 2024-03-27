@@ -1,4 +1,14 @@
 <?php
+
+session_start();
+require ("DB.inc.php");
+
+$db = DB::getInstance();
+if ($db == null) {
+	$_SESSION['info_jury'] = "Connexion à la base de données impossible";
+	header("Location: ../pages/export.php");
+}
+
 // Vérifier si le paramètre "fileType" est présent dans la requête
 if(isset($_GET['fileType'])) {
 	// Récupérer l'extension sélectionnée depuis la requête
