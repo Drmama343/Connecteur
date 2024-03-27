@@ -1,42 +1,38 @@
--- Table Promotion
-CREATE TABLE Promotion (
-    idPromo INT PRIMARY KEY,
-    nbEtud INT NOT NULL
-	idAnnee INT,
-    FOREIGN KEY (idAnnee) REFERENCES Annee(idAnnee),
-);
+-- Suppression des tables liées aux clés étrangères
+DROP TABLE IF EXISTS PromoCompSem;
+DROP TABLE IF EXISTS PromoCompAnnee;
+DROP TABLE IF EXISTS JurySem;
+DROP TABLE IF EXISTS JuryAnnee;
+DROP TABLE IF EXISTS MoyRess;
+DROP TABLE IF EXISTS CompRess;
+DROP TABLE IF EXISTS CompSem;
+DROP TABLE IF EXISTS PromoEtud;
+DROP TABLE IF EXISTS PromoAnnee;
+DROP TABLE IF EXISTS Promotion;
+DROP TABLE IF EXISTS Annee;
+DROP TABLE IF EXISTS Ressources;
+DROP TABLE IF EXISTS Competences;
+DROP TABLE IF EXISTS Etudiant;
+DROP TABLE IF EXISTS Semestre;
 
--- Table Etudiant
-CREATE TABLE Etudiant (
-    codeNip INT PRIMARY KEY,
-    nom VARCHAR(50) NOT NULL,
-    prenom VARCHAR(50) NOT NULL,
-    cursus VARCHAR(50) NOT NULL,
-    rang INT NOT NULL,
-    parcours VARCHAR(50)
-);
-
--- Table Semestre
+-- Création des tables
 CREATE TABLE Semestre (
-    idSem INT PRIMARY KEY,
+    idSem INT AUTO_INCREMENT PRIMARY KEY,
     nomSem VARCHAR(50) NOT NULL
 );
 
--- Table Competences
 CREATE TABLE Competences (
-    idComp INT PRIMARY KEY,
+    idComp INT AUTO_INCREMENT PRIMARY KEY,
     nomComp VARCHAR(50) NOT NULL
 );
 
--- Table Ressources
 CREATE TABLE Ressources (
-    idRess INT PRIMARY KEY,
+    idRess INT AUTO_INCREMENT PRIMARY KEY,
     nomRess VARCHAR(50) NOT NULL
 );
 
--- Table Annee
 CREATE TABLE Annee (
-    idAnnee INT PRIMARY KEY,
+    idAnnee INT AUTO_INCREMENT PRIMARY KEY,
     nomAnnee VARCHAR(50) NOT NULL,
     Sem1 INT NOT NULL,
     Sem2 INT,
@@ -44,7 +40,23 @@ CREATE TABLE Annee (
     FOREIGN KEY (Sem2) REFERENCES Semestre(idSem)
 );
 
--- Table PromoEtud
+CREATE TABLE Etudiant (
+    codeNip INT PRIMARY KEY,
+    nom VARCHAR(50) NOT NULL,
+    prenom VARCHAR(50) NOT NULL,
+    cursus VARCHAR(50) NOT NULL,
+    rang INT NOT NULL,
+    parcours VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE Promotion (
+    idPromo VARCHAR(50),
+    nbEtud INT NOT NULL,
+    idAnnee INT NOT NULL,
+    PRIMARY KEY (idPromo, idAnnee),
+    FOREIGN KEY (idAnnee) REFERENCES Annee(idAnnee)
+);
+
 CREATE TABLE PromoEtud (
     idPromo INT,
     codeNip INT,
@@ -53,7 +65,6 @@ CREATE TABLE PromoEtud (
     PRIMARY KEY (idPromo, codeNip)
 );
 
--- Table PromoAnnee
 CREATE TABLE PromoAnnee (
     idPromo INT,
     idAnnee INT,
@@ -62,7 +73,6 @@ CREATE TABLE PromoAnnee (
     PRIMARY KEY (idPromo, idAnnee)
 );
 
--- Table CompRess
 CREATE TABLE CompRess (
     idComp INT,
     idRess INT,
@@ -72,7 +82,6 @@ CREATE TABLE CompRess (
     PRIMARY KEY (idComp, idRess)
 );
 
--- Table CompSem
 CREATE TABLE CompSem (
     idComp INT,
     idSem INT,
@@ -81,7 +90,6 @@ CREATE TABLE CompSem (
     PRIMARY KEY (idComp, idSem)
 );
 
--- Table MoyRess
 CREATE TABLE MoyRess (
     codeNip INT,
     idRess INT,
@@ -91,7 +99,6 @@ CREATE TABLE MoyRess (
     PRIMARY KEY (codeNip, idRess)
 );
 
--- Table JurySem
 CREATE TABLE JurySem (
     codeNip INT,
     idSem INT,
@@ -103,7 +110,6 @@ CREATE TABLE JurySem (
     PRIMARY KEY (codeNip, idSem)
 );
 
--- Table JuryAnnee
 CREATE TABLE JuryAnnee (
     codeNip INT,
     idAnnee INT,
@@ -115,7 +121,6 @@ CREATE TABLE JuryAnnee (
     PRIMARY KEY (codeNip, idAnnee)
 );
 
--- Table MoyCompSem
 CREATE TABLE MoyCompSem (
     codeNip INT,
     idComp INT,
@@ -128,7 +133,6 @@ CREATE TABLE MoyCompSem (
     PRIMARY KEY (codeNip, idComp, idSem)
 );
 
--- Table MoyCompAnnee
 CREATE TABLE MoyCompAnnee (
     codeNip INT,
     idComp INT,
