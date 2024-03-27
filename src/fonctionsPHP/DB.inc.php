@@ -130,11 +130,12 @@ class DB {
 	//       $tparam = array($idcli,$np);
 	//       return $this->execMaj($requete,$tparam);
       // }
-      // public function updateLibProduit($np,$lib) {
-      // 	$requete = 'update produit set lib = ? where np = ?';
-	//       $tparam = array($lib,$np);
-	//       return $this->execMaj($requete,$tparam);
-      // }
+
+      public function updateMoy($nom,$moy) {
+      	$requete = 'update Test set moyenne = ? where nom = ?';
+	      $tparam = array($moy,$nom);
+	      return $this->execMaj($requete,$tparam);
+      }
 
       public function insertTest($nom,$prenom,$moyenne) {
             $requete = 'INSERT INTO Test VALUES (?, ?, ?)';

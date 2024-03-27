@@ -12,3 +12,16 @@ th, td {
 th {
     background-color: #f2f2f2;
 }
+
+.btnAJour {
+	background-color: olivedrab;
+	text-decoration: none;
+	color: black;
+	border-radius: 25px;
+	padding: 7px;
+}
+
+.colonneBtn {
+	border: none;
+	background-color: white;
+}
