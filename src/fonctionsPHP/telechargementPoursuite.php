@@ -2,6 +2,10 @@
 
 session_start();
 require ("DB.inc.php");
+require_once('fpdf/fpdf.php');
+require_once('fpdi/src/autoload.php');
+
+use setasign\Fpdi\Fpdi;
 
 $db = DB::getInstance();
 if ($db == null) {
@@ -9,40 +13,29 @@ if ($db == null) {
 	header("Location: ../pages/export.php");
 }
 
-// Vérifier si le paramètre "fileType" est présent dans la requête
-if(isset($_GET['fileType'])) {
-	// Récupérer l'extension sélectionnée depuis la requête
-	$fileType = $_GET['fileType'];
+// Créer un nouvel objet FPDF
+$pdf = new Fpdi();
 
-	// Définir le chemin vers le répertoire où se trouvent les fichiers
-	$directory = 'chemin/vers/le/repertoire/';
+// Ajouter une nouvelle page
+$pdf->AddPage();
 
-	// Définir le nom du fichier à télécharger en fonction de l'extension sélectionnée
-	$fileName = 'nom_du_fichier' . $fileType;
+// Paramètres du document
+$pdf->SetTitle('Rapport_' . $year . '_' . $semester);
 
-	// Chemin complet vers le fichier à télécharger
-	$filePath = $directory . $fileName;
+// Contenu du PDF
+$pdf->SetFont('Arial', 'B', 16);
+$pdf->Cell(0, 10, 'Rapport', 0, 1, 'C');
+$pdf->SetFont('Arial', '', 12);
+$pdf->Cell(0, 10, 'Année : ' . $year, 0, 1, 'L');
+$pdf->Cell(0, 10, 'Semestre : ' . $semester, 0, 1, 'L');
 
-	// Vérifier si le fichier existe
-	if(file_exists($filePath)) {
-		// Définir les en-têtes HTTP pour le téléchargement
-		header('Content-Description: File Transfer');
-		header('Content-Type: application/octet-stream');
-		header('Content-Disposition: attachment; filename="' . basename($filePath) . '"');
-		header('Expires: 0');
-		header('Cache-Control: must-revalidate');
-		header('Pragma: public');
-		header('Content-Length: ' . filesize($filePath));
+// Nom du fichier à télécharger
+$filename = 'rapport_' . $year . '_' . $semester . '.pdf';
 
-		// Lire le fichier et le transmettre en sortie
-		readfile($filePath);
-		exit;
-	} else {
-		// Si le fichier n'existe pas, afficher un message d'erreur
-		echo "Le fichier n'existe pas.";
-	}
-} else {
-	// Si le paramètre "fileType" n'est pas présent dans la requête, afficher un message d'erreur
-	echo "Paramètre manquant : 'fileType'.";
-}
+// Définir les en-têtes HTTP pour le téléchargement du fichier
+header('Content-Type: application/pdf');
+header('Content-Disposition: attachment; filename="' . $filename . '"');
+
+// Sortie du PDF vers le navigateur
+echo $pdf->Output('D');
 ?>

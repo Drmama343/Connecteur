@@ -2,6 +2,10 @@
 
 session_start();
 require ("DB.inc.php");
+require ("../../vendor/autoload.php");
+
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 $db = DB::getInstance();
 if ($db == null) {
@@ -9,40 +13,39 @@ if ($db == null) {
 	header("Location: ../pages/export.php");
 }
 
-// Vérifier si le paramètre "fileType" est présent dans la requête
-if(isset($_GET['fileType'])) {
-	// Récupérer l'extension sélectionnée depuis la requête
-	$fileType = $_GET['fileType'];
+// Récupérer les données du formulaire (année et semestre)
+$year = isset($_GET['year']) ? $_GET['year'] : '';
+$semester = isset($_GET['semester']) ? $_GET['semester'] : '';
 
-	// Définir le chemin vers le répertoire où se trouvent les fichiers
-	$directory = 'chemin/vers/le/repertoire/';
-
-	// Définir le nom du fichier à télécharger en fonction de l'extension sélectionnée
-	$fileName = 'nom_du_fichier' . $fileType;
-
-	// Chemin complet vers le fichier à télécharger
-	$filePath = $directory . $fileName;
-
-	// Vérifier si le fichier existe
-	if(file_exists($filePath)) {
-		// Définir les en-têtes HTTP pour le téléchargement
-		header('Content-Description: File Transfer');
-		header('Content-Type: application/octet-stream');
-		header('Content-Disposition: attachment; filename="' . basename($filePath) . '"');
-		header('Expires: 0');
-		header('Cache-Control: must-revalidate');
-		header('Pragma: public');
-		header('Content-Length: ' . filesize($filePath));
-
-		// Lire le fichier et le transmettre en sortie
-		readfile($filePath);
-		exit;
-	} else {
-		// Si le fichier n'existe pas, afficher un message d'erreur
-		echo "Le fichier n'existe pas.";
-	}
-} else {
-	// Si le paramètre "fileType" n'est pas présent dans la requête, afficher un message d'erreur
-	echo "Paramètre manquant : 'fileType'.";
+// Vérifier si l'année ou le semestre est vide
+if(empty($year) || empty($semester)) {
+	$_SESSION['info_commission'] = "Veuillez renseigner l'année correctement, ainsi qu'un semestre";
+	header("Location: ../pages/export.php");
 }
+
+// Créer un nouveau objet Spreadsheet
+$spreadsheet = new Spreadsheet();
+
+// Sélectionner la feuille active
+$sheet = $spreadsheet->getActiveSheet();
+
+// Ajouter des données au fichier Excel
+$sheet->setCellValue('A1', 'Année')
+      ->setCellValue('B1', 'Semestre')
+      ->setCellValue('A2', $year)
+      ->setCellValue('B2', $semester);
+
+// Créer un objet Writer pour exporter le fichier Excel
+$writer = new Xlsx($spreadsheet);
+
+// Nom du fichier à télécharger
+$filename = 'rapport_' . $year . '_' . $semester . '.xlsx';
+
+// Définir les en-têtes HTTP pour le téléchargement du fichier
+header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+header('Content-Disposition: attachment;filename="' . $filename . '"');
+header('Cache-Control: max-age=0');
+
+// Envoyer le fichier Excel au navigateur
+$writer->save('php://output');
 ?>

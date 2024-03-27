@@ -21,3 +21,6 @@ input[type="submit"] {
 input[type="submit"]:hover {
 	background-color: #45a049;
 }
+p {
+	color: crimson;
+}

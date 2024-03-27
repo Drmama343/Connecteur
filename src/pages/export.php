@@ -5,10 +5,22 @@
 	
 	echo enTete("Export",["../styles/classique.css", "../styles/import.css"]);
 	echo menu($_SESSION['nom'], $_SESSION['droitAcces']);
-	echo contenu();
+	try{
+		$commission = $_SESSION['info_commission'];
+		$_SESSION['info_commission'] = "";}
+	catch(Exception $e) {$commission = "";}
+	try{
+		$jury = $_SESSION['info_jury'];
+		$_SESSION['info_jury'] = "";}
+	catch(Exception $e) {$jury = "";}
+	try{
+		$poursuite = $_SESSION['info_poursuite'];
+		$_SESSION['info_poursuite'] = "";}
+	catch(Exception $e) {$poursuite = "";}
+	echo contenu($commission, $jury, $poursuite);
 	echo pied();
 
-	function contenu () {
+	function contenu($infoCommission, $infoJury, $infoPoursuite) {
 		$string = "<section><h1>Téléchargement de fichiers</h1></section>";
 
 		$string .=
@@ -33,7 +45,10 @@
 			"<input type=\"radio\" id=\"semester6\" name=\"semester\" value=\"S6\">".
 			"<label for=\"semester1\">S6</label>".
 
-			"<br><br>".
+			"<br>".
+			"<p>$infoCommission</p>".
+			"<br>".
+
 			"<button type=\"submit\">Télécharger</button>".
 		"</form>".
 		"</section>";
@@ -60,7 +75,10 @@
 			"<input type=\"radio\" id=\"semester6\" name=\"semester\" value=\"S6\">".
 			"<label for=\"semester1\">S6</label>".
 
-			"<br><br>".
+			"<br>".
+			"<p>$infoJury</p>".
+			"<br>".
+
 			"<button type=\"submit\">Télécharger</button>".
 		"</form>".
 		"</section>";
@@ -70,6 +88,8 @@
 		"<form action=\"../fonctionsPHP/telechargementPoursuite.php\" method=\"get\">".
 
 			"<label>Fiche de poursuite d'études</label><br>".
+			"<br>".
+			"<p>$infoPoursuite</p>".
 			"<br>".
 			"<button type=\"submit\">Télécharger</button>".
 		"</form>".
