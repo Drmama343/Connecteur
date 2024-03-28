@@ -25,18 +25,33 @@ else {
 				$worksheet = $spreadsheet->getActiveSheet();
 				
 				// Parcourir les lignes du fichier Excel à partir de la deuxième ligne (pour éviter la ligne d'en-tête)
-				foreach ($worksheet->getRowIterator() as $row) {
-					// Ignorer la première ligne (en-tête)
-					if ($row->getRowIndex() == 1) {
-						continue;
-					}
-					
-					$rowData = [];
-					foreach ($row->getCellIterator() as $cell) {
-						$rowData[] = $cell->getValue();
-					}
+				$libelles = [];
+foreach ($worksheet->getRowIterator() as $row) {
+    if ($row->getRowIndex() == 1) {
+        foreach ($row->getCellIterator() as $cell) {
+            $libelles[] = $cell->getValue();
+        }
+        break; // Une fois que nous avons obtenu les libellés, nous quittons la boucle
+    }
+}
 
-					$db->insertIntoEtudiant($rowData[1], $rowData[5], $rowData[6], $rowData[10], $rowData[7], (strpos($fileName, "FAP") ? substr($fileName, 0, 2) : ""), "", "", "", $rowData[13] - $rowData[14]);
+// Parcourir les lignes du fichier Excel à partir de la deuxième ligne (pour éviter la ligne d'en-tête)
+foreach ($worksheet->getRowIterator() as $row) {
+    // Ignorer la première ligne (en-tête)
+    if ($row->getRowIndex() == 1) {
+        continue;
+    }
+
+    $rowData = [];
+    foreach ($row->getCellIterator() as $cell) {
+        $rowData[] = $cell->getValue();
+    }
+
+    // Créer un tableau associatif avec les libellés et les données de chaque ligne
+    $data = array_combine($libelles, $rowData);
+
+    // Utiliser les libellés pour insérer les données dans la base de données
+    $db->insertIntoEtudiant($data['code_nip'], $rowData[6], $data['Prénom'], $data['Cursus'], array_key_exists('Parcours', $data) 	? $data['Parcours'] : "", "", "", "", "", $data['Abs'] - $data['Just.']);
 				}
 
 				$_SESSION['info_import_moyennes'] = "Les données du fichier $fileName ont été insérées avec succès dans la base de données";
