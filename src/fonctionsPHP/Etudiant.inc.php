@@ -1,47 +1,43 @@
 <?php
-
-/*classe permettant de representer les tuples de la table client */
 class Etudiant {
-      /*avec PDO, il faut que les noms attributs soient les mêmes que ceux de la table*/
-      private $codeNip;
-      private $nom;
-	  private $prenom;
-	  private $cursus;
-	  private $parcours;
-	  private $apprentissage;
-	  private $avisInge;
-	  private $avisMaster;
-	  private $commentaire;
-	  private $absInjust;
-      
-      public function __construct($i="",$n="",$pr="",$c="",$pa="",$ap="",$ai="",$am="",$com="",$abs="") {
-            $this->codeNip = $i;
-	      $this->nom = $n;
-		  $this->prenom = $pr;
-		  $this->cursus = $c;
-		  $this->parcours = $pa;
-		  $this->apprentissage = $ap;
-		  $this->avisInge = $ai;
-		  $this->avisMaster = $am;
-		  $this->commentaire = $com;
-		  $this->absInjust = $abs;
-      }
+    private int $codeNip;
+    private string $nom;
+    private string $prenom;
+    private string $cursus;
+    private ?string $parcours;
+    private ?string $apprentissage;
+    private ?string $avisInge;
+    private ?string $avisMaster;
+    private ?string $commentaire;
+    private int $absInjust;
+    
+    public function __construct(int $codeNip, string $nom = "", string $prenom = "", string $cursus = "", ?string $parcours = null, ?string $apprentissage = null, ?string $avisInge = null, ?string $avisMaster = null, ?string $commentaire = null, int $absInjust = 0) {
+        $this->codeNip = $codeNip;
+        $this->nom = $nom;
+        $this->prenom = $prenom;
+        $this->cursus = $cursus;
+        $this->parcours = $parcours;
+        $this->apprentissage = $apprentissage;
+        $this->avisInge = $avisInge;
+        $this->avisMaster = $avisMaster;
+        $this->commentaire = $commentaire;
+        $this->absInjust = $absInjust;
+    }
 
-      public function getCode() { return $this->codeNip; }
-      public function getNom() { return $this->nom;}
-	  public function getPrenom() { return $this->prenom; }
-      public function getCursus() { return $this->cursus;}
-      public function getParours() { return $this->parcours;}
-	  public function getApprentissage() { return $this->apprentissage; }
-      public function getAvisInge() { return $this->avisInge;}
-	  public function getAvisMaster() { return $this->avisMaster;}
-	  public function getCommentaire() { return $this->commentaire;}
-	  public function getAbsInjust() { return $this->absInjust;}
+    // Getters
+    public function getCodeNip(): int { return $this->codeNip; }
+    public function getNom(): string { return $this->nom; }
+    public function getPrenom(): string { return $this->prenom; }
+    public function getCursus(): string { return $this->cursus; }
+    public function getParcours(): ?string { return $this->parcours; }
+    public function getApprentissage(): ?string { return $this->apprentissage; }
+    public function getAvisInge(): ?string { return $this->avisInge; }
+    public function getAvisMaster(): ?string { return $this->avisMaster; }
+    public function getCommentaire(): ?string { return $this->commentaire; }
+    public function getAbsInjust(): int { return $this->absInjust; }
 
-      public function __toString() {
-	     $res = "<br/>";
-	     return $res;
-	     
-      }
+    public function __toString(): string {
+        return "<br/>";
+    }
 }
 ?>

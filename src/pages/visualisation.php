@@ -7,13 +7,14 @@
 	
 	echo enTete("Visualisation",["../styles/classique.css", "../styles/virtualisation.css"]);
 	echo menu($_SESSION['nom'], $_SESSION['droitAcces']);
-	if ( $_SESSION['droitAcces'] === 2 )
+	/*if ( $_SESSION['droitAcces'] === 2 )
 		contenuAdmin();
 	else
-		contenu();
+		contenuUser();*/
+	contenuUser();
 	echo pied();
 
-	function contenu() {
+	function contenuUser() {
 		$db = DB::getInstance();
 		if ($db == null) {
 			echo "Impossible de se connecter";
@@ -52,16 +53,16 @@
 
 		foreach ($t as &$v) {
 
-			echo "<td>$v->getCode()</td>\n";
-			echo "<td>$v->getNom()</td>\n";
-			echo "<td>$v->getPrenom()</td>\n";
-			echo "<td>$v->getCursus()</td>\n";
-			echo "<td>$v->getParours()</td>\n";
-			echo "<td>$v->getApprentissage()</td>\n";
-			echo "<td>$v->getAvisInge()</td>\n";
-			echo "<td>$v->getAvisMaster()</td>\n";
-			echo "<td>$v->getCommentaire()</td>\n";
-			echo "<td>$v->getAbsInjust()</td>\n";
+			echo "<td>" . $v->getCode() . "</td>\n";
+			echo "<td>" . $v->getNom() . "</td>\n";
+			echo "<td>" . $v->getPrenom() . "</td>\n";
+			echo "<td>" . $v->getCursus() . "</td>\n";
+			echo "<td>" . $v->getParcours() . "</td>\n";
+			echo "<td>" . $v->getApprentissage() . "</td>\n";
+			echo "<td>" . $v->getAvisInge() . "</td>\n";
+			echo "<td>" . $v->getAvisMaster() . "</td>\n";
+			echo "<td>" . $v->getCommentaire() . "</td>\n";
+			echo "<td>" . $v->getAbsInjust() . "</td>\n";
 
 			echo "</tr>\n";
 		}
@@ -113,9 +114,16 @@
 					<tr>\n";
 
 		foreach ($t as &$v) {
+			$code = $v->getCode();
 			$nom = $v->getNom();
 			$prenom = $v->getPrenom();
-			$moy = $v->getMoy();
+			$cursus = $v->getCursus();
+			$parcours = $v->getParcours();
+			$apprentissage = $v->getApprentissage();
+			$avisInge = $v->getAvisInge();
+			$avisMaster = $v->getAvisMaster();
+			$commentaire = $v->getCommentaire();
+			$abs = $v->getAbsInjust();
 
 			if ( isset($_GET['updateCli'], $_GET['updateNp']) && $_GET['updateCli'] == $nom && $_GET['updateNp'] == $prenom)
 			{
