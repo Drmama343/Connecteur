@@ -14,11 +14,11 @@ if ($db == null) {
 } else {
     // Récupérer les données du formulaire (année et semestre)
     $year = isset($_GET['year']) ? $_GET['year'] : '';
-    $semester = isset($_GET['semester']) ? $_GET['semester'] : '';
+    $semestre = isset($_GET['semestre']) ? $_GET['semestre'] : '';
 
     // Vérifier si l'année ou le semestre est vide
-    if (empty($year) || empty($semester) || !preg_match('/^\d{4}-\d{4}$/', $year)) {
-        var_dump($semester);
+    if (empty($year) || empty($semestre) || !preg_match('/^\d{4}-\d{4}$/', $year)) {
+        var_dump($semestre);
         $_SESSION['info_commission'] = "Veuillez renseigner l'année correctement, ainsi qu'un semestre";
         header("Location: ../pages/export.php");
     } else {
@@ -32,13 +32,13 @@ if ($db == null) {
         $sheet->setCellValue('A1', 'Année')
             ->setCellValue('B1', 'Semestre')
             ->setCellValue('A2', $year)
-            ->setCellValue('B2', $semester);
+            ->setCellValue('B2', $semestre);
 
         // Créer un objet Writer pour exporter le fichier Excel
         $writer = new Xlsx($spreadsheet);
 
         // Nom du fichier à télécharger
-        $filename = 'rapport_' . $year . '_' . $semester . '.xlsx';
+        $filename = 'rapport_' . $year . '_' . $semestre . '.xlsx';
 
         // Définir les en-têtes HTTP pour le téléchargement du fichier
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
