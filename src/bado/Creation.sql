@@ -49,7 +49,7 @@ CREATE TABLE Promotion (
 
 -- Table Etudiant
 CREATE TABLE Etudiant (
-    codeNip INT PRIMARY KEY,
+    codeNip VARCHAR PRIMARY KEY,
     nom VARCHAR(50) NOT NULL,
     prenom VARCHAR(50) NOT NULL,
     cursus VARCHAR(50) NOT NULL,
@@ -58,7 +58,7 @@ CREATE TABLE Etudiant (
     avisInge VARCHAR(50),
     avisMaster VARCHAR(50),
     commentaire VARCHAR(50),
-    absInjust INT
+    absInjust VARCHAR
 );
 
 -- Table PromoEtud
