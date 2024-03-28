@@ -11,7 +11,7 @@ class Etudiant {
     private ?string $commentaire;
     private int $absInjust;
     
-    public function __construct(int $codeNip, string $nom = "", string $prenom = "", string $cursus = "", ?string $parcours = null, ?string $apprentissage = null, ?string $avisInge = null, ?string $avisMaster = null, ?string $commentaire = null, int $absInjust = 0) {
+    public function __construct(int $codeNip=2, string $nom = "", string $prenom = "", string $cursus = "", ?string $parcours = null, ?string $apprentissage = null, ?string $avisInge = null, ?string $avisMaster = null, int $absInjust = 0, ?string $commentaire = null) {
         $this->codeNip = $codeNip;
         $this->nom = $nom;
         $this->prenom = $prenom;
@@ -25,7 +25,7 @@ class Etudiant {
     }
 
     // Getters
-    public function getCodeNip(): int { return $this->codeNip; }
+    public function getCode(): int { return $this->codeNip; }
     public function getNom(): string { return $this->nom; }
     public function getPrenom(): string { return $this->prenom; }
     public function getCursus(): string { return $this->cursus; }
