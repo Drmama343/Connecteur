@@ -141,7 +141,7 @@ CREATE TABLE MoyCompSem (
 -- Table MoyCompAnnee
 CREATE TABLE MoyCompAnnee (
     codeNip INT,
-    idComp INT,
+    idComp VARCHAR(50),
     idAnnee INT,
     moyCompAnnee FLOAT,
     avis VARCHAR(50),
