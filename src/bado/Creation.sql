@@ -72,8 +72,8 @@ CREATE TABLE PromoEtud (
 
 -- Table Coeff
 CREATE TABLE Coeff (
-    idComp INT,
-    idRess INT,
+    idComp VARCHAR(50),
+    idRess VARCHAR(50),
     coeff INT,
     PRIMARY KEY (idComp, idRess),
     FOREIGN KEY (idComp) REFERENCES Competence(idComp),
@@ -82,7 +82,7 @@ CREATE TABLE Coeff (
 
 -- Table CompSem
 CREATE TABLE CompSem (
-    idComp INT,
+    idComp VARCHAR(50),
     idSem INT,
     PRIMARY KEY (idComp, idSem),
     FOREIGN KEY (idComp) REFERENCES Competence(idComp),
@@ -92,7 +92,7 @@ CREATE TABLE CompSem (
 -- Table MoyRess
 CREATE TABLE MoyRess (
     codeNip INT,
-    idRess INT,
+    idRess VARCHAR(50),
     moyRess FLOAT,
     PRIMARY KEY (codeNip, idRess),
     FOREIGN KEY (codeNip) REFERENCES Etudiant(codeNip),
@@ -128,7 +128,7 @@ CREATE TABLE JuryAnnee (
 -- Table MoyCompSem
 CREATE TABLE MoyCompSem (
     codeNip INT,
-    idComp INT,
+    idComp VARCHAR(50),
     idSem INT,
     moyCompSem FLOAT,
     avis VARCHAR(50),
@@ -141,7 +141,7 @@ CREATE TABLE MoyCompSem (
 -- Table MoyCompAnnee
 CREATE TABLE MoyCompAnnee (
     codeNip INT,
-    idComp INT,
+    idComp VARCHAR(50),
     idAnnee INT,
     moyCompAnnee FLOAT,
     avis VARCHAR(50),
