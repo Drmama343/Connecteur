@@ -22,7 +22,7 @@ CREATE TABLE Semestre (
 -- Table Annee
 CREATE TABLE Annee (
     idAnnee INT PRIMARY KEY,
-    nomAnnee VARCHAR(50)
+    nomAnnee VARCHAR(50),
     semestre1 INT,
     semestre2 INT,
     FOREIGN KEY (semestre1) REFERENCES Semestre(idSem),
