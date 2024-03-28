@@ -26,7 +26,7 @@
 
 			"<label>Commission</label><br><br>".
 
-			"<input type=\"text\" id=\"year\" name=\"year\" placeholder=\"Année (ex: 2022-2023)\"><br>".
+			"<input type=\"text\" id=\"annee\" name=\"annee\" placeholder=\"Année (ex: 2022-2023)\"><br>".
 
 			"<label for=\"semestre\">Semestre :</label>".
 			"<input type=\"radio\" id=\"semestre1\" name=\"semestre\" value=\"1\">".
@@ -56,7 +56,7 @@
 
 			"<label>Jury</label><br><br>".
 
-			"<input type=\"text\" id=\"year\" name=\"year\" placeholder=\"Année (ex: 2022-2023)\"><br>".
+			"<input type=\"text\" id=\"annee\" name=\"annee\" placeholder=\"Année (ex: 2022-2023)\"><br>".
 
 			"<label for=\"semestre\">Semestre :</label>".
 			"<input type=\"radio\" id=\"semestre1\" name=\"semestre\" value=\"1\">".

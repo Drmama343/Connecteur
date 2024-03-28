@@ -224,8 +224,5 @@ else {
 
 	// Enregistrer le nouveau PDF
 	$pdf->Output($newPdfFile, 'D');
-
-	$_SESSION['info_poursuite'] = "Votre fichier pdf est exporté";
-	header("Location: ../pages/export.php");
 }
 ?>
