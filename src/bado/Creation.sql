@@ -42,9 +42,8 @@ CREATE TABLE Ressources (
 
 -- Table Promotion
 CREATE TABLE Promotion (
-    anneePromo VARCHAR(50),
-    nbEtud INT,
-    PRIMARY KEY (anneePromo, idAnnee)
+    anneePromo VARCHAR(50) PRIMARY KEY,
+    nbEtud INT
 );
 
 -- Table Etudiant
