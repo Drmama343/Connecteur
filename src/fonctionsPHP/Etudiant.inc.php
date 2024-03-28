@@ -14,7 +14,7 @@ class Etudiant {
     private $commentaire;
     private $absInjust;
     
-    public function __construct($i="",$n="",$pr="",$c="",$pa="",$ap="",$ai="",$am="",$com="",$abs="") {
+    public function __construct($i=-1,$n="",$pr="",$c="",$pa="",$ap="",$ai="",$am="",$com="",$abs="") {
     $this->codeNip = $i;
         $this->nom = $n;
         $this->prenom = $pr;
@@ -39,7 +39,7 @@ class Etudiant {
     public function getAbsInjust() { return $this->absInjust;}
 
     public function __toString() {
-        $res = "<br/>";
+        $res = "" . $this->codeNip;
         return $res;
         
     }

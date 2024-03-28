@@ -105,10 +105,10 @@ class DB {
 		$tuple = $stmt->fetch(); //on récupère le premier tuple sous forme d'objet
 		if ($tuple) {
 			//au moins un tuple a été renvoyé
-					while ($tuple != false) {
+			while ($tuple != false) {
 				$tab[]=$tuple; //on ajoute l'objet en fin de tableau
-						$tuple = $stmt->fetch(); //on récupère un tuple sous la forme
-						//d'un objet instance de la classe $nomClasse	       
+				$tuple = $stmt->fetch(); //on récupère un tuple sous la forme
+				//d'un objet instance de la classe $nomClasse	       
 			} //fin du while	           	     
 			}
 		return $tab;    
@@ -135,12 +135,8 @@ class DB {
 	   *************************************************************************/
 	  
 	public function getEtudiants() {
-		$requete = 'select * from Etudiant';
+		$requete = 'select * from etudiant';
 		return $this->execQuery($requete,null,'Etudiant');
-	}
-	public function getCodes() {
-		$requete = 'select codeNip from Etudiant';
-		return $this->execQuery($requete,null,'Int');
 	}
 	  // public function deleteAchat($idcli,$np) {
 	  //       $requete = 'delete from achat where ncli = ? and np = ?';

@@ -23,8 +23,8 @@ CREATE TABLE Semestre (
 CREATE TABLE Annee (
     idAnnee SERIAL PRIMARY KEY,
     nomAnnee VARCHAR(50),
-    semestre1 INT,
-    semestre2 INT,
+    semestre1 integer,
+    semestre2 integer,
     FOREIGN KEY (semestre1) REFERENCES Semestre(idSem),
     FOREIGN KEY (semestre2) REFERENCES Semestre(idSem)
 );
@@ -44,12 +44,12 @@ CREATE TABLE Ressource (
 -- Table Promotion
 CREATE TABLE Promotion (
     anneePromo VARCHAR(50) PRIMARY KEY,
-    nbEtud INT
+    nbEtud integer
 );
 
 -- Table Etudiant
 CREATE TABLE Etudiant (
-    codeNip INT PRIMARY KEY,
+    codeNip integer PRIMARY KEY,
     nom VARCHAR(50) NOT NULL,
     prenom VARCHAR(50) NOT NULL,
     cursus VARCHAR(50) NOT NULL,
@@ -58,13 +58,13 @@ CREATE TABLE Etudiant (
     avisInge VARCHAR(50),
     avisMaster VARCHAR(50),
     commentaire VARCHAR(50),
-    absInjust INT
+    absInjust integer
 );
 
 -- Table PromoEtud
 CREATE TABLE PromoEtud (
     anneePromo VARCHAR(50),
-    codeNip INT,
+    codeNip integer,
     PRIMARY KEY (anneePromo, codeNip),
     FOREIGN KEY (anneePromo) REFERENCES Promotion(anneePromo),
     FOREIGN KEY (codeNip) REFERENCES Etudiant(codeNip)
@@ -74,7 +74,7 @@ CREATE TABLE PromoEtud (
 CREATE TABLE Coeff (
     idComp VARCHAR(50),
     idRess VARCHAR(50),
-    coeff INT,
+    coeff integer,
     PRIMARY KEY (idComp, idRess),
     FOREIGN KEY (idComp) REFERENCES Competence(idComp),
     FOREIGN KEY (idRess) REFERENCES Ressource(idRess)
@@ -83,7 +83,7 @@ CREATE TABLE Coeff (
 -- Table CompSem
 CREATE TABLE CompSem (
     idComp VARCHAR(50),
-    idSem INT,
+    idSem integer,
     PRIMARY KEY (idComp, idSem),
     FOREIGN KEY (idComp) REFERENCES Competence(idComp),
     FOREIGN KEY (idSem) REFERENCES Semestre(idSem)
@@ -91,7 +91,7 @@ CREATE TABLE CompSem (
 
 -- Table MoyRess
 CREATE TABLE MoyRess (
-    codeNip INT,
+    codeNip integer,
     idRess VARCHAR(50),
     moyRess FLOAT,
     PRIMARY KEY (codeNip, idRess),
@@ -101,12 +101,12 @@ CREATE TABLE MoyRess (
 
 -- Table JurySem
 CREATE TABLE JurySem (
-    codeNip INT,
-    idSem INT,
+    codeNip integer,
+    idSem integer,
     moySem FLOAT,
     UE VARCHAR(50),
     bonus FLOAT,
-    rang INT,
+    rang integer,
     PRIMARY KEY (codeNip, idSem),
     FOREIGN KEY (codeNip) REFERENCES Etudiant(codeNip),
     FOREIGN KEY (idSem) REFERENCES Semestre(idSem)
@@ -114,12 +114,12 @@ CREATE TABLE JurySem (
 
 -- Table JuryAnnee
 CREATE TABLE JuryAnnee (
-    codeNip INT,
-    idAnnee INT,
+    codeNip integer,
+    idAnnee integer,
     moyAnnee FLOAT,
     RCUE VARCHAR(50),
     decision VARCHAR(50),
-    rang INT,
+    rang integer,
     PRIMARY KEY (codeNip, idAnnee),
     FOREIGN KEY (codeNip) REFERENCES Etudiant(codeNip),
     FOREIGN KEY (idAnnee) REFERENCES Annee(idAnnee)
@@ -127,9 +127,9 @@ CREATE TABLE JuryAnnee (
 
 -- Table MoyCompSem
 CREATE TABLE MoyCompSem (
-    codeNip INT,
+    codeNip integer,
     idComp VARCHAR(50),
-    idSem INT,
+    idSem integer,
     moyCompSem FLOAT,
     avis VARCHAR(50),
     PRIMARY KEY (codeNip, idComp, idSem),
@@ -140,9 +140,9 @@ CREATE TABLE MoyCompSem (
 
 -- Table MoyCompAnnee
 CREATE TABLE MoyCompAnnee (
-    codeNip INT,
+    codeNip integer,
     idComp VARCHAR(50),
-    idAnnee INT,
+    idAnnee integer,
     moyCompAnnee FLOAT,
     avis VARCHAR(50),
     PRIMARY KEY (codeNip, idComp, idAnnee),
