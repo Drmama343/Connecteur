@@ -26,32 +26,49 @@ else {
 				
 				// Parcourir les lignes du fichier Excel à partir de la deuxième ligne (pour éviter la ligne d'en-tête)
 				$libelles = [];
-foreach ($worksheet->getRowIterator() as $row) {
-    if ($row->getRowIndex() == 1) {
-        foreach ($row->getCellIterator() as $cell) {
-            $libelles[] = $cell->getValue();
-        }
-        break; // Une fois que nous avons obtenu les libellés, nous quittons la boucle
-    }
-}
 
-// Parcourir les lignes du fichier Excel à partir de la deuxième ligne (pour éviter la ligne d'en-tête)
-foreach ($worksheet->getRowIterator() as $row) {
-    // Ignorer la première ligne (en-tête)
-    if ($row->getRowIndex() == 1) {
-        continue;
-    }
+				// Parcourir les lignes du fichier Excel à partir de la deuxième ligne (pour éviter la ligne d'en-tête)
+				foreach ($worksheet->getRowIterator() as $row) {
+					// Ignorer la première ligne (en-tête)
+					if ($row->getRowIndex() == 1) {
+						foreach ($row->getCellIterator() as $cell) {
+							$libelles[] = $cell->getValue();
+						}
+						break; // Une fois que nous avons obtenu les libellés, nous quittons la boucle
+					}
 
-    $rowData = [];
-    foreach ($row->getCellIterator() as $cell) {
-        $rowData[] = $cell->getValue();
-    }
+					$rowData = [];
+					foreach ($row->getCellIterator() as $cell) {
+						$rowData[] = $cell->getValue();
+					}
 
-    // Créer un tableau associatif avec les libellés et les données de chaque ligne
-    $data = array_combine($libelles, $rowData);
+					// Créer un tableau associatif avec les libellés et les données de chaque ligne
+					$data = array_combine($libelles, $rowData);
 
-    // Utiliser les libellés pour insérer les données dans la base de données
-    $db->insertIntoEtudiant($data['code_nip'], $rowData[6], $data['Prénom'], $data['Cursus'], array_key_exists('Parcours', $data) 	? $data['Parcours'] : "", "", "", "", "", $data['Abs'] - $data['Just.']);
+					// Utiliser les libellés pour insérer les données dans la base de données
+					$db->insertIntoEtudiant($data['code_nip'], $rowData[6], $data['Prénom'], $data['Cursus'], array_key_exists('Parcours', $data) 	? $data['Parcours'] : "", "", "", "", "", $data['Abs'] - $data['Just.']);
+
+					switch ($choix) {
+						case "S1":
+							$db->insertIntoMoyCompSem($data['code_nip'], $data['code_nip']);
+							$db->insertIntoMoyCompSem($data['code_nip'], $data['code_nip']);
+							break;
+						case "B":
+							echo "Option B sélectionnée";
+							break;
+						case "C":
+							echo "Option C sélectionnée";
+							break;
+						case "A":
+							echo "Option A sélectionnée";
+							break;
+						case "B":
+							echo "Option B sélectionnée";
+							break;
+						case "C":
+							echo "Option C sélectionnée";
+							break;
+					}
 				}
 
 				$_SESSION['info_import_moyennes'] = "Les données du fichier $fileName ont été insérées avec succès dans la base de données";
