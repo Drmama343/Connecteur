@@ -31,13 +31,13 @@ CREATE TABLE Annee (
 
 -- Table Competences
 CREATE TABLE Competence (
-    idComp SERIAL PRIMARY KEY,
+    idComp VARCHAR(50) PRIMARY KEY,
     nomComp VARCHAR(50)
 );
 
 -- Table Ressources
 CREATE TABLE Ressource (
-    idRess SERIAL PRIMARY KEY,
+    idRess VARCHAR(50) PRIMARY KEY,
     nomRess VARCHAR(50)
 );
 
