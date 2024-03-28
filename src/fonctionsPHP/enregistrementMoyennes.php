@@ -138,6 +138,7 @@ else {
 							$db->insertIntoMoyCompSem($data['code_nip'], 'BIN44', intval(substr($fileName, 1, 2), $data['BIN44'], ""));
 							$db->insertIntoMoyCompSem($data['code_nip'], 'BIN45', intval(substr($fileName, 1, 2), $data['BIN45'], ""));
 							$db->insertIntoMoyCompSem($data['code_nip'], 'BIN46', intval(substr($fileName, 1, 2), $data['BIN46'], ""));
+							$db->insertIntoJurySem($data['code_nip'], $semestre, $data['Moy'], $data['UEs'], floatval($data['Bonus BIN41']));
 							$db->insertIntoMoyRess($data['code_nip'], 'BINR401', floatval($data['BINR401']));
 							$db->insertIntoMoyRess($data['code_nip'], 'BINR402', floatval($data['BINR402']));
 							$db->insertIntoMoyRess($data['code_nip'], 'BINR403', floatval($data['BINR403']));
@@ -158,6 +159,7 @@ else {
 							$db->insertIntoMoyCompSem($data['code_nip'], 'BIN51', intval(substr($fileName, 1, 2), $data['BIN51'], ""));
 							$db->insertIntoMoyCompSem($data['code_nip'], 'BIN52', intval(substr($fileName, 1, 2), $data['BIN52'], ""));
 							$db->insertIntoMoyCompSem($data['code_nip'], 'BIN56', intval(substr($fileName, 1, 2), $data['BIN56'], ""));
+							$db->insertIntoJurySem($data['code_nip'], $semestre, $data['Moy'], $data['UEs'], floatval($data['Bonus BIN51']));
 							$db->insertIntoMoyRess($data['code_nip'], 'BINR501', floatval($data['BINR501']));
 							$db->insertIntoMoyRess($data['code_nip'], 'BINR502', floatval($data['BINR502']));
 							$db->insertIntoMoyRess($data['code_nip'], 'BINR503', floatval($data['BINR503']));
@@ -178,6 +180,7 @@ else {
 							$db->insertIntoMoyCompSem($data['code_nip'], 'BIN61', intval(substr($fileName, 1, 2), $data['BIN61'], ""));
 							$db->insertIntoMoyCompSem($data['code_nip'], 'BIN62', intval(substr($fileName, 1, 2), $data['BIN62'], ""));
 							$db->insertIntoMoyCompSem($data['code_nip'], 'BIN66', intval(substr($fileName, 1, 2), $data['BIN66'], ""));
+							$db->insertIntoJurySem($data['code_nip'], $semestre, $data['Moy'], $data['UEs'], floatval($data['Bonus BIN61']));
 							$db->insertIntoMoyRess($data['code_nip'], 'BINR601', floatval($data['BINR601']));
 							$db->insertIntoMoyRess($data['code_nip'], 'BINR602', floatval($data['BINR602']));
 							$db->insertIntoMoyRess($data['code_nip'], 'BINR603', floatval($data['BINR603']));
