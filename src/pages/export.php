@@ -29,18 +29,18 @@
 			"<input type=\"text\" id=\"year\" name=\"year\" placeholder=\"Année (ex: 2022-2023)\"><br>".
 
 			"<label for=\"semester\">Semestre :</label>".
-			"<input type=\"radio\" id=\"semester1\" name=\"semester\" value=\"S1\">".
+			"<input type=\"radio\" id=\"semester1\" name=\"semester\" value=\"1\">".
 			"<label for=\"semester1\">S1</label>".
-			"<input type=\"radio\" id=\"semester2\" name=\"semester\" value=\"S2\">".
-			"<label for=\"semester1\">S2</label>".
-			"<input type=\"radio\" id=\"semester3\" name=\"semester\" value=\"S3\">".
-			"<label for=\"semester1\">S3</label>".
-			"<input type=\"radio\" id=\"semester4\" name=\"semester\" value=\"S4\">".
-			"<label for=\"semester1\">S4</label>".
-			"<input type=\"radio\" id=\"semester5\" name=\"semester\" value=\"S5\">".
-			"<label for=\"semester1\">S5</label>".
-			"<input type=\"radio\" id=\"semester6\" name=\"semester\" value=\"S6\">".
-			"<label for=\"semester1\">S6</label>".
+			"<input type=\"radio\" id=\"semester2\" name=\"semester\" value=\"2\">".
+			"<label for=\"semester2\">S2</label>".
+			"<input type=\"radio\" id=\"semester3\" name=\"semester\" value=\"3\">".
+			"<label for=\"semester3\">S3</label>".
+			"<input type=\"radio\" id=\"semester4\" name=\"semester\" value=\"4\">".
+			"<label for=\"semester4\">S4</label>".
+			"<input type=\"radio\" id=\"semester5\" name=\"semester\" value=\"5\">".
+			"<label for=\"semester5\">S5</label>".
+			"<input type=\"radio\" id=\"semester6\" name=\"semester\" value=\"6\">".
+			"<label for=\"semester6\">S6</label>".
 
 			"<br>".
 			"<p>$infoCommission</p>".
@@ -59,18 +59,18 @@
 			"<input type=\"text\" id=\"year\" name=\"year\" placeholder=\"Année (ex: 2022-2023)\"><br>".
 
 			"<label for=\"semester\">Semestre :</label>".
-			"<input type=\"radio\" id=\"semester1\" name=\"semester\" value=\"S1\">".
+			"<input type=\"radio\" id=\"semester1\" name=\"semester\" value=\"1\">".
 			"<label for=\"semester1\">S1</label>".
-			"<input type=\"radio\" id=\"semester2\" name=\"semester\" value=\"S2\">".
-			"<label for=\"semester1\">S2</label>".
-			"<input type=\"radio\" id=\"semester3\" name=\"semester\" value=\"S3\">".
-			"<label for=\"semester1\">S3</label>".
-			"<input type=\"radio\" id=\"semester4\" name=\"semester\" value=\"S4\">".
-			"<label for=\"semester1\">S4</label>".
-			"<input type=\"radio\" id=\"semester5\" name=\"semester\" value=\"S5\">".
-			"<label for=\"semester1\">S5</label>".
-			"<input type=\"radio\" id=\"semester6\" name=\"semester\" value=\"S6\">".
-			"<label for=\"semester1\">S6</label>".
+			"<input type=\"radio\" id=\"semester2\" name=\"semester\" value=\"2\">".
+			"<label for=\"semester2\">S2</label>".
+			"<input type=\"radio\" id=\"semester3\" name=\"semester\" value=\"3\">".
+			"<label for=\"semester3\">S3</label>".
+			"<input type=\"radio\" id=\"semester4\" name=\"semester\" value=\"4\">".
+			"<label for=\"semester4\">S4</label>".
+			"<input type=\"radio\" id=\"semester5\" name=\"semester\" value=\"5\">".
+			"<label for=\"semester5\">S5</label>".
+			"<input type=\"radio\" id=\"semester6\" name=\"semester\" value=\"6\">".
+			"<label for=\"semester6\">S6</label>".
 
 			"<br>".
 			"<p>$infoJury</p>".
