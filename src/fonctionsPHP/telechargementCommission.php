@@ -29,19 +29,17 @@ else {
 
 		$sheet = $spreadsheet->getActiveSheet();
 
-		$sheet->getStyle('A1:B2')->getFont()->setSize(14)->setBold(true);
+		$sheet->getStyle('E1:E2')->getFont()->setSize(18)->setBold(true);
 
 		// Ajouter des données au fichier Excel
-		$sheet->setCellValue('A1', 'Année')
-			->setCellValue('B1', 'Semestre')
-			->setCellValue('A2', $annee)
-			->setCellValue('B2', $semestre);
+		$sheet->setCellValue('E1', "SEMESTRE " . $semestre . " - BUT INFO")
+			  ->setCellValue('E2', $annee);
 
 		// Créer un objet Writer pour exporter le fichier Excel
 		$writer = new Xlsx($spreadsheet);
 
 		// Nom du fichier à télécharger
-		$filename = 'rapport_' . $annee . '_' . $semestre . '.xlsx';
+		$filename = 'PV Commission S' . $semestre . ' ' . $annee . '.xlsx';
 
 		// Définir les en-têtes HTTP pour le téléchargement du fichier
 		header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');

@@ -5,7 +5,7 @@ require ("DB.inc.php");
 
 $db = DB::getInstance();
 if ($db == null) {
-	$_SESSION['info_import'] = "Connexion à la base de données impossible";
+	$_SESSION['info_import_moyennes'] = "Connexion à la base de données impossible";
 	header("Location: ../pages/import.php");
 }
 else {
@@ -36,13 +36,13 @@ else {
 						$rowData[] = $cell->getValue();
 					}
 
-					$db->insertTest($rowData[0], $rowData[1], $rowData[2]);
+					$db->insertIntoEtudiant($rowData[1], $rowData[5], $rowData[6], $rowData[10], $rowData[2], (strpos($fileName, "FAP") ? substr($fileName, 0, 2) : ""), "", "", "", $rowData[13] - $rowData[14]);
 				}
 
-				$_SESSION['info_import'] = "Les données du fichier $fileName ont été insérées avec succès dans la base de données";
+				$_SESSION['info_import_moyennes'] = "Les données du fichier $fileName ont été insérées avec succès dans la base de données";
 				header("Location: ../pages/import.php");
 			} else {
-				$_SESSION['info_import'] = "Seuls les fichiers .xlsx sont autorisés";
+				$_SESSION['info_import_moyennes'] = "Seuls les fichiers .xlsx sont autorisés";
 				header("Location: ../pages/import.php");
 			}
 		}
