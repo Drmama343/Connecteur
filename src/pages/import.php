@@ -8,7 +8,7 @@
 	if (isset($_SESSION['info_import']))
 		contenu($_SESSION['info_import']);
 	else
-		$_SESSION['info_import'] = "";
+		contenu("");
 	echo pied();
 
 	function contenu ($info) {

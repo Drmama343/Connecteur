@@ -1,17 +1,18 @@
-DROP TABLE IF EXISTS MoyCompAnnee;
-DROP TABLE IF EXISTS MoyCompSem;
-DROP TABLE IF EXISTS JuryAnnee;
-DROP TABLE IF EXISTS JurySem;
-DROP TABLE IF EXISTS MoyRess;
-DROP TABLE IF EXISTS CompSem;
-DROP TABLE IF EXISTS CompRess;
-DROP TABLE IF EXISTS PromoEtud;
-DROP TABLE IF EXISTS Etudiant;
-DROP TABLE IF EXISTS Promotion;
-DROP TABLE IF EXISTS Ressources;
-DROP TABLE IF EXISTS Competences;
-DROP TABLE IF EXISTS Semestre;
-DROP TABLE IF EXISTS Annee;
+DROP TABLE IF EXISTS MoyCompAnnee CASCADE;
+DROP TABLE IF EXISTS MoyCompSem CASCADE;
+DROP TABLE IF EXISTS JuryAnnee CASCADE;
+DROP TABLE IF EXISTS JurySem CASCADE;
+DROP TABLE IF EXISTS MoyRess CASCADE;
+DROP TABLE IF EXISTS CompSem CASCADE;
+DROP TABLE IF EXISTS Coeff CASCADE;
+DROP TABLE IF EXISTS PromoEtud CASCADE;
+DROP TABLE IF EXISTS Etudiant CASCADE;
+DROP TABLE IF EXISTS Promotion CASCADE;
+DROP TABLE IF EXISTS Ressources CASCADE;
+DROP TABLE IF EXISTS Competences CASCADE;
+DROP TABLE IF EXISTS Semestre CASCADE;
+DROP TABLE IF EXISTS Annee CASCADE;
+
 
 -- Table Annee
 CREATE TABLE Annee (
@@ -41,25 +42,23 @@ CREATE TABLE Ressources (
 
 -- Table Promotion
 CREATE TABLE Promotion (
-    anneePromo VARCHAR(50),
-    nbEtud INT,
-    idAnnee INT,
-    PRIMARY KEY (anneePromo, idAnnee),
-    FOREIGN KEY (idAnnee) REFERENCES Annee(idAnnee)
+    anneePromo VARCHAR(50) PRIMARY KEY,
+    nbEtud INT
 );
 
 -- Table Etudiant
 CREATE TABLE Etudiant (
     codeNip INT PRIMARY KEY,
-    nom VARCHAR(50),
-    prenom VARCHAR(50),
-    cursus VARCHAR(50),
-    rang INT,
+    nom VARCHAR(50) NOT NULL,
+    prenom VARCHAR(50) NOT NULL,
+    cursus VARCHAR(50) NOT NULL,
+    rang INT NOT NULL,
     parcours VARCHAR(50),
     apprentissage VARCHAR(50),
     avisInge VARCHAR(50),
     avisMaster VARCHAR(50),
-    commentaire VARCHAR(50)
+    commentaire VARCHAR(50),
+    absInjust INT
 );
 
 -- Table PromoEtud
@@ -71,8 +70,8 @@ CREATE TABLE PromoEtud (
     FOREIGN KEY (codeNip) REFERENCES Etudiant(codeNip)
 );
 
--- Table CompRess
-CREATE TABLE CompRess (
+-- Table Coeff
+CREATE TABLE Coeff (
     idComp INT,
     idRess INT,
     coeff INT,
@@ -148,3 +147,5 @@ CREATE TABLE MoyCompAnnee (
     FOREIGN KEY (idComp) REFERENCES Competences(idComp),
     FOREIGN KEY (idAnnee) REFERENCES Annee(idAnnee)
 );
+
+

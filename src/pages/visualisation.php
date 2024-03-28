@@ -131,7 +131,7 @@
 			</section>\n";
 
 		
-		echo "		<aside><a class=\"btnAJour\" href='visualisation.php?updateCli=".$nom."&updateNp=".$prenom."'>mettre à jour</a></aside>\n";
+		echo "		<footer><a class=\"btnAJour\" href='visualisation.php?updateCli=".$nom."&updateNp=".$prenom."'>mettre à jour</a></footer>\n";
 	}
 	
 ?>
