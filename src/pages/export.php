@@ -29,17 +29,17 @@
 			"<input type=\"text\" id=\"year\" name=\"year\" placeholder=\"Année (ex: 2022-2023)\"><br>".
 
 			"<label for=\"semestre\">Semestre :</label>".
-			"<input type=\"radio\" id=\"semestre1\" name=\"semestre\" value=\"S1\">".
+			"<input type=\"radio\" id=\"semestre1\" name=\"semestre\" value=\"1\">".
 			"<label for=\"semestre1\">S1</label>".
-			"<input type=\"radio\" id=\"semestre2\" name=\"semestre\" value=\"S2\">".
+			"<input type=\"radio\" id=\"semestre2\" name=\"semestre\" value=\"2\">".
 			"<label for=\"semestre1\">S2</label>".
-			"<input type=\"radio\" id=\"semestre3\" name=\"semestre\" value=\"S3\">".
+			"<input type=\"radio\" id=\"semestre3\" name=\"semestre\" value=\"3\">".
 			"<label for=\"semestre1\">S3</label>".
-			"<input type=\"radio\" id=\"semestre4\" name=\"semestre\" value=\"S4\">".
+			"<input type=\"radio\" id=\"semestre4\" name=\"semestre\" value=\"4\">".
 			"<label for=\"semestre1\">S4</label>".
-			"<input type=\"radio\" id=\"semestre5\" name=\"semestre\" value=\"S5\">".
+			"<input type=\"radio\" id=\"semestre5\" name=\"semestre\" value=\"5\">".
 			"<label for=\"semestre1\">S5</label>".
-			"<input type=\"radio\" id=\"semestre6\" name=\"semestre\" value=\"S6\">".
+			"<input type=\"radio\" id=\"semestre6\" name=\"semestre\" value=\"6\">".
 			"<label for=\"semestre1\">S6</label>".
 
 			"<br>".
@@ -59,17 +59,17 @@
 			"<input type=\"text\" id=\"year\" name=\"year\" placeholder=\"Année (ex: 2022-2023)\"><br>".
 
 			"<label for=\"semestre\">Semestre :</label>".
-			"<input type=\"radio\" id=\"semestre1\" name=\"semestre\" value=\"S1\">".
+			"<input type=\"radio\" id=\"semestre1\" name=\"semestre\" value=\"1\">".
 			"<label for=\"semestre1\">S1</label>".
-			"<input type=\"radio\" id=\"semestre2\" name=\"semestre\" value=\"S2\">".
+			"<input type=\"radio\" id=\"semestre2\" name=\"semestre\" value=\"2\">".
 			"<label for=\"semestre1\">S2</label>".
-			"<input type=\"radio\" id=\"semestre3\" name=\"semestre\" value=\"S3\">".
+			"<input type=\"radio\" id=\"semestre3\" name=\"semestre\" value=\"3\">".
 			"<label for=\"semestre1\">S3</label>".
-			"<input type=\"radio\" id=\"semestre4\" name=\"semestre\" value=\"S4\">".
+			"<input type=\"radio\" id=\"semestre4\" name=\"semestre\" value=\"4\">".
 			"<label for=\"semestre1\">S4</label>".
-			"<input type=\"radio\" id=\"semestre5\" name=\"semestre\" value=\"S5\">".
+			"<input type=\"radio\" id=\"semestre5\" name=\"semestre\" value=\"5\">".
 			"<label for=\"semestre1\">S5</label>".
-			"<input type=\"radio\" id=\"semestre6\" name=\"semestre\" value=\"S6\">".
+			"<input type=\"radio\" id=\"semestre6\" name=\"semestre\" value=\"6\">".
 			"<label for=\"semestre1\">S6</label>".
 
 			"<br>".
