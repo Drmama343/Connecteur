@@ -5,10 +5,10 @@
 	
 	echo enTete("Import",["../styles/import.css", "../styles/classique.css"]);
 	echo menu($_SESSION['nom'], $_SESSION['droitAcces']);
-	try{
+	if (isset($_SESSION['info_import']))
 		contenu($_SESSION['info_import']);
-		$_SESSION['info_import'] = "";}
-	catch(Exception $e) {contenu("");}
+	else
+		$_SESSION['info_import'] = "";
 	echo pied();
 
 	function contenu ($info) {

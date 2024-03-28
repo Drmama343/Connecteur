@@ -5,18 +5,15 @@
 	
 	echo enTete("Export",["../styles/classique.css", "../styles/import.css"]);
 	echo menu($_SESSION['nom'], $_SESSION['droitAcces']);
-	try{
-		$commission = $_SESSION['info_commission'];
-		$_SESSION['info_commission'] = "";}
-	catch(Exception $e) {$commission = "";}
-	try{
-		$jury = $_SESSION['info_jury'];
-		$_SESSION['info_jury'] = "";}
-	catch(Exception $e) {$jury = "";}
-	try{
-		$poursuite = $_SESSION['info_poursuite'];
-		$_SESSION['info_poursuite'] = "";}
-	catch(Exception $e) {$poursuite = "";}
+
+	$commission = isset($_SESSION['info_commission'])	? $_SESSION['info_commission']	: "";
+	$jury 		= isset($_SESSION['info_jury']) 		? $_SESSION['info_jury'] 		: "";
+	$poursuite	= isset($_SESSION['info_poursuite']) 	? $_SESSION['info_poursuite']	: "";
+
+	unset($_SESSION['info_commission']);
+	unset($_SESSION['info_jury']);
+	unset($_SESSION['info_poursuite']);
+
 	echo contenu($commission, $jury, $poursuite);
 	echo pied();
 
