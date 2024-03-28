@@ -15,13 +15,13 @@ DROP TABLE IF EXISTS Semestre CASCADE;
 
 -- Table Semestre
 CREATE TABLE Semestre (
-    idSem INT PRIMARY KEY,
+    idSem SERIAL PRIMARY KEY,
     nomSem VARCHAR(50)
 );
 
 -- Table Annee
 CREATE TABLE Annee (
-    idAnnee INT PRIMARY KEY,
+    idAnnee SERIAL PRIMARY KEY,
     nomAnnee VARCHAR(50),
     semestre1 INT,
     semestre2 INT,
@@ -31,13 +31,13 @@ CREATE TABLE Annee (
 
 -- Table Competences
 CREATE TABLE Competence (
-    idComp INT PRIMARY KEY,
+    idComp SERIAL PRIMARY KEY,
     nomComp VARCHAR(50)
 );
 
 -- Table Ressources
 CREATE TABLE Ressource (
-    idRess INT PRIMARY KEY,
+    idRess SERIAL PRIMARY KEY,
     nomRess VARCHAR(50)
 );
 
