@@ -53,7 +53,6 @@ CREATE TABLE Etudiant (
     nom VARCHAR(50) NOT NULL,
     prenom VARCHAR(50) NOT NULL,
     cursus VARCHAR(50) NOT NULL,
-    rang INT NOT NULL,
     parcours VARCHAR(50),
     apprentissage VARCHAR(50),
     avisInge VARCHAR(50),
@@ -107,6 +106,7 @@ CREATE TABLE JurySem (
     moySem FLOAT,
     UE VARCHAR(50),
     bonus FLOAT,
+    rang INT,
     PRIMARY KEY (codeNip, idSem),
     FOREIGN KEY (codeNip) REFERENCES Etudiant(codeNip),
     FOREIGN KEY (idSem) REFERENCES Semestre(idSem)
@@ -119,6 +119,7 @@ CREATE TABLE JuryAnnee (
     moyAnnee FLOAT,
     RCUE VARCHAR(50),
     decision VARCHAR(50),
+    rang INT,
     PRIMARY KEY (codeNip, idAnnee),
     FOREIGN KEY (codeNip) REFERENCES Etudiant(codeNip),
     FOREIGN KEY (idAnnee) REFERENCES Annee(idAnnee)
