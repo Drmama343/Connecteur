@@ -140,7 +140,7 @@ class DB {
 	}
 	public function getCodes() {
 		$requete = 'select codeNip from Etudiant';
-		return $this->execQuery($requete,null,'Etudiant');
+		return $this->execQuery($requete,null,'Int');
 	}
 	  // public function deleteAchat($idcli,$np) {
 	  //       $requete = 'delete from achat where ncli = ? and np = ?';
@@ -158,9 +158,9 @@ class DB {
 	   * Fonctions Pour Inserer des donnees dans la base
 	   *************************************************************************/
 	
-	public function insertIntoEtudiant($codeNip, $nom, $prenom, $cursus, $parcours, $apprentissage, $avisInge, $avisMaster, $absInjust, $commentaire) {
+	public function insertIntoEtudiant($codeNip, $nom, $prenom, $cursus, $parcours, $apprentissage, $avisInge, $avisMaster, $commentaire, $absInjust) {
 		$requete = 'INSERT INTO Etudiant VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-		$tparam = array($codeNip, $nom, $prenom, $cursus, $parcours, $apprentissage, $avisInge, $avisMaster, $absInjust, $commentaire);
+		$tparam = array($codeNip, $nom, $prenom, $cursus, $parcours, $apprentissage, $avisInge, $avisMaster, $commentaire, $absInjust);
 		return $this->execMaj($requete, $tparam);
 	}
 	

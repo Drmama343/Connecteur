@@ -57,8 +57,8 @@ CREATE TABLE Etudiant (
     apprentissage VARCHAR(50),
     avisInge VARCHAR(50),
     avisMaster VARCHAR(50),
-    absInjust INT,
-    commentaire VARCHAR(50)
+    commentaire VARCHAR(50),
+    absInjust INT
 );
 
 -- Table PromoEtud
