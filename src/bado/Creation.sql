@@ -8,8 +8,8 @@ DROP TABLE IF EXISTS Coeff CASCADE;
 DROP TABLE IF EXISTS PromoEtud CASCADE;
 DROP TABLE IF EXISTS Etudiant CASCADE;
 DROP TABLE IF EXISTS Promotion CASCADE;
-DROP TABLE IF EXISTS Ressources CASCADE;
-DROP TABLE IF EXISTS Competences CASCADE;
+DROP TABLE IF EXISTS Ressource CASCADE;
+DROP TABLE IF EXISTS Competence CASCADE;
 DROP TABLE IF EXISTS Semestre CASCADE;
 DROP TABLE IF EXISTS Annee CASCADE;
 
@@ -29,13 +29,13 @@ CREATE TABLE Semestre (
 );
 
 -- Table Competences
-CREATE TABLE Competences (
+CREATE TABLE Competence (
     idComp INT PRIMARY KEY,
     nomComp VARCHAR(50)
 );
 
 -- Table Ressources
-CREATE TABLE Ressources (
+CREATE TABLE Ressource (
     idRess INT PRIMARY KEY,
     nomRess VARCHAR(50)
 );
@@ -76,8 +76,8 @@ CREATE TABLE Coeff (
     idRess INT,
     coeff INT,
     PRIMARY KEY (idComp, idRess),
-    FOREIGN KEY (idComp) REFERENCES Competences(idComp),
-    FOREIGN KEY (idRess) REFERENCES Ressources(idRess)
+    FOREIGN KEY (idComp) REFERENCES Competence(idComp),
+    FOREIGN KEY (idRess) REFERENCES Ressource(idRess)
 );
 
 -- Table CompSem
@@ -85,7 +85,7 @@ CREATE TABLE CompSem (
     idComp INT,
     idSem INT,
     PRIMARY KEY (idComp, idSem),
-    FOREIGN KEY (idComp) REFERENCES Competences(idComp),
+    FOREIGN KEY (idComp) REFERENCES Competence(idComp),
     FOREIGN KEY (idSem) REFERENCES Semestre(idSem)
 );
 
@@ -96,7 +96,7 @@ CREATE TABLE MoyRess (
     moyRess FLOAT,
     PRIMARY KEY (codeNip, idRess),
     FOREIGN KEY (codeNip) REFERENCES Etudiant(codeNip),
-    FOREIGN KEY (idRess) REFERENCES Ressources(idRess)
+    FOREIGN KEY (idRess) REFERENCES Ressource(idRess)
 );
 
 -- Table JurySem
@@ -132,7 +132,7 @@ CREATE TABLE MoyCompSem (
     avis VARCHAR(50),
     PRIMARY KEY (codeNip, idComp, idSem),
     FOREIGN KEY (codeNip) REFERENCES Etudiant(codeNip),
-    FOREIGN KEY (idComp) REFERENCES Competences(idComp),
+    FOREIGN KEY (idComp) REFERENCES Competence(idComp),
     FOREIGN KEY (idSem) REFERENCES Semestre(idSem)
 );
 
@@ -144,7 +144,7 @@ CREATE TABLE MoyCompAnnee (
     moyCompAnnee FLOAT,
     PRIMARY KEY (codeNip, idComp, idAnnee),
     FOREIGN KEY (codeNip) REFERENCES Etudiant(codeNip),
-    FOREIGN KEY (idComp) REFERENCES Competences(idComp),
+    FOREIGN KEY (idComp) REFERENCES Competence(idComp),
     FOREIGN KEY (idAnnee) REFERENCES Annee(idAnnee)
 );
 
