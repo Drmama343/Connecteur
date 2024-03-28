@@ -7,20 +7,17 @@ class Semestre {
       private $nomSem;
 	  private $idAnnee;
 	
-	public function __construct($i="",$n="",$a="") {
+	public function __construct($i="",$n="") {
 		$this->idSem = $i;
 		$this->nomSem = $n;
-		$this->idAnnee = $a;
 	}
 
       public function getIdSem() { return $this->idSem; }
       public function getNomSem() { return $this->nomSem;}
-	  public function getIdAnnee() { return $this->idAnnee; }
 
       public function __toString() {
 		$res = "idSem:".$this->idSem."\n";
 		$res = $res ."nomSem:".$this->nomSem."\n";
-		$res = $res ."idAnnee:".$this->idAnnee."\n";
 		$res = $res ."<br/>";
 		return $res;
 	     

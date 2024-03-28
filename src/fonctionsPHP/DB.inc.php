@@ -208,8 +208,8 @@ public function insertIntoJurySem($codeNip,$idSem,$moySem,$UE,$bonus) {
 
 public function insertIntoJuryAnnee($codeNip,$idAnnee,$moyAnnee,$RCUE,$decision) {
 $requete = 'INSERT INTO JuryAnnee VALUES (?, ?, ?, ?, ?)';
-$tparam = array($nom,$prenom,$moyenne);
-return $this->execMaj($codeNip,$idAnnee,$moyAnnee,$RCUE,$decision);
+$tparam = array($codeNip,$idAnnee,$moyAnnee,$RCUE,$decision);
+return $this->execMaj($requete,$tparam);
 }
 
 public function insertIntoMoyCompSem($codeNip,$idComp,$idSem,$moyCompSem,$avis) {
