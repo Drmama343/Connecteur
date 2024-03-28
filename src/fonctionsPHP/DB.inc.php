@@ -134,21 +134,11 @@ class DB {
 	   * Fonctions qui peuvent être utilisées dans les scripts PHP
 	   *************************************************************************/
 	  
-	  public function getTout() {
-				  $requete = 'select * from Test';
-			return $this->execQuery($requete,null,'Test');
-	  }
 	  // public function deleteAchat($idcli,$np) {
 	  //       $requete = 'delete from achat where ncli = ? and np = ?';
 	//       $tparam = array($idcli,$np);
 	//       return $this->execMaj($requete,$tparam);
       // }
-
-      public function updateMoy($nom,$moy) {
-      	$requete = 'update Test set moyenne = ? where nom = ?';
-	      $tparam = array($moy,$nom);
-	      return $this->execMaj($requete,$tparam);
-      }
 
 	  public function insertIntoPromotion($anneePromo,$nbEtud) {
 			$requete = 'INSERT INTO Promotion VALUES (?, ?)';
