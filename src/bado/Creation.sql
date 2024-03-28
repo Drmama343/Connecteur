@@ -44,9 +44,7 @@ CREATE TABLE Ressources (
 CREATE TABLE Promotion (
     anneePromo VARCHAR(50),
     nbEtud INT,
-    idAnnee INT,
-    PRIMARY KEY (anneePromo, idAnnee),
-    FOREIGN KEY (idAnnee) REFERENCES Annee(idAnnee)
+    PRIMARY KEY (anneePromo, idAnnee)
 );
 
 -- Table Etudiant
