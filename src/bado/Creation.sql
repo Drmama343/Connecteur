@@ -51,10 +51,10 @@ CREATE TABLE Promotion (
 -- Table Etudiant
 CREATE TABLE Etudiant (
     codeNip INT PRIMARY KEY,
-    nom VARCHAR(50),
-    prenom VARCHAR(50),
-    cursus VARCHAR(50),
-    rang INT,
+    nom VARCHAR(50) NOT NULL,
+    prenom VARCHAR(50) NOT NULL,
+    cursus VARCHAR(50) NOT NULL,
+    rang INT NOT NULL,
     parcours VARCHAR(50),
     apprentissage VARCHAR(50),
     avisInge VARCHAR(50),
