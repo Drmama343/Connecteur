@@ -5,25 +5,28 @@ class MoyCompSem {
       /*avec PDO, il faut que les noms attributs soient les mêmes que ceux de la table*/
       private $codeNip;
       private $idComp;
-      private $idAnnee;
+      private $idSem;
 	  private $moyCompSem;
+	  private $avis;
 	
-	public function __construct($i="",$n="",$a="",$m="") {
+	public function __construct($i="",$n="",$a="",$m="",$av="") {
 		$this->codeNip = $i;
 		$this->idComp = $n;
-		$this->idAnnee = $a;
+		$this->idSem = $a;
 		$this->moyCompSem = $m;
+		$this->avis = $av;
 	}
 
       public function getCodeNip() { return $this->codeNip; }
       public function getIdComp() { return $this->idComp;}
-      public function getIdAnnee() { return $this->idAnnee; }
+      public function getIdSem() { return $this->idSem; }
 	  public function getMoyCompSem() { return $this->moyCompSem; }
+	  public function getAvis() { return $this->avis; }
 
       public function __toString() {
 		$res = "codeNip:".$this->codeNip."\n";
 		$res = $res ."idComp:".$this->idComp."\n";
-		$res = $res ."idAnnee:".$this->idAnnee."\n";
+		$res = $res ."idSem:".$this->idSem."\n";
 		$res = $res ."moyCompSem:".$this->moyCompSem."\n";
 		$res = $res ."<br/>";
 		return $res;
