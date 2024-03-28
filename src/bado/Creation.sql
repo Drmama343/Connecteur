@@ -10,22 +10,23 @@ DROP TABLE IF EXISTS Etudiant CASCADE;
 DROP TABLE IF EXISTS Promotion CASCADE;
 DROP TABLE IF EXISTS Ressource CASCADE;
 DROP TABLE IF EXISTS Competence CASCADE;
-DROP TABLE IF EXISTS Semestre CASCADE;
 DROP TABLE IF EXISTS Annee CASCADE;
-
-
--- Table Annee
-CREATE TABLE Annee (
-    idAnnee INT PRIMARY KEY,
-    nomAnnee VARCHAR(50)
-);
+DROP TABLE IF EXISTS Semestre CASCADE;
 
 -- Table Semestre
 CREATE TABLE Semestre (
     idSem INT PRIMARY KEY,
     nomSem VARCHAR(50),
-    idAnnee INT,
-    FOREIGN KEY (idAnnee) REFERENCES Annee(idAnnee)
+);
+
+-- Table Annee
+CREATE TABLE Annee (
+    idAnnee INT PRIMARY KEY,
+    nomAnnee VARCHAR(50)
+    semestre1 INT,
+    semestre2 INT,
+    FOREIGN KEY (semestre1) REFERENCES Semestre(idSem),
+    FOREIGN KEY (semestre2) REFERENCES Semestre(idSem)
 );
 
 -- Table Competences
