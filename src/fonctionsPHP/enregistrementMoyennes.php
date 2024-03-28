@@ -34,7 +34,7 @@ else {
 						foreach ($row->getCellIterator() as $cell) {
 							$libelles[] = $cell->getValue();
 						}
-						break; // Une fois que nous avons obtenu les libellés, nous quittons la boucle
+						continue; // Une fois que nous avons obtenu les libellés, nous quittons la boucle
 					}
 
 					$rowData = [];
@@ -48,9 +48,9 @@ else {
 					// Utiliser les libellés pour insérer les données dans la base de données
 					$db->insertIntoEtudiant($data['code_nip'], $rowData[6], $data['Prénom'], $data['Cursus'], array_key_exists('Parcours', $data) 	? $data['Parcours'] : "", "", "", "", "", $data['Abs'] - $data['Just.']);
 
-					$semestre = intval(substr($chaine, 1, 2));
+					$semestre = substr($fileName, 1, 2);
 					switch ($semestre) {
-						case "S1":
+						case "1":
 							$db->insertIntoMoyCompSem($data['code_nip'], "BIN11", $semestre, floatval($data['BIN11']), "");
 							$db->insertIntoMoyCompSem($data['code_nip'], "BIN12", $semestre, floatval($data['BIN12']), "");
 							$db->insertIntoMoyCompSem($data['code_nip'], "BIN13", $semestre, floatval($data['BIN13']), "");
@@ -77,7 +77,7 @@ else {
 							$db->insertIntoMoyRess($data['code_nip'], "BINS105", floatval($data['BINS105']));
 							$db->insertIntoMoyRess($data['code_nip'], "BINS106", floatval($data['BINS106']));
 							break;
-						case "S2":
+						case "2":
 							$db->insertIntoMoyCompSem($data['code_nip'], "BIN21", $semestre, floatval($data['BIN21']), "");
 							$db->insertIntoMoyCompSem($data['code_nip'], "BIN22", $semestre, floatval($data['BIN22']), "");
 							$db->insertIntoMoyCompSem($data['code_nip'], "BIN23", $semestre, floatval($data['BIN23']), "");
@@ -107,7 +107,7 @@ else {
 							$db->insertIntoMoyRess($data['code_nip'], "BINS206", floatval($data['BINS206']));
 							$db->insertIntoMoyRess($data['code_nip'], "BINP201", floatval($data['BINP201']));
 							break;
-						case "S3":
+						case "3":
 							$db->insertIntoMoyCompSem($data['code_nip'], "BIN31", $semestre, floatval($data['BIN31']), "");
 							$db->insertIntoMoyCompSem($data['code_nip'], "BIN32", $semestre, floatval($data['BIN32']), "");
 							$db->insertIntoMoyCompSem($data['code_nip'], "BIN33", $semestre, floatval($data['BIN33']), "");
@@ -131,7 +131,7 @@ else {
 							$db->insertIntoMoyRess($data['code_nip'], "BINR314", floatval($data['BINR314']));
 							$db->insertIntoMoyRess($data['code_nip'], "BINS301", floatval($data['BINS301']));
 							break;
-						case "S4":
+						case "4":
 							$db->insertIntoMoyCompSem($data['code_nip'], 'BIN41', intval(substr($fileName, 1, 2), $data['BIN41'], ""));
 							$db->insertIntoMoyCompSem($data['code_nip'], 'BIN42', intval(substr($fileName, 1, 2), $data['BIN42'], ""));
 							$db->insertIntoMoyCompSem($data['code_nip'], 'BIN43', intval(substr($fileName, 1, 2), $data['BIN43'], ""));
@@ -155,7 +155,7 @@ else {
 							$db->insertIntoMoyRess($data['code_nip'], 'BINS401', floatval($data['BINS401']));
 							$db->insertIntoMoyRess($data['code_nip'], 'BINS411', floatval($data['BINS411']));
 							break;
-						case "S5":
+						case "5":
 							$db->insertIntoMoyCompSem($data['code_nip'], 'BIN51', intval(substr($fileName, 1, 2), $data['BIN51'], ""));
 							$db->insertIntoMoyCompSem($data['code_nip'], 'BIN52', intval(substr($fileName, 1, 2), $data['BIN52'], ""));
 							$db->insertIntoMoyCompSem($data['code_nip'], 'BIN56', intval(substr($fileName, 1, 2), $data['BIN56'], ""));
@@ -176,7 +176,7 @@ else {
 							$db->insertIntoMoyRess($data['code_nip'], 'BINR514', floatval($data['BINR514']));
 							$db->insertIntoMoyRess($data['code_nip'], 'BINS501', floatval($data['BINS501']));
 							break;
-						case "S6":
+						case "6":
 							$db->insertIntoMoyCompSem($data['code_nip'], 'BIN61', intval(substr($fileName, 1, 2), $data['BIN61'], ""));
 							$db->insertIntoMoyCompSem($data['code_nip'], 'BIN62', intval(substr($fileName, 1, 2), $data['BIN62'], ""));
 							$db->insertIntoMoyCompSem($data['code_nip'], 'BIN66', intval(substr($fileName, 1, 2), $data['BIN66'], ""));
