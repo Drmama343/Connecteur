@@ -144,12 +144,6 @@ class DB {
 	//       return $this->execMaj($requete,$tparam);
       // }
 
-      public function updateMoy($nom,$moy) {
-      	$requete = 'update Test set moyenne = ? where nom = ?';
-	      $tparam = array($moy,$nom);
-	      return $this->execMaj($requete,$tparam);
-      }
-
 	  public function insertIntoPromotion($anneePromo,$nbEtud) {
 			$requete = 'INSERT INTO Promotion VALUES (?, ?)';
 		  $tparam = array($anneePromo,$nbEtud);
