@@ -46,29 +46,8 @@ else {
 					$data = array_combine($libelles, $rowData);
 
 					// Utiliser les libellés pour insérer les données dans la base de données
-					$db->insertIntoEtudiant($data['code_nip'], $rowData[6], $data['Prénom'], $data['Cursus'], array_key_exists('Parcours', $data) 	? $data['Parcours'] : "", "", "", "", "", $data['Abs'] - $data['Just.']);
-
-					switch ($choix) {
-						case "S1":
-							$db->insertIntoMoyCompSem($data['code_nip'], $data['code_nip']);
-							$db->insertIntoMoyCompSem($data['code_nip'], $data['code_nip']);
-							break;
-						case "B":
-							echo "Option B sélectionnée";
-							break;
-						case "C":
-							echo "Option C sélectionnée";
-							break;
-						case "A":
-							echo "Option A sélectionnée";
-							break;
-						case "B":
-							echo "Option B sélectionnée";
-							break;
-						case "C":
-							echo "Option C sélectionnée";
-							break;
-					}
+					$db->insertIntoEtudiant(intval($data['code_nip']), $rowData[6], $data['Prénom'], $data['Cursus'], array_key_exists('Parcours', $data) 	? $data['Parcours'] : "", "", "", "", "", intval($data['Abs'] - $data['Just.']));
+					
 				}
 
 				$_SESSION['info_import_moyennes'] = "Les données du fichier $fileName ont été insérées avec succès dans la base de données";
