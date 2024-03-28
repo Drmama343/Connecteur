@@ -88,31 +88,31 @@ class DB {
 	  //	que d'éléments dans le tableau passé en second paramètre.
 	  //	NB : si la requête ne renvoie aucun tuple alors la fonction renvoie un tableau vide
 	  /************************************************************************/
-	  private function execQuery($requete,$tparam,$nomClasse) {
-	  		 //on prépare la requête
-		 $stmt = $this->connect->prepare($requete);
-		 //on indique que l'on va récupére les tuples sous forme d'objets instance de Client
-		 $stmt->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, $nomClasse); 
-		 //on exécute la requête
-		 if ($tparam != null) {
-		 	$stmt->execute($tparam);
-		 }
-		 else {
-		 	$stmt->execute();
-		 }
-		 //récupération du résultat de la requête sous forme d'un tableau d'objets
-		 $tab = array();
-		 $tuple = $stmt->fetch(); //on récupère le premier tuple sous forme d'objet
-		 if ($tuple) {
-		 	//au moins un tuple a été renvoyé
-	 		  	 while ($tuple != false) {
-			   $tab[]=$tuple; //on ajoute l'objet en fin de tableau
-	  				   $tuple = $stmt->fetch(); //on récupère un tuple sous la forme
+      private function execQuery($requete,$tparam,$nomClasse) {
+		//on prépare la requête
+		$stmt = $this->connect->prepare($requete);
+		//on indique que l'on va récupére les tuples sous forme d'objets instance de Client
+		$stmt->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, $nomClasse); 
+		//on exécute la requête
+		if ($tparam != null) {
+			$stmt->execute($tparam);
+		}
+		else {
+			$stmt->execute();
+		}
+		//récupération du résultat de la requête sous forme d'un tableau d'objets
+		$tab = array();
+		$tuple = $stmt->fetch(); //on récupère le premier tuple sous forme d'objet
+		if ($tuple) {
+			//au moins un tuple a été renvoyé
+					while ($tuple != false) {
+				$tab[]=$tuple; //on ajoute l'objet en fin de tableau
+						$tuple = $stmt->fetch(); //on récupère un tuple sous la forme
 						//d'un objet instance de la classe $nomClasse	       
-			 } //fin du while	           	     
-			 }
-		 return $tab;    
-	  }
+			} //fin du while	           	     
+			}
+		return $tab;    
+	}	
   
 	   /************************************************************************/
 	  //	Methode utilisable uniquement dans les méthodes de la classe DB
@@ -135,12 +135,12 @@ class DB {
 	   *************************************************************************/
 	  
 	public function getEtudiants() {
-				  $requete = 'select * from Etudiant';
-			return $this->execQuery($requete,null,'Etudiant');
+		$requete = 'select * from Etudiant';
+		return $this->execQuery($requete,null,'Etudiant');
 	}
 	public function getCodes() {
 		$requete = 'select codeNip from Etudiant';
-		return $this->execQuery($requete,null,'Etudiant');
+		return $this->execQuery($requete,null,'Int');
 	}
 	  // public function deleteAchat($idcli,$np) {
 	  //       $requete = 'delete from achat where ncli = ? and np = ?';

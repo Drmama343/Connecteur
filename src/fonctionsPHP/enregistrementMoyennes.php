@@ -25,66 +25,33 @@ else {
 				$worksheet = $spreadsheet->getActiveSheet();
 				
 				// Parcourir les lignes du fichier Excel à partir de la deuxième ligne (pour éviter la ligne d'en-tête)
-				foreach ($worksheet->getRowIterator() as $row) {
-					// Ignorer la première ligne (en-tête)
-					if ($row->getRowIndex() == 1) {
-						$ligneEntete = [];
-						foreach ($row->getCellIterator() as $cell) {
-							$ligneEntete[] = $cell->getValue();
-						}
-					}
-					
-					$rowData = [];
-					foreach ($row->getCellIterator() as $cell) {
-						$rowData[] = $cell->getValue();
-					}
+				$libelles = [];
+foreach ($worksheet->getRowIterator() as $row) {
+    if ($row->getRowIndex() == 1) {
+        foreach ($row->getCellIterator() as $cell) {
+            $libelles[] = $cell->getValue();
+        }
+        break; // Une fois que nous avons obtenu les libellés, nous quittons la boucle
+    }
+}
 
-					$db->insertIntoEtudiant($rowData[1], $rowData[5], $rowData[6], $rowData[10], $rowData[7], (strpos($fileName, "FAP") ? substr($fileName, 0, 2) : ""), "", "", "", $rowData[13] - $rowData[14]);
-					switch (substr($fileName, 0, 2)) {
-						case "S1":
-							echo "Option A sélectionnée";
-							break;
-						case "S2":
-							echo "Option B sélectionnée";
-							break;
-						case "S3":
-							echo "Option C sélectionnée";
-							break;
-						case "S4":
-							echo "Option A sélectionnée";
-							break;
-						case "S5":
-							echo "Option B sélectionnée";
-							break;
-						case "S6":
-							echo "Option C sélectionnée";
-							break;
+// Parcourir les lignes du fichier Excel à partir de la deuxième ligne (pour éviter la ligne d'en-tête)
+foreach ($worksheet->getRowIterator() as $row) {
+    // Ignorer la première ligne (en-tête)
+    if ($row->getRowIndex() == 1) {
+        continue;
+    }
 
-					$db->insertIntoMoyCompSem($rowData[1], $ligneEntete[15], substr($fileName, 0, 2), $rowData[15], "");
-					$db->insertIntoJurySem($rowData[1], substr($fileName, 0, 2), $rowData[12], $rowData[13], $rowData[16]);
-					$db->insertIntoMoyRess($rowData[1], $ligneEntete[16], $rowData[16]);
-					$db->insertIntoMoyRess($rowData[1], $ligneEntete[16], $rowData[16]);
-					$db->insertIntoMoyRess($rowData[1], $ligneEntete[17], $rowData[16]);
-					$db->insertIntoMoyRess($rowData[1], $ligneEntete[18], $rowData[16]);
-					$db->insertIntoMoyRess($rowData[1], $ligneEntete[19], $rowData[16]);
-					$db->insertIntoMoyRess($rowData[1], $ligneEntete[21], $rowData[16]);
-					$db->insertIntoMoyRess($rowData[1], $ligneEntete[22], $rowData[16]);
-					$db->insertIntoMoyRess($rowData[1], $ligneEntete[23], $rowData[16]);
-					$db->insertIntoMoyRess($rowData[1], $ligneEntete[24], $rowData[16]);
-					$db->insertIntoMoyRess($rowData[1], $ligneEntete[16], $rowData[16]);
-					$db->insertIntoMoyRess($rowData[1], $ligneEntete[16], $rowData[16]);
-					$db->insertIntoMoyRess($rowData[1], $ligneEntete[16], $rowData[16]);
-					$db->insertIntoMoyRess($rowData[1], $ligneEntete[16], $rowData[16]);
-					$db->insertIntoMoyRess($rowData[1], $ligneEntete[16], $rowData[16]);
-					$db->insertIntoMoyRess($rowData[1], $ligneEntete[16], $rowData[16]);
-					$db->insertIntoMoyRess($rowData[1], $ligneEntete[16], $rowData[16]);
-					$db->insertIntoMoyRess($rowData[1], $ligneEntete[16], $rowData[16]);
-					$db->insertIntoMoyRess($rowData[1], $ligneEntete[16], $rowData[16]);
-					$db->insertIntoMoyRess($rowData[1], $ligneEntete[16], $rowData[16]);
-					$db->insertIntoMoyRess($rowData[1], $ligneEntete[16], $rowData[16]);
-					$db->insertIntoMoyRess($rowData[1], $ligneEntete[16], $rowData[16]);
-					$db->insertIntoMoyRess($rowData[1], $ligneEntete[16], $rowData[16]);
-					$db->insertIntoMoyRess($rowData[1], $ligneEntete[16], $rowData[16]);
+    $rowData = [];
+    foreach ($row->getCellIterator() as $cell) {
+        $rowData[] = $cell->getValue();
+    }
+
+    // Créer un tableau associatif avec les libellés et les données de chaque ligne
+    $data = array_combine($libelles, $rowData);
+
+    // Utiliser les libellés pour insérer les données dans la base de données
+    $db->insertIntoEtudiant($data['code_nip'], $rowData[6], $data['Prénom'], $data['Cursus'], array_key_exists('Parcours', $data) 	? $data['Parcours'] : "", "", "", "", "", $data['Abs'] - $data['Just.']);
 				}
 
 				$_SESSION['info_import_moyennes'] = "Les données du fichier $fileName ont été insérées avec succès dans la base de données";
