@@ -88,31 +88,31 @@ class DB {
 	  //	que d'éléments dans le tableau passé en second paramètre.
 	  //	NB : si la requête ne renvoie aucun tuple alors la fonction renvoie un tableau vide
 	  /************************************************************************/
-      private function execQuery($requete,$tparam,$nomClasse) {
-		//on prépare la requête
-		$stmt = $this->connect->prepare($requete);
-		//on indique que l'on va récupére les tuples sous forme d'objets instance de Client
-		$stmt->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, $nomClasse); 
-		//on exécute la requête
-		if ($tparam != null) {
-			$stmt->execute($tparam);
-		}
-		else {
-			$stmt->execute();
-		}
-		//récupération du résultat de la requête sous forme d'un tableau d'objets
-		$tab = array();
-		$tuple = $stmt->fetch(); //on récupère le premier tuple sous forme d'objet
-		if ($tuple) {
-			//au moins un tuple a été renvoyé
-			while ($tuple != false) {
-				$tab[]=$tuple; //on ajoute l'objet en fin de tableau
-				$tuple = $stmt->fetch(); //on récupère un tuple sous la forme
-				//d'un objet instance de la classe $nomClasse	       
-			} //fin du while	           	     
+		private function execQuery($requete, $tparam, $nomClasse) {
+			// on prépare la requête
+			$stmt = $this->connect->prepare($requete);
+			// on indique que l'on va récupérer les tuples sous forme d'objets instance de nomClasse
+			$stmt->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, $nomClasse);
+			// on exécute la requête
+			if ($tparam != null) {
+				$stmt->execute($tparam);
+			} else {
+				$stmt->execute();
 			}
-		return $tab;    
-	}	
+			// récupération du résultat de la requête sous forme d'un tableau d'objets
+			$tab = array();
+			$tuple = $stmt->fetch(); // on récupère le premier tuple sous forme d'objet
+			if ($tuple) {
+				// au moins un tuple a été renvoyé
+				while ($tuple != false) {
+					// Affichage des valeurs récupérées avant conversion
+					$tab[] = $tuple; // on ajoute l'objet en fin de tableau
+					$tuple = $stmt->fetch(); // on récupère un tuple sous la forme
+					// d'un objet instance de la classe $nomClasse
+				} // fin du while
+			}
+			return $tab;
+		}
   
 	   /************************************************************************/
 	  //	Methode utilisable uniquement dans les méthodes de la classe DB
@@ -124,18 +124,18 @@ class DB {
 	  //	ATTENTION : il doit y avoir autant de ? dans le texte de la requête
 	  //	que d'éléments dans le tableau passé en second paramètre.
 	  /************************************************************************/
-	  private function execMaj($ordreSQL,$tparam) {
-	  		 $stmt = $this->connect->prepare($ordreSQL);
-		 $res = $stmt->execute($tparam); //execution de l'ordre SQL      	     
-		 return $stmt->rowCount();
-	  }
+		private function execMaj($ordreSQL,$tparam) {
+			$stmt = $this->connect->prepare($ordreSQL);
+			$res = $stmt->execute($tparam); //execution de l'ordre SQL      	     
+			return $stmt->rowCount();
+		}
 
 	  /*************************************************************************
 	   * Fonctions qui peuvent être utilisées dans les scripts PHP
 	   *************************************************************************/
 	  
 	public function getEtudiants() {
-		$requete = 'select * from etudiant';
+		$requete = 'SELECT * from Etudiant';
 		return $this->execQuery($requete,null,'Etudiant');
 	}
 	  // public function deleteAchat($idcli,$np) {
@@ -144,15 +144,16 @@ class DB {
 	//       return $this->execMaj($requete,$tparam);
       // }
 
+	
+	/*************************************************************************
+	   * Fonctions Pour Inserer des donnees dans la base
+	   *************************************************************************/
+
 	  public function insertIntoPromotion($anneePromo, $nbEtud) {
 		$requete = 'INSERT INTO Promotion VALUES (?, ?)';
 		$tparam = array($anneePromo, $nbEtud);
 		return $this->execMaj($requete, $tparam);
 	}
-
-	/*************************************************************************
-	   * Fonctions Pour Inserer des donnees dans la base
-	   *************************************************************************/
 	
 	public function insertIntoEtudiant($codeNip, $nom, $prenom, $cursus, $parcours, $apprentissage, $avisInge, $avisMaster, $commentaire, $absInjust) {
 		$requete = 'INSERT INTO Etudiant VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';

@@ -14,8 +14,8 @@ class Etudiant {
     private $commentaire;
     private $absInjust;
     
-    public function __construct($i=-1,$n="",$pr="",$c="",$pa="",$ap="",$ai="",$am="",$com="",$abs="") {
-    $this->codeNip = $i;
+    public function __construct($i=-1,$n="",$pr="",$c="",$pa="",$ap="",$ai="",$am="",$com="",$abs=-1) {
+        $this->codeNip = $i;
         $this->nom = $n;
         $this->prenom = $pr;
         $this->cursus = $c;
