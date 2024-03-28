@@ -25,7 +25,7 @@ class Etudiant {
     }
 
     // Getters
-    public function getCodeNip(): int { return $this->codeNip; }
+    public function getCode(): int { return $this->codeNip; }
     public function getNom(): string { return $this->nom; }
     public function getPrenom(): string { return $this->prenom; }
     public function getCursus(): string { return $this->cursus; }
