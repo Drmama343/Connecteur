@@ -71,8 +71,8 @@ CREATE TABLE PromoEtud (
     FOREIGN KEY (codeNip) REFERENCES Etudiant(codeNip)
 );
 
--- Table CompRess
-CREATE TABLE CompRess (
+-- Table Coeff
+CREATE TABLE Coeff (
     idComp INT,
     idRess INT,
     coeff INT,
@@ -148,3 +148,5 @@ CREATE TABLE MoyCompAnnee (
     FOREIGN KEY (idComp) REFERENCES Competences(idComp),
     FOREIGN KEY (idAnnee) REFERENCES Annee(idAnnee)
 );
+
+
