@@ -158,9 +158,9 @@ class DB {
 	   * Fonctions Pour Inserer des donnees dans la base
 	   *************************************************************************/
 	
-	public function insertIntoEtudiant($codeNip, $nom, $prenom, $cursus, $rang, $parcours, $apprentissage, $avisInge, $avisMaster, $commentaire, $absInjust) {
-		$requete = 'INSERT INTO Etudiant VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-		$tparam = array($codeNip, $nom, $prenom, $cursus, $rang, $parcours, $apprentissage, $avisInge, $avisMaster, $commentaire, $absInjust);
+	public function insertIntoEtudiant($codeNip, $nom, $prenom, $cursus, $parcours, $apprentissage, $avisInge, $avisMaster, $commentaire, $absInjust) {
+		$requete = 'INSERT INTO Etudiant VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+		$tparam = array($codeNip, $nom, $prenom, $cursus, $parcours, $apprentissage, $avisInge, $avisMaster, $commentaire, $absInjust);
 		return $this->execMaj($requete, $tparam);
 	}
 	
