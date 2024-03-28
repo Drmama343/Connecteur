@@ -135,8 +135,8 @@ class DB {
 	   *************************************************************************/
 	  
 	public function getEtudiants() {
-				  $requete = 'select * from Etudiant';
-			return $this->execQuery($requete,null,'Etudiant');
+		$requete = 'select * from Etudiant';
+		return $this->execQuery($requete,null,'Etudiant');
 	}
 	public function getCode() {
 		$requete = 'select codeNip from Etudiant';

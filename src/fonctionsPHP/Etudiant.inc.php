@@ -11,7 +11,7 @@ class Etudiant {
     private ?string $commentaire;
     private int $absInjust;
     
-    public function __construct(int $codeNip = 0, string $nom = "", string $prenom = "", string $cursus = "", ?string $parcours = null, ?string $apprentissage = null, ?string $avisInge = null, ?string $avisMaster = null, ?string $commentaire = null, int $absInjust = 0) {
+    public function __construct(int $codeNip, string $nom = "", string $prenom = "", string $cursus = "", ?string $parcours = null, ?string $apprentissage = null, ?string $avisInge = null, ?string $avisMaster = null, ?string $commentaire = null, int $absInjust = 0) {
         $this->codeNip = $codeNip;
         $this->nom = $nom;
         $this->prenom = $prenom;
