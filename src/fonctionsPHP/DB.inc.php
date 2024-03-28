@@ -138,7 +138,7 @@ class DB {
 				  $requete = 'select * from Etudiant';
 			return $this->execQuery($requete,null,'Etudiant');
 	}
-	public function getCode() {
+	public function getCodes() {
 		$requete = 'select codeNip from Etudiant';
 		return $this->execQuery($requete,null,'Etudiant');
 	}
