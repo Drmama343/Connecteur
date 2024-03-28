@@ -7,14 +7,16 @@ class JurySem {
       private $idSem;
 	  private $moySem;
 	  private $UE;
+	  private $rang;
 	  private $bonus;
       
-      public function __construct($c="",$id="",$mo="",$r="",$d="") {
+      public function __construct($c="",$id="",$mo="",$r="",$d="",$rang="") {
             $this->codeNip = $c;
 	      $this->idSem = $id;
 		  $this->moySem = $mo;
 		  $this->UE = $r;
 		  $this->bonus = $d;
+		  $this->rang = $rang;
       }
 
       public function getCode() { return $this->codeNip; }
@@ -22,6 +24,7 @@ class JurySem {
 	  public function getMoySem() { return $this->moySem;}
 	  public function getUE() { return $this->UE;}
 	  public function getBonus() { return $this->bonus;}
+	  public function getRang() { return $this->rang;}
 
       public function __toString() {
 	     $res = "<br/>";

@@ -51,9 +51,6 @@
 				<tbody>\n";
 
 		foreach ($t as &$v) {
-			$nom = $v->getNom();
-			$prenom = $v->getPrenom();
-			$moy = $v->getMoy();
 
 			echo "<td>$v->getCode()</td>\n";
 			echo "<td>$v->getNom()</td>\n";
