@@ -1,7 +1,7 @@
 <?php
 
 /*classe permettant de representer les tuples de la table client */
-class Ressources {
+class Ressource {
       /*avec PDO, il faut que les noms attributs soient les mêmes que ceux de la table*/
       private $idRess;
       private $nomRess;
