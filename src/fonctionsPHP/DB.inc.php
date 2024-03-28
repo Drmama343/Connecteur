@@ -2,7 +2,7 @@
 
 require ("Annee.inc.php");
 require ("Coeff.inc.php");
-require ("Competences.inc.php");
+require ("Competence.inc.php");
 require ("CompSem.inc.php");
 require ("Etudiant.inc.php");
 require ("JuryAnnee.inc.php");
@@ -12,7 +12,7 @@ require ("MoyCompSem.inc.php");
 require ("MoyRess.inc.php");
 require ("PromoEtud.inc.php");
 require ("Promotion.inc.php");
-require ("Ressources.inc.php");
+require ("Ressource.inc.php");
 require ("Semestre.inc.php");
 
 class DB {
@@ -134,9 +134,9 @@ class DB {
 	   * Fonctions qui peuvent être utilisées dans les scripts PHP
 	   *************************************************************************/
 	  
-	  public function getTout() {
-				  $requete = 'select * from Test';
-			return $this->execQuery($requete,null,'Test');
+	  public function getEtudiants() {
+				  $requete = 'select * from Etudiant';
+			return $this->execQuery($requete,null,'Etudiant');
 	  }
 	  // public function deleteAchat($idcli,$np) {
 	  //       $requete = 'delete from achat where ncli = ? and np = ?';

@@ -20,7 +20,7 @@
 		}
 		else {
 			try {
-				$t = $db->getTout();
+				$t = $db->getEtudiants();
 			} //fin try
 			catch (Exception $e) {
 				echo $e->getMessage();
@@ -36,9 +36,16 @@
 			<table>
 				<thead>
 					<tr>
-						<th>nom</th>
-						<th>prenom</th>
-						<th>moyenne</th>
+						<th>Code NIP</th>
+						<th>Nom</th>
+						<th>Prénom</th>
+						<th>Cursus</th>
+						<th>Parcours</th>
+						<th>Apprentissage</th>
+						<th>Avis Ingénieur</th>
+						<th>Avis Master</th>
+						<th>Commentaire</th>
+						<th>Absences Injustifiées</th>
 					</tr>
 				</thead>
 				<tbody>\n";
@@ -48,9 +55,16 @@
 			$prenom = $v->getPrenom();
 			$moy = $v->getMoy();
 
-			echo "<td>$nom</td>\n";
-			echo "<td>$prenom</td>\n";
-			echo "<td>$moy</td>\n";
+			echo "<td>$v->getCode()</td>\n";
+			echo "<td>$v->getNom()</td>\n";
+			echo "<td>$v->getPrenom()</td>\n";
+			echo "<td>$v->getCursus()</td>\n";
+			echo "<td>$v->getParours()</td>\n";
+			echo "<td>$v->getApprentissage()</td>\n";
+			echo "<td>$v->getAvisInge()</td>\n";
+			echo "<td>$v->getAvisMaster()</td>\n";
+			echo "<td>$v->getCommentaire()</td>\n";
+			echo "<td>$v->getAbsInjust()</td>\n";
 
 			echo "</tr>\n";
 		}
@@ -76,7 +90,7 @@
 					}
 					$_GET['updateCli'] = $_GET['updateNp'] = null;
 				}
-				$t = $db->getTout();
+				$t = $db->getEtudiants();
 			} //fin try
 			catch (Exception $e) { 
 				echo $e->getMessage();
