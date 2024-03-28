@@ -16,7 +16,7 @@ DROP TABLE IF EXISTS Semestre CASCADE;
 -- Table Semestre
 CREATE TABLE Semestre (
     idSem INT PRIMARY KEY,
-    nomSem VARCHAR(50),
+    nomSem VARCHAR(50)
 );
 
 -- Table Annee
