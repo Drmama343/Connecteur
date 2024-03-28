@@ -7,7 +7,6 @@ class Etudiant {
       private $nom;
 	  private $prenom;
 	  private $cursus;
-	  private $rang;
 	  private $parcours;
 	  private $apprentissage;
 	  private $avisInge;
@@ -15,12 +14,11 @@ class Etudiant {
 	  private $commentaire;
 	  private $absInjust;
       
-      public function __construct($i="",$n="",$pr="",$c="",$r="",$pa="",$ap="",$ai="",$am="",$com="",$abs="") {
+      public function __construct($i="",$n="",$pr="",$c="",$pa="",$ap="",$ai="",$am="",$com="",$abs="") {
             $this->codeNip = $i;
 	      $this->nom = $n;
 		  $this->prenom = $pr;
 		  $this->cursus = $c;
-		  $this->rang = $r;
 		  $this->parcours = $pa;
 		  $this->apprentissage = $ap;
 		  $this->avisInge = $ai;
@@ -33,7 +31,6 @@ class Etudiant {
       public function getNom() { return $this->nom;}
 	  public function getPrenom() { return $this->prenom; }
       public function getCursus() { return $this->cursus;}
-	  public function getRang() { return $this->rang; }
       public function getParours() { return $this->parcours;}
 	  public function getApprentissage() { return $this->apprentissage; }
       public function getAvisInge() { return $this->avisInge;}
