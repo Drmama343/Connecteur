@@ -1,0 +1,75 @@
+body {
+	font-family: Arial, sans-serif;
+	margin: 0;
+	padding: 0;
+}
+
+nav {
+	position:absolute;
+	top: 0px;
+	left: 0px;
+	background-color: #e1ffc2;
+	width: 250px;
+	height: 100%;
+	padding: 20px;
+	box-sizing: border-box;
+	border-right: 0.5px gray solid;
+	margin-right: 45px;
+	text-align: center;
+}
+
+nav p {
+	color: black;
+}
+
+nav a {
+	display: block;
+	color: black;
+	font-family: Arial, sans-serif;
+	text-decoration: none;
+	margin: 20px;
+	margin-bottom: 20px;
+}
+
+nav a:hover {
+	font-size: larger;
+}
+
+.hrmenu {
+	width: 70%;
+	color: gray;
+}
+
+.id {
+	background-color: olivedrab;
+	border-radius: 15px;
+	padding: 5px;
+}
+
+.logout {
+	position: absolute;
+	top: 87%;
+	left: 80px;
+}
+
+header {
+	position: relative;
+	left: 300px;
+	width: 80%;
+}
+
+section {
+	position: relative;
+	left: 300px;
+	width: 80%;
+	height: 100%;
+}
+
+footer {
+	position: fixed;
+	left: 300px;
+	bottom: 0px;
+	width: 80%;
+	padding: 20px 0;
+	text-align: center;
+}
