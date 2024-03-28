@@ -1,6 +1,19 @@
 <?php
 
-require ("Test.inc.php");
+require ("Annee.inc.php");
+require ("Coeff.inc.php");
+require ("Competences.inc.php");
+require ("CompSem.inc.php");
+require ("Etudiant.inc.php");
+require ("JuryAnnee.inc.php");
+require ("JurySem.inc.php");
+require ("MoyCompAnnee.inc.php");
+require ("MoyCompSem.inc.php");
+require ("MoyRess.inc.php");
+require ("PromoEtud.inc.php");
+require ("Promotion.inc.php");
+require ("Ressources.inc.php");
+require ("Semestre.inc.php");
 
 class DB {
 	  private static $instance = null; //mémorisation de l'instance de DB pour appliquer le pattern Singleton
@@ -137,11 +150,89 @@ class DB {
 	      return $this->execMaj($requete,$tparam);
       }
 
-	  public function insertTest($nom,$prenom,$moyenne) {
-			$requete = 'INSERT INTO Test VALUES (?, ?, ?)';
-		  $tparam = array($nom,$prenom,$moyenne);
+	  public function insertIntoPromotion($anneePromo,$nbEtud) {
+			$requete = 'INSERT INTO Promotion VALUES (?, ?)';
+		  $tparam = array($anneePromo,$nbEtud);
 		  return $this->execMaj($requete,$tparam);
 	  }
+
+	  public function insertIntoEtudiant($codeNip,$nom,$prenom,$cursus,$rang,$parcours,$apprentissage,$avisInge,$avisMaster,$commentaire,$absInjust) {
+		$requete = 'INSERT INTO Etudiant VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+	  $tparam = array($codeNip,$nom,$prenom,$cursus,$rang,$parcours,$apprentissage,$avisInge,$avisMaster,$commentaire,$absInjust);
+	  return $this->execMaj($requete,$tparam);
+  }
+
+  public function insertIntoAnnee($idAnnee,$nomAnnee) {
+	$requete = 'INSERT INTO Annee VALUES (?, ?)';
+  $tparam = array($idAnnee,$nomAnnee);
+  return $this->execMaj($requete,$tparam);
+}
+
+public function insertIntoSemestre($idSem,$nomSem,$idAnnee) {
+$requete = 'INSERT INTO Semestre VALUES (?, ?, ?)';
+$tparam = array($idSem,$nomSem,$idAnnee);
+return $this->execMaj($requete,$tparam);
+}
+
+public function insertIntoCompetence($idComp,$nomComp) {
+	$requete = 'INSERT INTO Competence VALUES (?, ?)';
+  $tparam = array($idComp,$nomComp);
+  return $this->execMaj($requete,$tparam);
+}
+
+public function insertIntoRessource($idRess,$nomRess) {
+$requete = 'INSERT INTO Ressource VALUES (?, ?)';
+$tparam = array($idRess,$nomRess);
+return $this->execMaj($requete,$tparam);
+}
+
+public function insertIntoPromoEtud($anneePromo,$codeNip) {
+	$requete = 'INSERT INTO PromoEtud VALUES (?, ?)';
+  $tparam = array($anneePromo,$codeNip);
+  return $this->execMaj($requete,$tparam);
+}
+
+public function insertIntoCoeff($idComp,$idRess,$coeff) {
+$requete = 'INSERT INTO Coeff VALUES (?, ?, ?)';
+$tparam = array($idComp,$idRess,$coeff);
+return $this->execMaj($requete,$tparam);
+}
+
+public function insertIntoCompSem($idComp,$idSem) {
+	$requete = 'INSERT INTO CompSem VALUES (?, ?)';
+  $tparam = array($idComp,$idSem);
+  return $this->execMaj($requete,$tparam);
+}
+
+public function insertIntoMoyRess($codeNip,$idRess,$moyRess) {
+$requete = 'INSERT INTO MoyRess VALUES (?, ?, ?)';
+$tparam = array($codeNip,$idRess,$moyRess);
+return $this->execMaj($requete,$tparam);
+}
+
+public function insertIntoJurySem($codeNip,$idSem,$moySem,$UE,$bonus) {
+	$requete = 'INSERT INTO JurySem VALUES (?, ?, ?, ?, ?)';
+  $tparam = array($codeNip,$idSem,$moySem,$UE,$bonus);
+  return $this->execMaj($requete,$tparam);
+}
+
+public function insertIntoJuryAnnee($codeNip,$idAnnee,$moyAnnee,$RCUE,$decision) {
+$requete = 'INSERT INTO JuryAnnee VALUES (?, ?, ?, ?, ?)';
+$tparam = array($codeNip,$idAnnee,$moyAnnee,$RCUE,$decision);
+return $this->execMaj($requete,$tparam);
+}
+
+public function insertIntoMoyCompSem($codeNip,$idComp,$idSem,$moyCompSem,$avis) {
+	$requete = 'INSERT INTO MoyCompSem VALUES (?, ?, ?, ?, ?)';
+  $tparam = array($codeNip,$idComp,$idSem,$moyCompSem,$avis);
+  return $this->execMaj($requete,$tparam);
+}
+
+public function insertIntoMoyCompAnnee($codeNip,$idComp,$idAnnee,$moyCompAnnee,$avis) {
+$requete = 'INSERT INTO MoyCompAnnee VALUES (?, ?, ?, ?, ?)';
+$tparam = array($codeNip,$idComp,$idAnnee,$moyCompAnnee,$avis);
+return $this->execMaj($requete,$tparam);
+}
 
 } //fin classe DB
 

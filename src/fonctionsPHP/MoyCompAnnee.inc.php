@@ -7,18 +7,21 @@ class MoyCompAnnee {
       private $idComp;
       private $idAnnee;
 	  private $moyCompAnnee;
+	  private $avis;
 	
-	public function __construct($i="",$n="",$a="",$m="") {
+	public function __construct($i="",$n="",$a="",$m="",$av="") {
 		$this->codeNip = $i;
 		$this->idComp = $n;
 		$this->idAnnee = $a;
 		$this->moyCompAnnee = $m;
+		$this->avis = $av;
 	}
 
       public function getCodeNip() { return $this->codeNip; }
       public function getIdComp() { return $this->idComp;}
       public function getIdAnnee() { return $this->idAnnee; }
 	  public function getMoyCompAnnee() { return $this->moyCompAnnee; }
+	  public function getAvis() { return $this->avis; }
 
       public function __toString() {
 		$res = "codeNip:".$this->codeNip."\n";
