@@ -52,18 +52,13 @@ else {
 				$data = array_combine($libelles, $rowData);
 
 				// Utiliser les libellés pour insérer les données dans la base de données
-				if ( $db->insertIntoEtudiant(intval($data['code_nip']), $rowData[6], $data['Prénom'], $data['Cursus'], array_key_exists('Parcours', $data) 	? $data['Parcours'] : "", (strpos($fileName, "FAP") ? substr($fileName, 0, 2) : ""), "", "", "", intval($data['Abs'] - $data['Just.'])) === 1 ) {
+				if ( $db->insertIntoEtudiant(intval($data['code_nip']), $rowData[5], $data['Prénom'], $data['Cursus'], array_key_exists('Parcours', $data) 	? $data['Parcours'] : "", (strpos($fileName, "FAP") ? substr($fileName, 0, 2) : ""), "", "", "", "") === 1 ) {
 					if (isset($_POST['submit'])) {
-						$button_clicked = $_POST['submit'];
-					
-						if ($button_clicked === "Annuler") {
-							header("Location: ../pages/import.php");
-						} elseif ($button_clicked === "Ecraser") {
-							$db->updateEtudiant(intval($data['code_nip']), $rowData[6], $data['Prénom'], $data['Cursus'], array_key_exists('Parcours', $data) 	? $data['Parcours'] : "", (strpos($fileName, "FAP") ? substr($fileName, 0, 2) : ""), "", "", "");
-						}
+						$db->updateEtudiant(intval($data['code_nip']), $data['Cursus'], array_key_exists('Parcours', $data) 	? $data['Parcours'] : "", (strpos($fileName, "FAP") ? substr($fileName, 0, 2) : ""), "", "", "", "");
 					} else {
 						$_SESSION['alerteErreur'] = true;
 						header("Location: ../pages/import.php");
+						break;
 					}
 				}
 

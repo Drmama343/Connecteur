@@ -46,7 +46,7 @@
 						<th>Avis Ingénieur</th>
 						<th>Avis Master</th>
 						<th>Commentaire</th>
-						<th>Absences Injustifiées</th>
+						<th>Mobilité étrangère</th>
 					</tr>
 				</thead>
 				<tbody>\n";
@@ -62,7 +62,7 @@
 			echo "<td>" . $v->getAvisInge() . "</td>\n";
 			echo "<td>" . $v->getAvisMaster() . "</td>\n";
 			echo "<td>" . $v->getCommentaire() . "</td>\n";
-			echo "<td>" . $v->getAbsInjust() . "</td>\n";
+			echo "<td>" . $v->getMobEtrang() . "</td>\n";
 
 			echo "</tr>\n";
 		}

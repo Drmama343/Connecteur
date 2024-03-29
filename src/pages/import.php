@@ -27,7 +27,7 @@
 			echo "				<input type=\"file\" name=\"file\" id=\"file\" required><br>\n";
 			echo "				<p>Le remplissage de la base de données a été intérompu car des données apparaissent plusieurs fois.</p>\n";
 			echo "				<p>Voulez vous</p>\n";
-			echo "				<input type=\"submit\" name=\"submit\" value=\"Annuler\">\n";
+			echo "				<input type=\"reset\" name=\"reset\" value=\"Annuler\" onclick=\"redirect()\">\n";
 			echo "				<input type=\"submit\" name=\"submit\" value=\"Ecraser\">\n";
 			echo "			</form>\n";
 			echo "		</section>\n";
@@ -56,3 +56,11 @@
 		}
 	}
 ?>
+
+<script>
+    // Fonction pour effectuer la redirection
+    function redirect() {
+        // Redirection vers la page spécifiée
+        window.location.href = "import.php";
+    }
+</script>

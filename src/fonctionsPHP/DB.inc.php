@@ -162,9 +162,9 @@ class DB {
 	//       return $this->execMaj($requete,$tparam);
       // }
 
-	public function updateEtudiant($codeNip, $cursus, $parcours, $apprentissage, $avisInge, $avisMaster, $commentaire, $absInjust) {
-		$requete = 'UPDATE Etudiant SET cursus = ?, parcours = ?, apprentissage = ?, avisInge = ?, avisMaster = ?, commentaire = ?, absInjust = ? WHERE codeNip = ?';
-		$tparam = array($cursus, $parcours, $apprentissage, $avisInge, $avisMaster, $commentaire, $absInjust, $codeNip);
+	public function updateEtudiant($codeNip, $cursus, $parcours, $apprentissage, $avisInge, $avisMaster, $commentaire, $etranger) {
+		$requete = 'UPDATE Etudiant SET cursus = ?, parcours = ?, apprentissage = ?, avisInge = ?, avisMaster = ?, commentaire = ?, mobEtrang = ? WHERE codeNip = ?';
+		$tparam = array($cursus, $parcours, $apprentissage, $avisInge, $avisMaster, $commentaire, $etranger, $codeNip);
 		return $this->execMaj($requete, $tparam);
 	}
 	
