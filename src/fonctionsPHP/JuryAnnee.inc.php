@@ -9,14 +9,16 @@ class JuryAnnee {
 	  private $RCUE;
 	  private $decision;
 	  private $rang;
+	  private $anneePromo;
       
-      public function __construct($c="",$id="",$mo="",$r="",$d="",$rang="") {
+      public function __construct($c="",$id="",$mo="",$r="",$d="",$rang="",$anneePromo="") {
             $this->codeNip = $c;
 	      $this->idAnnee = $id;
 		  $this->moyAnnee = $mo;
 		  $this->RCUE = $r;
 		  $this->decision = $d;
 		  $this->rang = $rang;
+		  $this->anneePromo = $anneePromo;
       }
 
       public function getCode() { return $this->codeNip; }
@@ -25,6 +27,7 @@ class JuryAnnee {
 	  public function getRCUE() { return $this->RCUE;}
 	  public function getDecision() { return $this->decision;}
 	  public function getRang() { return $this->rang;}
+	  public function getAnneePromo() { return $this->anneePromo;}
 
       public function __toString() {
 	     $res = "<br/>";
