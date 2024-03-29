@@ -124,20 +124,38 @@ class DB {
 	  //	ATTENTION : il doit y avoir autant de ? dans le texte de la requête
 	  //	que d'éléments dans le tableau passé en second paramètre.
 	  /************************************************************************/
-		private function execMaj($ordreSQL,$tparam) {
-			$stmt = $this->connect->prepare($ordreSQL);
-			$res = $stmt->execute($tparam); //execution de l'ordre SQL      	     
-			return $stmt->rowCount();
-		}
+	private function execMaj($ordreSQL,$tparam) {
+		$stmt = $this->connect->prepare($ordreSQL);
+		try {
+			$res = $stmt->execute($tparam); //execution de l'ordre SQL
+			return 0;
+		} catch (Exception $e) { return 1; }
+	}
 
 	  /*************************************************************************
 	   * Fonctions qui peuvent être utilisées dans les scripts PHP
 	   *************************************************************************/
-	  
+	
 	public function getEtudiants() {
 		$requete = 'SELECT * from Etudiant';
 		return $this->execQuery($requete,null,'Etudiant');
 	}
+
+	public function getEtudiantsS5($annee) {
+		$requete = "SELECT e.* from Etudiant e Join JuryAnnee ja ON e.codenip = ja.codenip WHERE nomAnnee = 'BUT3' AND anneePromo = '$annee'";
+		return $this->execQuery($requete,null,'Etudiant');
+	}
+
+	public function getMoyCompAnnee($codenip, $idComp, $nomAnnee) {
+		$requete = "SELECT mca.moyCompAnnee from MoyCompAnnee mca Join Etudiant e ON mca.codenip = e.codenip WHERE nomAnnee = '$nomAnnee' AND idComp = '$idComp'";
+		return $this->execQuery($requete,null,'Etudiant');
+	}
+
+	public function getRangCompAnnee($codenip, $idComp, $nomAnnee) {
+		$requete = "SELECT mca.moyCompAnnee from MoyCompAnnee mca Join Etudiant e ON mca.codenip = e.codenip WHERE nomAnnee = '$nomAnnee' AND idComp = '$idComp'";
+		return $this->execQuery($requete,null,'Etudiant');
+	}
+
 	  // public function deleteAchat($idcli,$np) {
 	  //       $requete = 'delete from achat where ncli = ? and np = ?';
 	//       $tparam = array($idcli,$np);
@@ -149,7 +167,7 @@ class DB {
 	   * Fonctions Pour Inserer des donnees dans la base
 	   *************************************************************************/
 
-	  public function insertIntoPromotion($anneePromo, $nbEtud) {
+	public function insertIntoPromotion($anneePromo, $nbEtud) {
 		$requete = 'INSERT INTO Promotion VALUES (?, ?)';
 		$tparam = array($anneePromo, $nbEtud);
 		return $this->execMaj($requete, $tparam);
