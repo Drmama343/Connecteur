@@ -159,18 +159,7 @@ else {
 						$db->insertIntoMoyCompSem($data['code_nip'], 'BIN45', $semestre, ($data['BIN45'] == '~' ? null : floatval($data['BIN45'])), "");
 						$db->insertIntoMoyCompSem($data['code_nip'], 'BIN46', $semestre, ($data['BIN46'] == '~' ? null : floatval($data['BIN46'])), "");
 						$db->insertIntoJurySem($data['code_nip'], $semestre, floatval($data['Moy']), $data['UEs'], ($data['Bonus BIN41'] == ' ' ? null : floatval($data['Bonus BIN41'])), null);
-						$db->insertIntoMoyRess($data['code_nip'], 'BINR401', ($data['BINR401'] == '~' ? null : floatval($data['BINR401'])));
-						$db->insertIntoMoyRess($data['code_nip'], 'BINR402', ($data['BINR402'] == '~' ? null : floatval($data['BINR402'])));
-						$db->insertIntoMoyRess($data['code_nip'], 'BINR403', ($data['BINR403'] == '~' ? null : floatval($data['BINR403'])));
-						$db->insertIntoMoyRess($data['code_nip'], 'BINR404', ($data['BINR404'] == '~' ? null : floatval($data['BINR404'])));
-						$db->insertIntoMoyRess($data['code_nip'], 'BINR405', ($data['BINR405'] == '~' ? null : floatval($data['BINR405'])));
-						$db->insertIntoMoyRess($data['code_nip'], 'BINR406', ($data['BINR406'] == '~' ? null : floatval($data['BINR406'])));
-						$db->insertIntoMoyRess($data['code_nip'], 'BINR407', ($data['BINR407'] == '~' ? null : floatval($data['BINR407'])));
-						$db->insertIntoMoyRess($data['code_nip'], 'BINR408', ($data['BINR408'] == '~' ? null : floatval($data['BINR408'])));
-						$db->insertIntoMoyRess($data['code_nip'], 'BINR409', ($data['BINR409'] == '~' ? null : floatval($data['BINR409'])));
-						$db->insertIntoMoyRess($data['code_nip'], 'BINR410', ($data['BINR410'] == '~' ? null : floatval($data['BINR410'])));
-						$db->insertIntoMoyRess($data['code_nip'], 'BINR411', ($data['BINR411'] == '~' ? null : floatval($data['BINR411'])));
-						$db->insertIntoMoyRess($data['code_nip'], 'BINR412', ($data['BINR412'] == '~' ? null : floatval($data['BINR412'])));
+						insertIntoMoyRessWithMaxColumnNumber($data, 401, $db);
 						$db->insertIntoMoyRess($data['code_nip'], 'BINP401', ($data['BINP401'] == '~' ? null : floatval($data['BINP401'])));
 						$db->insertIntoMoyRess($data['code_nip'], 'BINS401', ($data['BINS401'] == '~' ? null : floatval($data['BINS401'])));
 						$db->insertIntoMoyRess($data['code_nip'], 'BINS411', ($data['BINS411'] == '~' ? null : floatval($data['BINS411'])));
@@ -223,6 +212,33 @@ else {
 			header("Location: ../pages/import.php");
 		}
 	}
+}
+function insertIntoMoyRessWithMaxColumnNumber($data, $startColumnNumber, $db) {
+    $maxColumnNumber = 0;
+    
+    // Recherche de la colonne avec le numéro le plus élevé
+    foreach ($data as $key => $value) {
+        // Vérifie si la clé commence par 'BINR'
+        if (strpos($key, 'BINR') === 0) {
+            // Récupère le numéro après 'BINR' et le compare avec $maxColumnNumber
+            $columnNumber = intval(substr($key, 4));
+            if ($columnNumber > $maxColumnNumber) {
+                $maxColumnNumber = $columnNumber;
+            }
+        }
+    }
+    
+    // Utilisation de la valeur maximale trouvée dans la boucle
+    for ($i = $startColumnNumber; $i <= $maxColumnNumber; $i++) {
+        $columnName = 'BINR' . $i;
+        // Vérifie si la clé existe dans le tableau $data
+        if (array_key_exists($columnName, $data)) {
+            $db->insertIntoMoyRess($data['code_nip'], $columnName, ($data[$columnName] == '~' ? null : floatval($data[$columnName])));
+        } else {
+            // Si la clé n'existe pas, insère une valeur null
+            $db->insertIntoMoyRess($data['code_nip'], $columnName, null);
+        }
+    }
 }
 $db->close();
 ?>
