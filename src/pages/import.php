@@ -16,6 +16,9 @@
 	echo pied();
 
 	function contenu ($infoMoyennes, $infoJury) {
+
+		echo "		<header><h1>Importer des Données</h1></header>";
+		
 		if ( isset($_SESSION['alerteErreur']) ) {
 			echo "		<section>\n";
 			echo "			<form method=\"post\" enctype=\"multipart/form-data\">\n";
@@ -58,7 +61,4 @@
 				</script>";
 		}
 	}
-
-
-
 ?>
