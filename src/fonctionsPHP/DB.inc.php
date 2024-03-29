@@ -113,34 +113,6 @@ class DB {
 			}
 			return $tab;
 		}
-
-		private function selectFromTable($attributs = "*", $table) {
-			// Construction de la requête SQL en fonction des paramètres fournis
-			$sql = "SELECT ";
-			if (is_array($attributs)) {
-				$sql .= implode(", ", $attributs);
-			} else {
-				$sql .= $attributs;
-			}
-			$sql .= " FROM $table";
-	
-			// Exécution de la requête
-			try {
-				$result = $this->connect->query($sql);
-			} catch (PDOException $e) {
-				echo "Erreur d'exécution de la requête : ".$e->getMessage();
-				return array();
-			}
-	
-			// Traitement des résultats
-			$rows = array();
-			if ($result) {
-				$rows = $result->fetchAll(PDO::FETCH_ASSOC);
-			}
-	
-			// Retour des résultats
-			return $rows;
-		}
   
 	   /************************************************************************/
 	  //	Methode utilisable uniquement dans les méthodes de la classe DB
@@ -163,19 +135,8 @@ class DB {
 	   *************************************************************************/
 	  
 	public function getEtudiants() {
-		// Utilisation de la fonction selectFromTable pour récupérer les données des étudiants
-		$rows = $this->selectFromTable(["codeNip", "nom", "prenom", "cursus", "parcours", "apprentissage", "avisInge", "avisMaster", "commentaire", "absInjust"], "Etudiant");
-		// Création d'un tableau pour stocker les objets Etudiant
-		$etudiants = array();
-	
-		// Conversion des données récupérées en objets Etudiant
-		foreach ($rows as $row) {
-			$etudiant = new Etudiant($row["codenip"], $row["nom"], $row["prenom"], $row["cursus"], $row["parcours"], $row["apprentissage"], $row["avisinge"], $row["avismaster"], $row["commentaire"], $row["absinjust"]);
-			$etudiants[] = $etudiant;
-		}
-	
-		// Retour du tableau d'objets Etudiant
-		return $etudiants;
+		$requete = 'SELECT * from Etudiant';
+		return $this->execQuery($requete,null,'Etudiant');
 	}
 	  // public function deleteAchat($idcli,$np) {
 	  //       $requete = 'delete from achat where ncli = ? and np = ?';
