@@ -16,9 +16,12 @@
 	echo pied();
 
 	function contenu ($infoMoyennes, $infoJury) {
+		echo "		<header><h1>Importer des Données</h1></header>";
+
 		echo "		<section>\n";
 		echo "			<form action=\"../fonctionsPHP/enregistrementMoyennes.php\" method=\"post\" enctype=\"multipart/form-data\">\n";
 		echo "				<h2>Déposer un fichier Moyennes</h2>\n";
+		echo "				<input type=\"text\" id=\"annee\" name=\"annee\" placeholder=\"Année (ex: 2022-2023)\"><br>\n";
 		echo "				<input type=\"file\" name=\"file\" id=\"file\" required><br>\n";
 		echo "				<input type=\"submit\" value=\"Importer\">\n";
 		echo "				<p>$infoMoyennes</p>\n";
@@ -28,23 +31,11 @@
 		echo "		<section>\n";
 		echo "			<form action=\"../fonctionsPHP/enregistrementJury.php\" method=\"post\" enctype=\"multipart/form-data\">\n";
 		echo "				<h2>Déposer un fichier Jury</h2>\n";
+		echo "				<input type=\"text\" id=\"annee\" name=\"annee\" placeholder=\"Année (ex: 2022-2023)\"><br>\n";
 		echo "				<input type=\"file\" name=\"file\" id=\"file\" required><br>\n";
-		echo "				<input type=\"submit\" value=\"Importer\" onclick=\"showLoader('loader-jury')\">\n";
+		echo "				<input type=\"submit\" value=\"Importer\">\n";
 		echo "				<p>$infoJury</p>\n";
 		echo "			</form>\n";
 		echo "		</section>\n";
-
-		echo "<script>
-			function showLoader(loaderId) {
-			var loader = document.createElement('div');
-			loader.className = 'loader';
-			loader.id = loaderId;
-			loader.innerHTML = '<img src=\"../images/loadingBar.png\" alt=\"Loading...\">';
-			document.getElementById(loaderId).appendChild(loader);
-			}
-			</script>";
 	}
-
-
-
 ?>
