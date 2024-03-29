@@ -85,6 +85,7 @@
 		"<form action=\"../fonctionsPHP/telechargementPoursuite.php\" method=\"get\">".
 
 			"<label>Fiche de poursuite d'études</label><br>".
+			"<input type=\"text\" id=\"annee\" name=\"annee\" placeholder=\"Année (ex: 2022-2023)\"><br>".
 			"<br>".
 			"<p>$infoPoursuite</p>".
 			"<br>".

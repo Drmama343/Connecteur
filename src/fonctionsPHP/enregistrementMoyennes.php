@@ -46,7 +46,7 @@ else {
 					$data = array_combine($libelles, $rowData);
 
 					// Utiliser les libellés pour insérer les données dans la base de données
-					$db->insertIntoEtudiant($data['code_nip'], $rowData[6], $data['Prénom'], $data['Cursus'], array_key_exists('Parcours', $data) 	? $data['Parcours'] : "", (strpos($fileName, "FAP") ? substr($fileName, 0, 2) : ""), "", "", "", $data['Abs'] - $data['Just.']);
+					$db->insertIntoEtudiant(intval($data['code_nip']), $rowData[6], $data['Prénom'], $data['Cursus'], array_key_exists('Parcours', $data) 	? $data['Parcours'] : "", (strpos($fileName, "FAP") ? substr($fileName, 0, 2) : ""), "", "", "", intval($data['Abs'] - $data['Just.']));
 
 					/*$semestre = substr($fileName, 1, 2);
 					switch ($semestre) {
