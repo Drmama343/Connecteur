@@ -43,8 +43,7 @@ CREATE TABLE Ressource (
 
 -- Table Promotion
 CREATE TABLE Promotion (
-    anneePromo VARCHAR(50) PRIMARY KEY,
-    nbEtud INT
+    anneePromo VARCHAR(50) PRIMARY KEY
 );
 
 -- Table Etudiant
@@ -120,9 +119,11 @@ CREATE TABLE JuryAnnee (
     RCUE VARCHAR(50),
     decision VARCHAR(50),
     rang INT,
+    anneePromo VARCHAR(50),
     PRIMARY KEY (codeNip, idAnnee),
     FOREIGN KEY (codeNip) REFERENCES Etudiant(codeNip),
-    FOREIGN KEY (idAnnee) REFERENCES Annee(idAnnee)
+    FOREIGN KEY (idAnnee) REFERENCES Annee(idAnnee),
+    FOREIGN KEY (anneePromo) REFERENCES Promotion(anneePromo)
 );
 
 -- Table MoyCompSem
