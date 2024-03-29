@@ -21,8 +21,10 @@
 		
 		if ( isset($_SESSION['alerteErreur']) ) {
 			echo "		<section>\n";
-			echo "			<form action=\"../fonctionsPHP/enregistrementMoyennes.php\" method=\"post\" enctype=\"multipart/form-data\">\n";
+			echo "			<form action=\"../fonctionsPHP/ImportMoyennes.php\" method=\"post\" enctype=\"multipart/form-data\">\n";
 			echo "				<h2>Duplication de tuples</h2>\n";
+			echo "				<input type=\"text\" id=\"annee\" name=\"annee\" placeholder=\"Année (ex: 2022-2023)\"><br>\n";
+			echo "				<input type=\"file\" name=\"file\" id=\"file\" required><br>\n";
 			echo "				<p>Le remplissage de la base de données a été intérompu car des données apparaissent plusieurs fois.</p>\n";
 			echo "				<p>Voulez vous</p>\n";
 			echo "				<input type=\"submit\" name=\"submit\" value=\"Annuler\">\n";
@@ -33,8 +35,9 @@
 		}
 		else {
 			echo "		<section>\n";
-			echo "			<form action=\"../fonctionsPHP/enregistrementMoyennes.php\" method=\"post\" enctype=\"multipart/form-data\">\n";
+			echo "			<form action=\"../fonctionsPHP/ImportMoyennes.php\" method=\"post\" enctype=\"multipart/form-data\">\n";
 			echo "				<h2>Déposer un fichier Moyennes</h2>\n";
+			echo "				<input type=\"text\" id=\"annee\" name=\"annee\" placeholder=\"Année (ex: 2022-2023)\"><br>\n";
 			echo "				<input type=\"file\" name=\"file\" id=\"file\" required><br>\n";
 			echo "				<input type=\"submit\" value=\"Importer\">\n";
 			echo "				<p>$infoMoyennes</p>\n";
@@ -42,8 +45,9 @@
 			echo "		</section>\n";
 
 			echo "		<section>\n";
-			echo "			<form action=\"../fonctionsPHP/enregistrementJury.php\" method=\"post\" enctype=\"multipart/form-data\">\n";
+			echo "			<form action=\"../fonctionsPHP/ImportJury.php\" method=\"post\" enctype=\"multipart/form-data\">\n";
 			echo "				<h2>Déposer un fichier Jury</h2>\n";
+			echo "				<input type=\"text\" id=\"annee\" name=\"annee\" placeholder=\"Année (ex: 2022-2023)\"><br>\n";
 			echo "				<input type=\"file\" name=\"file\" id=\"file\" required><br>\n";
 			echo "				<input type=\"submit\" value=\"Importer\">\n";
 			echo "				<p>$infoJury</p>\n";

@@ -10,12 +10,12 @@ if ($db == null) {
 }
 else {
 	// Récupérer les données du formulaire (année et semestre)
-	$annee = isset($_GET['annee']) ? $_GET['annee'] : '';
+	$annee = isset($_POST['annee']) ? $_POST['annee'] : '';
 
 	// Vérifier si l'année ou le semestre est vide
 	if(empty($annee) || !preg_match('/^\d{4}-\d{4}$/', $annee) || !isset($_FILES["file"])) {
-		$_SESSION['info_commission'] = "Veuillez renseigner l'année correctement, ainsi qu'un semestre";
-		header("Location: ../pages/export.php");
+		$_SESSION['info_import_moyennes'] = "Veuillez renseigner l'année correctement, ainsi qu'un fichier";
+		header("Location: ../pages/import.php");
 	}
 	else {
 		// Obtenir les détails sur le fichier téléchargé
@@ -52,7 +52,20 @@ else {
 				$data = array_combine($libelles, $rowData);
 
 				// Utiliser les libellés pour insérer les données dans la base de données
-				$db->insertIntoEtudiant(intval($data['code_nip']), $rowData[6], $data['Prénom'], $data['Cursus'], array_key_exists('Parcours', $data) 	? $data['Parcours'] : "", (strpos($fileName, "FAP") ? substr($fileName, 0, 2) : ""), "", "", "", intval($data['Abs'] - $data['Just.']));
+				if ( $db->insertIntoEtudiant(intval($data['code_nip']), $rowData[6], $data['Prénom'], $data['Cursus'], array_key_exists('Parcours', $data) 	? $data['Parcours'] : "", (strpos($fileName, "FAP") ? substr($fileName, 0, 2) : ""), "", "", "", intval($data['Abs'] - $data['Just.'])) === 1 ) {
+					if (isset($_POST['submit'])) {
+						$button_clicked = $_POST['submit'];
+					
+						if ($button_clicked === "Annuler") {
+							header("Location: ../pages/import.php");
+						} elseif ($button_clicked === "Ecraser") {
+							$db->updateEtudiant(intval($data['code_nip']), $rowData[6], $data['Prénom'], $data['Cursus'], array_key_exists('Parcours', $data) 	? $data['Parcours'] : "", (strpos($fileName, "FAP") ? substr($fileName, 0, 2) : ""), "", "", "");
+						}
+					} else {
+						$_SESSION['alerteErreur'] = true;
+						header("Location: ../pages/import.php");
+					}
+				}
 
 				$semestre = substr($fileName, 1, 2);
 				
