@@ -3,22 +3,19 @@
 /*classe permettant de representer les tuples de la table client */
 class Semestre {
       /*avec PDO, il faut que les noms attributs soient les mêmes que ceux de la table*/
-      private $idSem;
-      private $nomSem;
-	  private $idAnnee;
+      private $idsem;
+      private $nomsem;
 	
 	public function __construct($i="",$n="") {
-		$this->idSem = $i;
-		$this->nomSem = $n;
+		$this->idsem = $i;
+		$this->nomsem = $n;
 	}
 
-      public function getIdSem() { return $this->idSem; }
-      public function getNomSem() { return $this->nomSem;}
+      public function getIdSem() { return $this->idsem; }
+      public function getNomSem() { return $this->nomsem;}
 
       public function __toString() {
-		$res = "idSem:".$this->idSem."\n";
-		$res = $res ."nomSem:".$this->nomSem."\n";
-		$res = $res ."<br/>";
+		$res = "<br/>";
 		return $res;
 	     
       }

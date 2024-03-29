@@ -46,9 +46,9 @@ else {
 					$data = array_combine($libelles, $rowData);
 
 					// Utiliser les libellés pour insérer les données dans la base de données
-					$db->insertIntoEtudiant($data['code_nip'], $rowData[6], $data['Prénom'], $data['Cursus'], array_key_exists('Parcours', $data) 	? $data['Parcours'] : "", "", "", "", "", $data['Abs'] - $data['Just.']);
+					$db->insertIntoEtudiant($data['code_nip'], $rowData[6], $data['Prénom'], $data['Cursus'], array_key_exists('Parcours', $data) 	? $data['Parcours'] : "", (strpos($fileName, "FAP") ? substr($fileName, 0, 2) : ""), "", "", "", $data['Abs'] - $data['Just.']);
 
-					$semestre = substr($fileName, 1, 2);
+					/*$semestre = substr($fileName, 1, 2);
 					switch ($semestre) {
 						case "1":
 							$db->insertIntoMoyCompSem($data['code_nip'], "BIN11", $semestre, floatval($data['BIN11']), "");
@@ -191,7 +191,7 @@ else {
 							$db->insertIntoMoyRess($data['code_nip'], 'BINS601', floatval($data['BINS601']));
 							$db->insertIntoMoyRess($data['code_nip'], 'BINS611', floatval($data['BINS611']));
 							break;
-					}
+					}*/
 				}
 
 				$_SESSION['info_import_moyennes'] = "Les données du fichier $fileName ont été insérées avec succès dans la base de données";
