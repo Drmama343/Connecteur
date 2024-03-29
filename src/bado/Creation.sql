@@ -15,14 +15,13 @@ DROP TABLE IF EXISTS Semestre CASCADE;
 
 -- Table Semestre
 CREATE TABLE Semestre (
-    idSem SERIAL PRIMARY KEY,
+    idSem INT PRIMARY KEY,
     nomSem VARCHAR(50)
 );
 
 -- Table Annee
 CREATE TABLE Annee (
-    idAnnee SERIAL PRIMARY KEY,
-    nomAnnee VARCHAR(50),
+    nomAnnee VARCHAR(50) PRIMARY KEY CHECK (nomAnnee IN ('BUT1', 'BUT2', 'BUT3')),
     semestre1 INT,
     semestre2 INT,
     FOREIGN KEY (semestre1) REFERENCES Semestre(idSem),
@@ -32,13 +31,13 @@ CREATE TABLE Annee (
 -- Table Competences
 CREATE TABLE Competence (
     idComp VARCHAR(50) PRIMARY KEY,
-    nomComp VARCHAR(50)
+    nomComp VARCHAR(150)
 );
 
 -- Table Ressources
 CREATE TABLE Ressource (
     idRess VARCHAR(50) PRIMARY KEY,
-    nomRess VARCHAR(50)
+    nomRess VARCHAR(150)
 );
 
 -- Table Promotion
@@ -114,15 +113,15 @@ CREATE TABLE JurySem (
 -- Table JuryAnnee
 CREATE TABLE JuryAnnee (
     codeNip INT,
-    idAnnee INT,
+    nomAnnee VARCHAR(50),
     moyAnnee FLOAT,
     RCUE VARCHAR(50),
     decision VARCHAR(50),
     rang INT,
     anneePromo VARCHAR(50),
-    PRIMARY KEY (codeNip, idAnnee),
+    PRIMARY KEY (codeNip, nomAnnee),
     FOREIGN KEY (codeNip) REFERENCES Etudiant(codeNip),
-    FOREIGN KEY (idAnnee) REFERENCES Annee(idAnnee),
+    FOREIGN KEY (nomAnnee) REFERENCES Annee(nomAnnee),
     FOREIGN KEY (anneePromo) REFERENCES Promotion(anneePromo)
 );
 
@@ -143,13 +142,11 @@ CREATE TABLE MoyCompSem (
 CREATE TABLE MoyCompAnnee (
     codeNip INT,
     idComp VARCHAR(50),
-    idAnnee INT,
+    nomAnnee VARCHAR(50),
     moyCompAnnee FLOAT,
     avis VARCHAR(50),
-    PRIMARY KEY (codeNip, idComp, idAnnee),
+    PRIMARY KEY (codeNip, idComp, nomAnnee),
     FOREIGN KEY (codeNip) REFERENCES Etudiant(codeNip),
     FOREIGN KEY (idComp) REFERENCES Competence(idComp),
-    FOREIGN KEY (idAnnee) REFERENCES Annee(idAnnee)
+    FOREIGN KEY (nomAnnee) REFERENCES Annee(nomAnnee)
 );
-
-
