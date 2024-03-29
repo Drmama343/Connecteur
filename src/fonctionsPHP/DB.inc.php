@@ -124,11 +124,13 @@ class DB {
 	  //	ATTENTION : il doit y avoir autant de ? dans le texte de la requête
 	  //	que d'éléments dans le tableau passé en second paramètre.
 	  /************************************************************************/
-		private function execMaj($ordreSQL,$tparam) {
-			$stmt = $this->connect->prepare($ordreSQL);
-			$res = $stmt->execute($tparam); //execution de l'ordre SQL      	     
-			return $stmt->rowCount();
-		}
+	private function execMaj($ordreSQL,$tparam) {
+		$stmt = $this->connect->prepare($ordreSQL);
+		try {
+			$res = $stmt->execute($tparam); //execution de l'ordre SQL
+			return 0;
+		} catch (Exception $e) { return 1; }
+	}
 
 	  /*************************************************************************
 	   * Fonctions qui peuvent être utilisées dans les scripts PHP
@@ -165,7 +167,7 @@ class DB {
 	   * Fonctions Pour Inserer des donnees dans la base
 	   *************************************************************************/
 
-	  public function insertIntoPromotion($anneePromo, $nbEtud) {
+	public function insertIntoPromotion($anneePromo, $nbEtud) {
 		$requete = 'INSERT INTO Promotion VALUES (?, ?)';
 		$tparam = array($anneePromo, $nbEtud);
 		return $this->execMaj($requete, $tparam);

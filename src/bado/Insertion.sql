@@ -74,7 +74,6 @@ INSERT INTO Ressource VALUES
 	('BINS105', 'Recueil de besoins'),
 	('BINS106', 'Découverte de l’environnement économique et écologique'),
 
-
 	('BINR201', 'Développement orienté objets'),
 	('BINR202', 'Développement d’applications avec IHM'),
 	('BINR203', 'Qualité de développement'),
@@ -151,9 +150,12 @@ INSERT INTO Ressource VALUES
 	('BINR605', 'Développement avancé'),
 	('BINR606', 'Maintenance applicative'),
 	('BINS601', 'Développement d’une application'),
-	('BINS611', 'Stage');
+	('BINS611', 'Stage'),
+	('BINP601', 'Portfolio');
 
 INSERT INTO Annee VALUES
 	('BUT1', 1, 2),
 	('BUT2', 3, 4),
 	('BUT3', 5, 6);
+
+INSERT INTO Promotion VALUES ('2022-2023');

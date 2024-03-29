@@ -39,9 +39,17 @@ class Etudiant {
     public function getAbsInjust() { return $this->absinjust;}
 
     public function __toString() {
-        $res = "" . $this->codenip;
+        $res = "Code NIP: " . $this->codenip . "\n";
+        $res .= "Nom: " . $this->nom . "\n";
+        $res .= "Prénom: " . $this->prenom . "\n";
+        $res .= "Cursus: " . $this->cursus . "\n";
+        $res .= "Parcours: " . $this->parcours . "\n";
+        $res .= "Apprentissage: " . $this->apprentissage . "\n";
+        $res .= "Avis Ingénieur: " . $this->avisinge . "\n";
+        $res .= "Avis Master: " . $this->avismaster . "\n";
+        $res .= "Commentaire: " . $this->commentaire . "\n";
+        $res .= "Absences Injustifiées: " . $this->absinjust . "\n";
         return $res;
-        
-    }
+    }    
 }
 ?>

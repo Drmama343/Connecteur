@@ -20,8 +20,4 @@ class Semestre {
 	     
       }
 }
-
-//test
-//$unclient = new Client(5,'Dupont','Le Havre');
-//echo $unclient;
 ?>
