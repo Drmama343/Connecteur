@@ -22,7 +22,7 @@
 
 		$string .=
 		"<section>".
-		"<form action=\"../fonctionsPHP/telechargementCommission.php\" method=\"get\">".
+		"<form action=\"../fonctionsPHP/ExportCommission.php\" method=\"get\">".
 
 			"<label>Commission</label><br><br>".
 
@@ -52,7 +52,7 @@
 
 		$string .=
 		"<section>".
-		"<form action=\"../fonctionsPHP/telechargementJury.php\" method=\"get\">".
+		"<form action=\"../fonctionsPHP/ExportJury.php\" method=\"get\">".
 
 			"<label>Jury</label><br><br>".
 
@@ -82,7 +82,7 @@
 
 		$string .=
 		"<section>".
-		"<form action=\"../fonctionsPHP/telechargementPoursuite.php\" method=\"get\">".
+		"<form action=\"../fonctionsPHP/ExportPoursuite.php\" method=\"get\">".
 
 			"<label>Fiche de poursuite d'études</label><br>".
 			"<br>".

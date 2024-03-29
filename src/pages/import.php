@@ -19,7 +19,7 @@
 		echo "		<header><h1>Importer des Données</h1></header>";
 
 		echo "		<section>\n";
-		echo "			<form action=\"../fonctionsPHP/enregistrementMoyennes.php\" method=\"post\" enctype=\"multipart/form-data\">\n";
+		echo "			<form action=\"../fonctionsPHP/ImportMoyennes.php\" method=\"post\" enctype=\"multipart/form-data\">\n";
 		echo "				<h2>Déposer un fichier Moyennes</h2>\n";
 		echo "				<input type=\"text\" id=\"annee\" name=\"annee\" placeholder=\"Année (ex: 2022-2023)\"><br>\n";
 		echo "				<input type=\"file\" name=\"file\" id=\"file\" required><br>\n";
@@ -29,7 +29,7 @@
 		echo "		</section>\n";
 
 		echo "		<section>\n";
-		echo "			<form action=\"../fonctionsPHP/enregistrementJury.php\" method=\"post\" enctype=\"multipart/form-data\">\n";
+		echo "			<form action=\"../fonctionsPHP/ImportJury.php\" method=\"post\" enctype=\"multipart/form-data\">\n";
 		echo "				<h2>Déposer un fichier Jury</h2>\n";
 		echo "				<input type=\"text\" id=\"annee\" name=\"annee\" placeholder=\"Année (ex: 2022-2023)\"><br>\n";
 		echo "				<input type=\"file\" name=\"file\" id=\"file\" required><br>\n";
