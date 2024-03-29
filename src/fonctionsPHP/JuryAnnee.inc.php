@@ -10,8 +10,9 @@ class JuryAnnee {
 	  private $decision;
 	  private $rang;
 	  private $anneepromo;
+	  private $absInjust;
       
-      public function __construct($c="",$id="",$mo="",$r="",$d="",$rang="", $anneepromo="") {
+      public function __construct($c="",$id="",$mo="",$r="",$d="",$rang="", $anneepromo="",  $absInjust=0) {
             $this->codenip = $c;
 	      $this->idannee = $id;
 		  $this->moyannee = $mo;
@@ -19,6 +20,7 @@ class JuryAnnee {
 		  $this->decision = $d;
 		  $this->rang = $rang;
 		  $this->anneepromo = $anneepromo;
+		  $this->absInjust = $absInjust;
       }
 
       public function getCode() { return $this->codenip; }
@@ -28,6 +30,7 @@ class JuryAnnee {
 	  public function getDecision() { return $this->decision;}
 	  public function getRang() { return $this->rang;}
 	  public function getAnneePromo() { return $this->anneepromo;}
+	  public function getAbsInjust() { return $this->absInjust;}
 
       public function __toString() {
 	     $res = "<br/>";

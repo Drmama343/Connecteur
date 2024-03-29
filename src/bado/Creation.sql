@@ -56,7 +56,7 @@ CREATE TABLE Etudiant (
     avisInge VARCHAR(50),
     avisMaster VARCHAR(50),
     commentaire VARCHAR(50),
-    absInjust INT
+    mobEtrang VARCHAR(150)
 );
 
 -- Table PromoEtud
@@ -119,6 +119,7 @@ CREATE TABLE JuryAnnee (
     decision VARCHAR(50),
     rang INT,
     anneePromo VARCHAR(50),
+    absInjust INT,
     PRIMARY KEY (codeNip, nomAnnee),
     FOREIGN KEY (codeNip) REFERENCES Etudiant(codeNip),
     FOREIGN KEY (nomAnnee) REFERENCES Annee(nomAnnee),
