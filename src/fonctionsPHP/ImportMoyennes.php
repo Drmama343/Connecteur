@@ -51,14 +51,15 @@ else {
 				// Créer un tableau associatif avec les libellés et les données de chaque ligne
 				$data = array_combine($libelles, $rowData);
 
+				$val = $db->insertIntoEtudiant(intval($data['code_nip']), $rowData[5], $data['Prénom'], $data['Cursus'], array_key_exists('Parcours', $data) 	? $data['Parcours'] : "", (strpos($fileName, "FAP") ? substr($fileName, 0, 2) : ""), "", "", "", "");
 				// Utiliser les libellés pour insérer les données dans la base de données
-				if ( $db->insertIntoEtudiant(intval($data['code_nip']), $rowData[5], $data['Prénom'], $data['Cursus'], array_key_exists('Parcours', $data) 	? $data['Parcours'] : "", (strpos($fileName, "FAP") ? substr($fileName, 0, 2) : ""), "", "", "", "") === 1 ) {
+				if ( $val === 1 ) {
 					if (isset($_POST['submit'])) {
 						$db->updateEtudiant(intval($data['code_nip']), $data['Cursus'], array_key_exists('Parcours', $data) 	? $data['Parcours'] : "", (strpos($fileName, "FAP") ? substr($fileName, 0, 2) : ""), "", "", "", "");
 					} else {
 						$_SESSION['alerteErreur'] = true;
 						header("Location: ../pages/import.php");
-						break;
+						continue;
 					}
 				}
 
