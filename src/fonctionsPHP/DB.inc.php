@@ -162,6 +162,13 @@ class DB {
 	//       return $this->execMaj($requete,$tparam);
       // }
 
+	public function updateEtudiant($codeNip, $nom, $prenom, $cursus, $parcours, $apprentissage, $avisInge, $avisMaster, $commentaire, $absInjust) {
+		$requete = 'UPDATE Etudiant SET cursus = ?, parcours = ?, apprentissage = ?, avisInge = ?, avisMaster = ?, commentaire = ?, absInjust = ? WHERE codeNip = ?';
+		$tparam = array($cursus, $parcours, $apprentissage, $avisInge, $avisMaster, $commentaire, $absInjust, $codeNip);
+		return $this->execMaj($requete, $tparam);
+	}
+	
+
 	
 	/*************************************************************************
 	   * Fonctions Pour Inserer des donnees dans la base
