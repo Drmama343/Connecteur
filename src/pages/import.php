@@ -21,12 +21,12 @@
 		
 		if ( isset($_SESSION['alerteErreur']) ) {
 			echo "		<section>\n";
-			echo "			<form method=\"post\" enctype=\"multipart/form-data\">\n";
+			echo "			<form action=\"../fonctionsPHP/enregistrementMoyennes.php\" method=\"post\" enctype=\"multipart/form-data\">\n";
 			echo "				<h2>Duplication de tuples</h2>\n";
 			echo "				<p>Le remplissage de la base de données a été intérompu car des données apparaissent plusieurs fois.</p>\n";
 			echo "				<p>Voulez vous</p>\n";
-			echo "				<input type=\"submit\" value=\"Annuler\">\n";
-			echo "				<input type=\"submit\" value=\"Ecraser\">\n";
+			echo "				<input type=\"submit\" name=\"submit\" value=\"Annuler\">\n";
+			echo "				<input type=\"submit\" name=\"submit\" value=\"Ecraser\">\n";
 			echo "			</form>\n";
 			echo "		</section>\n";
 			unset($_SESSION['alerteErreur']);

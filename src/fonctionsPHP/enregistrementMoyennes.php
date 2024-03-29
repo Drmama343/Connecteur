@@ -47,8 +47,18 @@ else {
 
 					// Utiliser les libellés pour insérer les données dans la base de données
 					if ( $db->insertIntoEtudiant(intval($data['code_nip']), $rowData[6], $data['Prénom'], $data['Cursus'], array_key_exists('Parcours', $data) 	? $data['Parcours'] : "", (strpos($fileName, "FAP") ? substr($fileName, 0, 2) : ""), "", "", "", intval($data['Abs'] - $data['Just.'])) === 1 ) {
-						$_SESSION['alerteErreur'] = true;
-						header("Location: ../pages/import.php");
+						if (isset($_POST['submit'])) {
+							$button_clicked = $_POST['submit'];
+						
+							if ($button_clicked === "Annuler") {
+								header("Location: ../pages/import.php");
+							} elseif ($button_clicked === "Ecraser") {
+								$db->updateEtudiant();
+							}
+						} else {
+							$_SESSION['alerteErreur'] = true;
+							header("Location: ../pages/import.php");
+						}
 					}
 
 					$semestre = substr($fileName, 1, 2);
