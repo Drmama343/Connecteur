@@ -57,7 +57,7 @@ else {
 							$db->insertIntoMoyCompSem($data['code_nip'], "BIN14", $semestre, ($data['BIN14'] == '~' ? null : floatval($data['BIN14'])), "");
 							$db->insertIntoMoyCompSem($data['code_nip'], "BIN15", $semestre, ($data['BIN15'] == '~' ? null : floatval($data['BIN15'])), "");
 							$db->insertIntoMoyCompSem($data['code_nip'], "BIN16", $semestre, ($data['BIN16'] == '~' ? null : floatval($data['BIN16'])), "");
-							$db->insertIntoJurySem($data['code_nip'], $semestre, floatval($data['Moy']), $data['UEs'], ($data['Bonus BIN11'] == ' ' ? null : floatval($data['Bonus BIN11'])));
+							$db->insertIntoJurySem($data['code_nip'], $semestre, floatval($data['Moy']), $data['UEs'], ($data['Bonus BIN11'] == ' ' ? null : floatval($data['Bonus BIN11'])), null);
 							$db->insertIntoMoyRess($data['code_nip'], "BINR101", ($data['BINR101'] == '~' ? null : floatval($data['BINR101'])));
 							$db->insertIntoMoyRess($data['code_nip'], "BINR102", ($data['BINR102'] == '~' ? null : floatval($data['BINR102'])));
 							$db->insertIntoMoyRess($data['code_nip'], "BINR103", ($data['BINR103'] == '~' ? null : floatval($data['BINR103'])));
@@ -85,7 +85,7 @@ else {
 							$db->insertIntoMoyCompSem($data['code_nip'], "BIN24", $semestre, ($data['BIN24'] == '~' ? null : floatval($data['BIN24'])), "");
 							$db->insertIntoMoyCompSem($data['code_nip'], "BIN25", $semestre, ($data['BIN25'] == '~' ? null : floatval($data['BIN25'])), "");
 							$db->insertIntoMoyCompSem($data['code_nip'], "BIN26", $semestre, ($data['BIN26'] == '~' ? null : floatval($data['BIN26'])), "");
-							$db->insertIntoJurySem($data['code_nip'], $semestre, floatval($data['Moy']), $data['UEs'], ($data['Bonus BIN21'] == ' ' ? null : floatval($data['Bonus BIN21'])));
+							$db->insertIntoJurySem($data['code_nip'], $semestre, floatval($data['Moy']), $data['UEs'], ($data['Bonus BIN21'] == ' ' ? null : floatval($data['Bonus BIN21'])), null);
 							$db->insertIntoMoyRess($data['code_nip'], "BINR201", ($data['BINR201'] == '~' ? null : floatval($data['BINR201'])));
 							$db->insertIntoMoyRess($data['code_nip'], "BINR202", ($data['BINR202'] == '~' ? null : floatval($data['BINR202'])));
 							$db->insertIntoMoyRess($data['code_nip'], "BINR203", ($data['BINR203'] == '~' ? null : floatval($data['BINR203'])));
@@ -116,7 +116,7 @@ else {
 							$db->insertIntoMoyCompSem($data['code_nip'], "BIN34", $semestre, ($data['BIN34'] == '~' ? null : floatval($data['BIN34'])), "");
 							$db->insertIntoMoyCompSem($data['code_nip'], "BIN35", $semestre, ($data['BIN35'] == '~' ? null : floatval($data['BIN35'])), "");
 							$db->insertIntoMoyCompSem($data['code_nip'], "BIN36", $semestre, ($data['BIN36'] == '~' ? null : floatval($data['BIN36'])), "");
-							$db->insertIntoJurySem($data['code_nip'], $semestre, floatval($data['Moy']), $data['UEs'], ($data['Bonus BIN31'] == ' ' ? null : floatval($data['Bonus BIN31'])));
+							$db->insertIntoJurySem($data['code_nip'], $semestre, floatval($data['Moy']), $data['UEs'], ($data['Bonus BIN31'] == ' ' ? null : floatval($data['Bonus BIN31'])), null);
 							$db->insertIntoMoyRess($data['code_nip'], "BINR301", ($data['BINR301'] == '~' ? null : floatval($data['BINR301'])));
 							$db->insertIntoMoyRess($data['code_nip'], "BINR302", ($data['BINR302'] == '~' ? null : floatval($data['BINR302'])));
 							$db->insertIntoMoyRess($data['code_nip'], "BINR303", ($data['BINR303'] == '~' ? null : floatval($data['BINR303'])));
@@ -141,7 +141,7 @@ else {
 							$db->insertIntoMoyCompSem($data['code_nip'], 'BIN44', $semestre, ($data['BIN44'] == '~' ? null : floatval($data['BIN44'])), "");
 							$db->insertIntoMoyCompSem($data['code_nip'], 'BIN45', $semestre, ($data['BIN45'] == '~' ? null : floatval($data['BIN45'])), "");
 							$db->insertIntoMoyCompSem($data['code_nip'], 'BIN46', $semestre, ($data['BIN46'] == '~' ? null : floatval($data['BIN46'])), "");
-							$db->insertIntoJurySem($data['code_nip'], $semestre, floatval($data['Moy']), $data['UEs'], ($data['Bonus BIN41'] == ' ' ? null : floatval($data['Bonus BIN41'])));
+							$db->insertIntoJurySem($data['code_nip'], $semestre, floatval($data['Moy']), $data['UEs'], ($data['Bonus BIN41'] == ' ' ? null : floatval($data['Bonus BIN41'])), null);
 							$db->insertIntoMoyRess($data['code_nip'], 'BINR401', ($data['BINR401'] == '~' ? null : floatval($data['BINR401'])));
 							$db->insertIntoMoyRess($data['code_nip'], 'BINR402', ($data['BINR402'] == '~' ? null : floatval($data['BINR402'])));
 							$db->insertIntoMoyRess($data['code_nip'], 'BINR403', ($data['BINR403'] == '~' ? null : floatval($data['BINR403'])));
@@ -163,7 +163,7 @@ else {
 							$db->insertIntoMoyCompSem($data['code_nip'], 'BIN51', $semestre, ($data['BIN51'] == '~' ? null : floatval($data['BIN51'])), "");
 							$db->insertIntoMoyCompSem($data['code_nip'], 'BIN52', $semestre, ($data['BIN52'] == '~' ? null : floatval($data['BIN52'])), "");
 							$db->insertIntoMoyCompSem($data['code_nip'], 'BIN56', $semestre, ($data['BIN56'] == '~' ? null : floatval($data['BIN56'])), "");
-							$db->insertIntoJurySem($data['code_nip'], $semestre, floatval($data['Moy']), $data['UEs'], ($data['Bonus BIN51'] == ' ' ? null : floatval($data['Bonus BIN51'])));
+							$db->insertIntoJurySem($data['code_nip'], $semestre, floatval($data['Moy']), $data['UEs'], ($data['Bonus BIN51'] == ' ' ? null : floatval($data['Bonus BIN51'])), null);
 							$db->insertIntoMoyRess($data['code_nip'], 'BINR501', ($data['BINR501'] == '~' ? null : floatval($data['BINR501'])));
 							$db->insertIntoMoyRess($data['code_nip'], 'BINR502', ($data['BINR502'] == '~' ? null : floatval($data['BINR502'])));
 							$db->insertIntoMoyRess($data['code_nip'], 'BINR503', ($data['BINR503'] == '~' ? null : floatval($data['BINR503'])));
@@ -185,7 +185,7 @@ else {
 							$db->insertIntoMoyCompSem($data['code_nip'], 'BIN61', $semestre, ($data['BIN61'] == '~' ? null : floatval($data['BIN61'])), "");
 							$db->insertIntoMoyCompSem($data['code_nip'], 'BIN62', $semestre, ($data['BIN62'] == '~' ? null : floatval($data['BIN62'])), "");
 							$db->insertIntoMoyCompSem($data['code_nip'], 'BIN66', $semestre, ($data['BIN66'] == '~' ? null : floatval($data['BIN66'])), "");
-							$db->insertIntoJurySem($data['code_nip'], $semestre, floatval($data['Moy']), $data['UEs'], ($data['Bonus BIN61'] == ' ' ? null : floatval($data['Bonus BIN61'])));
+							$db->insertIntoJurySem($data['code_nip'], $semestre, floatval($data['Moy']), $data['UEs'], ($data['Bonus BIN61'] == ' ' ? null : floatval($data['Bonus BIN61'])), null);
 							$db->insertIntoMoyRess($data['code_nip'], 'BINR601', ($data['BINR601'] == '~' ? null : floatval($data['BINR601'])));
 							$db->insertIntoMoyRess($data['code_nip'], 'BINR602', ($data['BINR602'] == '~' ? null : floatval($data['BINR602'])));
 							$db->insertIntoMoyRess($data['code_nip'], 'BINR603', ($data['BINR603'] == '~' ? null : floatval($data['BINR603'])));
