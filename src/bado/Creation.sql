@@ -15,14 +15,13 @@ DROP TABLE IF EXISTS Semestre CASCADE;
 
 -- Table Semestre
 CREATE TABLE Semestre (
-    idSem SERIAL PRIMARY KEY,
+    idSem INT PRIMARY KEY,
     nomSem VARCHAR(50)
 );
 
 -- Table Annee
 CREATE TABLE Annee (
-    idAnnee SERIAL PRIMARY KEY,
-    nomAnnee VARCHAR(50),
+    nomAnnee VARCHAR(50) PRIMARY KEY IN ('BUT1','BUT2','BUT3'),
     semestre1 INT,
     semestre2 INT,
     FOREIGN KEY (semestre1) REFERENCES Semestre(idSem),
