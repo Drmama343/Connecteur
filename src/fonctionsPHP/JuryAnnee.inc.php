@@ -3,26 +3,26 @@
 /*classe permettant de representer les tuples de la table client */
 class JuryAnnee {
       /*avec PDO, il faut que les noms attributs soient les mêmes que ceux de la table*/
-      private $codeNip;
-      private $idAnnee;
-	  private $moyAnnee;
-	  private $RCUE;
+      private $codenip;
+      private $idannee;
+	  private $moyannee;
+	  private $rcue;
 	  private $decision;
 	  private $rang;
       
       public function __construct($c="",$id="",$mo="",$r="",$d="",$rang="") {
-            $this->codeNip = $c;
-	      $this->idAnnee = $id;
-		  $this->moyAnnee = $mo;
-		  $this->RCUE = $r;
+            $this->codenip = $c;
+	      $this->idannee = $id;
+		  $this->moyannee = $mo;
+		  $this->rcue = $r;
 		  $this->decision = $d;
 		  $this->rang = $rang;
       }
 
-      public function getCode() { return $this->codeNip; }
-      public function getIdAnnee() { return $this->idAnnee;}
-	  public function getMoyAnnee() { return $this->moyAnnee;}
-	  public function getRCUE() { return $this->RCUE;}
+      public function getCode() { return $this->codenip; }
+      public function getIdAnnee() { return $this->idannee;}
+	  public function getMoyAnnee() { return $this->moyannee;}
+	  public function getRCUE() { return $this->rcue;}
 	  public function getDecision() { return $this->decision;}
 	  public function getRang() { return $this->rang;}
 

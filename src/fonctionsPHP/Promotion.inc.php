@@ -3,27 +3,21 @@
 /*classe permettant de representer les tuples de la table client */
 class Promotion {
       /*avec PDO, il faut que les noms attributs soient les mêmes que ceux de la table*/
-      private $anneePromo;
-      private $nbEtud;
+      private $anneepromo;
+      private $nbetud;
 	
 	public function __construct($i="",$n="") {
-		$this->anneePromo = $i;
-		$this->nbEtud = $n;
+		$this->anneepromo = $i;
+		$this->nbetud = $n;
 	}
 
-      public function getAnneePromo() { return $this->anneePromo; }
-      public function getNbEtud() { return $this->nbEtud;}
+      public function getAnneePromo() { return $this->anneepromo; }
+      public function getNbEtud() { return $this->nbetud;}
 
       public function __toString() {
-		$res = "anneePromo:".$this->anneePromo."\n";
-		$res = $res ."nbEtud:".$this->nbEtud."\n";
-		$res = $res ."<br/>";
+		$res = "<br/>";
 		return $res;
 	     
       }
 }
-
-//test
-//$unclient = new Client(5,'Dupont','Le Havre');
-//echo $unclient;
 ?>
