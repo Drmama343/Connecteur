@@ -215,9 +215,9 @@ class DB {
 		return $this->execMaj($requete, $tparam);
 	}
 	
-	public function insertIntoJuryAnnee($codeNip, $idAnnee, $moyAnnee, $RCUE, $decision, $anneePromo) {
+	public function insertIntoJuryAnnee($codeNip, $idAnnee, $moyAnnee, $RCUE, $decision, $anneepromo) {
 		$requete = 'INSERT INTO JuryAnnee VALUES (?, ?, ?, ?, ?, ?)';
-		$tparam = array($codeNip, $idAnnee, $moyAnnee, $RCUE, $decision, $anneePromo);
+		$tparam = array($codeNip, $idAnnee, $moyAnnee, $RCUE, $decision, $anneepromo);
 		return $this->execMaj($requete, $tparam);
 	}
 	
