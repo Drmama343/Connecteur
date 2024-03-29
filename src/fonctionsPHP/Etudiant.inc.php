@@ -12,9 +12,9 @@ class Etudiant {
     private $avisinge;
     private $avismaster;
     private $commentaire;
-    private $absinjust;
+    private $mobetrang;
     
-    public function __construct($i=-1,$n="",$pr="",$c="",$pa="",$ap="",$ai="",$am="",$com="",$abs=-1) {
+    public function __construct($i=-1,$n="",$pr="",$c="",$pa="",$ap="",$ai="",$am="",$com="",$abs="") {
         $this->codenip = $i;
         $this->nom = $n;
         $this->prenom = $pr;
@@ -24,7 +24,7 @@ class Etudiant {
         $this->avisinge = $ai;
         $this->avismaster = $am;
         $this->commentaire = $com;
-        $this->absinjust = $abs;
+        $this->mobetrang = $abs;
     }
 
     public function getCode() { return $this->codenip; }
@@ -36,7 +36,7 @@ class Etudiant {
     public function getAvisInge() { return $this->avisinge;}
     public function getAvisMaster() { return $this->avismaster;}
     public function getCommentaire() { return $this->commentaire;}
-    public function getAbsInjust() { return $this->absinjust;}
+    public function getMobEtrang() { return $this->mobetrang;}
 
     public function __toString() {
         $res = "Code NIP: " . $this->codenip . "\n";
@@ -48,7 +48,7 @@ class Etudiant {
         $res .= "Avis Ingénieur: " . $this->avisinge . "\n";
         $res .= "Avis Master: " . $this->avismaster . "\n";
         $res .= "Commentaire: " . $this->commentaire . "\n";
-        $res .= "Absences Injustifiées: " . $this->absinjust . "\n";
+        $res .= "Mobilité à l'étranger: " . $this->mobetrang . "\n";
         return $res;
     }    
 }
