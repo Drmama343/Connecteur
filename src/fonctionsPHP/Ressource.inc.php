@@ -3,21 +3,19 @@
 /*classe permettant de representer les tuples de la table client */
 class Ressource {
       /*avec PDO, il faut que les noms attributs soient les mêmes que ceux de la table*/
-      private $idRess;
-      private $nomRess;
+      private $idress;
+      private $nomress;
 	
 	public function __construct($i="",$n="",$a="") {
-		$this->idRess = $i;
-		$this->nomRess = $n;
+		$this->idress = $i;
+		$this->nomress = $n;
 	}
 
-      public function getIdRess() { return $this->idRess; }
-      public function getNomRess() { return $this->nomRess;}
+      public function getIdRess() { return $this->idress; }
+      public function getNomRess() { return $this->nomress;}
 
       public function __toString() {
-		$res = "idRess:".$this->idRess."\n";
-		$res = $res ."nomRess:".$this->nomRess."\n";
-		$res = $res ."<br/>";
+		$res = "<br/>";
 		return $res;
 	     
       }

@@ -3,34 +3,29 @@
 /*classe permettant de representer les tuples de la table client */
 class MoyCompAnnee {
       /*avec PDO, il faut que les noms attributs soient les mêmes que ceux de la table*/
-      private $codeNip;
-      private $idComp;
-      private $idAnnee;
-	  private $moyCompAnnee;
+      private $codenip;
+      private $idcomp;
+      private $idannee;
+	  private $moycompannee;
 	  private $avis;
 	
 	public function __construct($i="",$n="",$a="",$m="",$av="") {
-		$this->codeNip = $i;
-		$this->idComp = $n;
-		$this->idAnnee = $a;
-		$this->moyCompAnnee = $m;
+		$this->codenip = $i;
+		$this->idcomp = $n;
+		$this->idannee = $a;
+		$this->moycompannee = $m;
 		$this->avis = $av;
 	}
 
-      public function getCodeNip() { return $this->codeNip; }
-      public function getIdComp() { return $this->idComp;}
-      public function getIdAnnee() { return $this->idAnnee; }
-	  public function getMoyCompAnnee() { return $this->moyCompAnnee; }
+      public function getCodeNip() { return $this->codenip; }
+      public function getIdComp() { return $this->idcomp;}
+      public function getIdAnnee() { return $this->idannee; }
+	  public function getMoyCompAnnee() { return $this->moycompannee; }
 	  public function getAvis() { return $this->avis; }
 
       public function __toString() {
-		$res = "codeNip:".$this->codeNip."\n";
-		$res = $res ."idComp:".$this->idComp."\n";
-		$res = $res ."idAnnee:".$this->idAnnee."\n";
-		$res = $res ."moyCompAnnee:".$this->moyCompAnnee."\n";
-		$res = $res ."<br/>";
+		$res = "<br/>";
 		return $res;
-	     
       }
 }
 
