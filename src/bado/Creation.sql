@@ -31,13 +31,13 @@ CREATE TABLE Annee (
 -- Table Competences
 CREATE TABLE Competence (
     idComp VARCHAR(50) PRIMARY KEY,
-    nomComp VARCHAR(50)
+    nomComp VARCHAR(150)
 );
 
 -- Table Ressources
 CREATE TABLE Ressource (
     idRess VARCHAR(50) PRIMARY KEY,
-    nomRess VARCHAR(50)
+    nomRess VARCHAR(150)
 );
 
 -- Table Promotion
