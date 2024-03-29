@@ -119,7 +119,7 @@ CREATE TABLE JuryAnnee (
     decision VARCHAR(50),
     rang INT,
     anneePromo VARCHAR(50),
-    PRIMARY KEY (codeNip, idAnnee),
+    PRIMARY KEY (codeNip, nomAnnee),
     FOREIGN KEY (codeNip) REFERENCES Etudiant(codeNip),
     FOREIGN KEY (nomAnnee) REFERENCES Annee(nomAnnee),
     FOREIGN KEY (anneePromo) REFERENCES Promotion(anneePromo)
@@ -145,7 +145,7 @@ CREATE TABLE MoyCompAnnee (
     nomAnnee VARCHAR(50),
     moyCompAnnee FLOAT,
     avis VARCHAR(50),
-    PRIMARY KEY (codeNip, idComp, idAnnee),
+    PRIMARY KEY (codeNip, idComp, nomAnnee),
     FOREIGN KEY (codeNip) REFERENCES Etudiant(codeNip),
     FOREIGN KEY (idComp) REFERENCES Competence(idComp),
     FOREIGN KEY (nomAnnee) REFERENCES Annee(nomAnnee)
