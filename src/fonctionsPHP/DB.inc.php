@@ -135,11 +135,27 @@ class DB {
 	  /*************************************************************************
 	   * Fonctions qui peuvent être utilisées dans les scripts PHP
 	   *************************************************************************/
-	  
+	
 	public function getEtudiants() {
 		$requete = 'SELECT * from Etudiant';
 		return $this->execQuery($requete,null,'Etudiant');
 	}
+
+	public function getEtudiantsS5($annee) {
+		$requete = "SELECT e.* from Etudiant e Join JuryAnnee ja ON e.codenip = ja.codenip WHERE nomAnnee = 'BUT3' AND anneePromo = '$annee'";
+		return $this->execQuery($requete,null,'Etudiant');
+	}
+
+	public function getMoyCompAnnee($codenip, $idComp, $nomAnnee) {
+		$requete = "SELECT mca.moyCompAnnee from MoyCompAnnee mca Join Etudiant e ON mca.codenip = e.codenip WHERE nomAnnee = '$nomAnnee' AND idComp = '$idComp'";
+		return $this->execQuery($requete,null,'Etudiant');
+	}
+
+	public function getRangCompAnnee($codenip, $idComp, $nomAnnee) {
+		$requete = "SELECT mca.moyCompAnnee from MoyCompAnnee mca Join Etudiant e ON mca.codenip = e.codenip WHERE nomAnnee = '$nomAnnee' AND idComp = '$idComp'";
+		return $this->execQuery($requete,null,'Etudiant');
+	}
+
 	  // public function deleteAchat($idcli,$np) {
 	  //       $requete = 'delete from achat where ncli = ? and np = ?';
 	//       $tparam = array($idcli,$np);
@@ -211,15 +227,15 @@ class DB {
 		return $this->execMaj($requete, $tparam);
 	}
 	
-	public function insertIntoJurySem($codeNip, $idSem, $moySem, $UE, $bonus) {
-		$requete = 'INSERT INTO JurySem VALUES (?, ?, ?, ?, ?)';
-		$tparam = array($codeNip, $idSem, $moySem, $UE, $bonus);
+	public function insertIntoJurySem($codeNip, $idSem, $moySem, $UE, $rang, $bonus) {
+		$requete = 'INSERT INTO JurySem VALUES (?, ?, ?, ?, ?, ?)';
+		$tparam = array($codeNip, $idSem, $moySem, $UE, $rang, $bonus);
 		return $this->execMaj($requete, $tparam);
 	}
 	
-	public function insertIntoJuryAnnee($codeNip, $idAnnee, $moyAnnee, $RCUE, $decision) {
-		$requete = 'INSERT INTO JuryAnnee VALUES (?, ?, ?, ?, ?)';
-		$tparam = array($codeNip, $idAnnee, $moyAnnee, $RCUE, $decision);
+	public function insertIntoJuryAnnee($codeNip, $idAnnee, $moyAnnee, $RCUE, $decision, $rang, $anneepromo) {
+		$requete = 'INSERT INTO JuryAnnee VALUES (?, ?, ?, ?, ?, ?,?)';
+		$tparam = array($codeNip, $idAnnee, $moyAnnee, $RCUE, $decision, $rang, $anneepromo);
 		return $this->execMaj($requete, $tparam);
 	}
 	
