@@ -209,15 +209,15 @@ class DB {
 		return $this->execMaj($requete, $tparam);
 	}
 	
-	public function insertIntoJurySem($codeNip, $idSem, $moySem, $UE, $bonus) {
-		$requete = 'INSERT INTO JurySem VALUES (?, ?, ?, ?, ?)';
-		$tparam = array($codeNip, $idSem, $moySem, $UE, $bonus);
+	public function insertIntoJurySem($codeNip, $idSem, $moySem, $UE, $rang, $bonus) {
+		$requete = 'INSERT INTO JurySem VALUES (?, ?, ?, ?, ?, ?)';
+		$tparam = array($codeNip, $idSem, $moySem, $UE, $rang, $bonus);
 		return $this->execMaj($requete, $tparam);
 	}
 	
-	public function insertIntoJuryAnnee($codeNip, $idAnnee, $moyAnnee, $RCUE, $decision, $anneepromo) {
-		$requete = 'INSERT INTO JuryAnnee VALUES (?, ?, ?, ?, ?, ?)';
-		$tparam = array($codeNip, $idAnnee, $moyAnnee, $RCUE, $decision, $anneepromo);
+	public function insertIntoJuryAnnee($codeNip, $idAnnee, $moyAnnee, $RCUE, $decision, $rang, $anneepromo) {
+		$requete = 'INSERT INTO JuryAnnee VALUES (?, ?, ?, ?, ?, ?,?)';
+		$tparam = array($codeNip, $idAnnee, $moyAnnee, $RCUE, $decision, $rang, $anneepromo);
 		return $this->execMaj($requete, $tparam);
 	}
 	
