@@ -162,6 +162,13 @@ class DB {
 	//       return $this->execMaj($requete,$tparam);
       // }
 
+	public function updateEtudiant($codeNip, $nom, $prenom, $cursus, $parcours, $apprentissage, $avisInge, $avisMaster, $commentaire, $absInjust) {
+		$requete = 'UPDATE Etudiant SET cursus = ?, parcours = ?, apprentissage = ?, avisInge = ?, avisMaster = ?, commentaire = ?, absInjust = ? WHERE codeNip = ?';
+		$tparam = array($cursus, $parcours, $apprentissage, $avisInge, $avisMaster, $commentaire, $absInjust, $codeNip);
+		return $this->execMaj($requete, $tparam);
+	}
+	
+
 	
 	/*************************************************************************
 	   * Fonctions Pour Inserer des donnees dans la base
@@ -234,7 +241,7 @@ class DB {
 	}
 	
 	public function insertIntoJuryAnnee($codeNip, $idAnnee, $moyAnnee, $RCUE, $decision, $rang, $anneepromo, $absInjust) {
-		$requete = 'INSERT INTO JuryAnnee VALUES (?, ?, ?, ?, ?, ?,?)';
+		$requete = 'INSERT INTO JuryAnnee VALUES (?, ?, ?, ?, ?, ?, ?)';
 		$tparam = array($codeNip, $idAnnee, $moyAnnee, $RCUE, $decision, $rang, $anneepromo, $absInjust);
 		return $this->execMaj($requete, $tparam);
 	}

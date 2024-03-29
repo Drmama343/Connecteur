@@ -18,11 +18,11 @@
 	echo pied();
 
 	function contenu($infoCommission, $infoJury, $infoPoursuite) {
-		$string = "<section><h1>Téléchargement de fichiers</h1></section>";
+		$string = "<header><h1>Téléchargement de fichiers</h1></header>";
 
 		$string .=
 		"<section>".
-		"<form action=\"../fonctionsPHP/telechargementCommission.php\" method=\"get\">".
+		"<form action=\"../fonctionsPHP/ExportCommission.php\" method=\"get\">".
 
 			"<label>Commission</label><br><br>".
 
@@ -52,7 +52,7 @@
 
 		$string .=
 		"<section>".
-		"<form action=\"../fonctionsPHP/telechargementJury.php\" method=\"get\">".
+		"<form action=\"../fonctionsPHP/ExportJury.php\" method=\"get\">".
 
 			"<label>Jury</label><br><br>".
 
@@ -82,9 +82,10 @@
 
 		$string .=
 		"<section>".
-		"<form action=\"../fonctionsPHP/telechargementPoursuite.php\" method=\"get\">".
+		"<form action=\"../fonctionsPHP/ExportPoursuite.php\" method=\"get\">".
 
 			"<label>Fiche de poursuite d'études</label><br>".
+			"<br>".
 			"<input type=\"text\" id=\"annee\" name=\"annee\" placeholder=\"Année (ex: 2022-2023)\"><br>".
 			"<br>".
 			"<p>$infoPoursuite</p>".

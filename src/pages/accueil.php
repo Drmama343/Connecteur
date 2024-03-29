@@ -11,7 +11,7 @@ echo enTete("Accueil",["../styles/classique.css", "../styles/accueil.css"]);
 	function contenu () {
 		$string = '
         <header>
-            <h1>Bienvenue sur [Nom de votre site]</h1>
+            <h1>Bienvenue sur XlsxHub</h1>
         </header>
 
         <section>
@@ -27,7 +27,7 @@ echo enTete("Accueil",["../styles/classique.css", "../styles/accueil.css"]);
             <h3>Suivez-nous sur les réseaux sociaux pour les dernières mises à jour :</h3>
             <!-- Liens vers les réseaux sociaux -->
             <ul><!-- Vos liens vers les réseaux sociaux ici --></ul>
-            <p>© [Nom de votre site] - Tous droits réservés.</p>
+            <p>© XlsxHub - Tous droits réservés.</p>
         </footer>' . "\n";
 
 	return $string;
