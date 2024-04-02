@@ -43,13 +43,13 @@ else {
 					$data = array_combine($libelles, $rowData);
 
 					// Utiliser les libellés pour insérer les données dans la base de données
-					$db->insertIntoEtudiant(intval($data['code_nip']), $rowData[6], $data['Prénom'], $rowData[9], array_key_exists('Parcours', $data) 	? $data['Parcours'] : "", (strpos($fileName, "FAP") ? substr($fileName, 0, 2) : ""), "", "", "", intval($data['Abs'] - $data['Just.']));
+					$db->insertIntoEtudiant(intval($data['code_nip']), $rowData[6], $data['Prénom'], $rowData[9], array_key_exists('Parcours', $data) 	? $data['Parcours'] : "", (strpos($fileName, "FAP") ? substr($fileName, 0, 2) : ""), "", "", "", "");
 
 					$semestre = substr($fileName, 1, 2);
 					switch ($semestre) {
 						case "1":
 							//insert ou update
-							$db->insertIntoJuryAnnee(intval($data['code_nip']), 'BUT1', null, $data['RCUEs'], $data['Année'], null, "2022-2023");
+							$db->insertIntoJuryAnnee(intval($data['code_nip']), 'BUT1', null, $data['RCUEs'], $data['Année'], null, "2022-2023", null);
 
 							$db->insertIntoJurySem(intval($data['code_nip']), '1', floatval($data['Moy']), $data['UEs'], null, intval($data['Rg']));
 
@@ -70,7 +70,7 @@ else {
 							break;
 						case "2":
 							//insert ou update
-							$db->insertIntoJuryAnnee(intval($data['code_nip']), 'BUT1', null, $data['RCUEs'], $data['Année'],null, "2022-2023");
+							$db->insertIntoJuryAnnee(intval($data['code_nip']), 'BUT1', null, $data['RCUEs'], $data['Année'],null, "2022-2023", null);
 
 							$db->insertIntoJurySem(intval($data['code_nip']), '2', floatval($data['Moy']), $data['UEs'], null, intval($data['Rg']));
 
@@ -91,7 +91,7 @@ else {
 							break;
 						case "3":
 							//insert ou update
-							$db->insertIntoJuryAnnee(intval($data['code_nip']), 'BUT2', null, $data['RCUEs'], $data['Année'], null, "2022-2023");
+							$db->insertIntoJuryAnnee(intval($data['code_nip']), 'BUT2', null, $data['RCUEs'], $data['Année'], null, "2022-2023", null);
 
 							$db->insertIntoJurySem(intval($data['code_nip']), '3', floatval($data['Moy']), $data['UEs'], null, intval($data['Rg']));
 
@@ -112,7 +112,7 @@ else {
 							break;
 						case "4":
 							//insert ou update
-							$db->insertIntoJuryAnnee(intval($data['code_nip']), 'BUT2', null, $data['RCUEs'], $data['Année'], null, "2022-2023");
+							$db->insertIntoJuryAnnee(intval($data['code_nip']), 'BUT2', null, $data['RCUEs'], $data['Année'], null, "2022-2023", null);
 
 							$db->insertIntoJurySem(intval($data['code_nip']), '4', floatval($data['Moy']), $data['UEs'], null, intval($data['Rg']));
 
@@ -133,7 +133,7 @@ else {
 							break;
 						case "5":
 							//insert ou update
-							$db->insertIntoJuryAnnee(intval($data['code_nip']), 'BUT3', null, $data['RCUEs'], $data['Année'], null, "2022-2023");
+							$db->insertIntoJuryAnnee(intval($data['code_nip']), 'BUT3', null, $data['RCUEs'], $data['Année'], null, "2022-2023", null);
 							
 							$db->insertIntoJurySem(intval($data['code_nip']), '5', floatval($data['Moy']), $data['UEs'], null, intval($data['Rg']));
 
@@ -148,7 +148,7 @@ else {
 							break;
 						case "6":
 							//insert ou update
-							$db->insertIntoJuryAnnee(intval($data['code_nip']), 'BUT3', null, $data['RCUEs'], $data['Année'], null, "2022-2023");
+							$db->insertIntoJuryAnnee(intval($data['code_nip']), 'BUT3', null, $data['RCUEs'], $data['Année'], null, "2022-2023", null);
 
 							$db->insertIntoJurySem(intval($data['code_nip']), '6', floatval($data['Moy']), $data['UEs'], null, intval($data['Rg']));
 
