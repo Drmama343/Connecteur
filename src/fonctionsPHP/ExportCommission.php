@@ -62,6 +62,21 @@ else {
 				$anneebut = 'BUT0';
 				break;
 		}
+
+		foreach ($worksheet->getRowIterator() as $row) {
+
+			$libelles = [];
+			$rowData = [];
+			// Ignorer la première ligne (en-tête)
+			if ($row->getRowIndex() == 1) {
+				foreach ($row->getCellIterator() as $cell) {
+					$libelles[] = $cell->getValue();
+					$rowData[] = $cell->getColumn();
+				}
+				continue; // Une fois que nous avons obtenu les libellés, nous quittons la boucle
+			}
+			$data = array_combine($libelles, $rowData);
+		}
 		
 		//recupère les etudiants qui sont de cette année et de cette promo puis fait un compte de ça
 		if ($db->getJuryAnnee($anneebut, $annee)==null)
@@ -86,6 +101,8 @@ else {
 			//infos semestre
 			$sheet->setCellValue('F'.$ligne, $moySem->getUE())
 				->setCellValue('G'.$ligne, $moySem->getMoySem());
+
+			
 			
 			switch ($semestre) {
 				case 'value':
@@ -93,7 +110,8 @@ else {
 					break;
 				
 				default:
-					# code...
+					$_SESSION['info_commission'] = "erreur dans l'export".$data['code_nip'];
+					header("Location: ../pages/export.php");
 					break;
 			}
 		}
