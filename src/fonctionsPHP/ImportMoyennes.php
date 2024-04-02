@@ -70,75 +70,45 @@ else {
 						insertionCompetence($data, 11, $db, $suffixe, $semestre);
 						$db->insertIntoJurySem($data['code_nip'], $semestre, floatval($data['Moy']), $data['UEs'], ($data['Bonus BIN11'] == ' ' ? null : floatval($data['Bonus BIN11'])), null);
 						insertionRessource($data, 101, $db, $suffixe);
-						$db->insertIntoMoyRess($data['code_nip'], "BINS101", ($data['BINS101'] == '~' ? null : floatval($data['BINS101'])));
-						$db->insertIntoMoyRess($data['code_nip'], "BINS102", ($data['BINS102'] == '~' ? null : floatval($data['BINS102'])));
-						$db->insertIntoMoyRess($data['code_nip'], "BINS103", ($data['BINS103'] == '~' ? null : floatval($data['BINS103'])));
-						$db->insertIntoMoyRess($data['code_nip'], "BINS104", ($data['BINS104'] == '~' ? null : floatval($data['BINS104'])));
-						$db->insertIntoMoyRess($data['code_nip'], "BINS105", ($data['BINS105'] == '~' ? null : floatval($data['BINS105'])));
-						$db->insertIntoMoyRess($data['code_nip'], "BINS106", ($data['BINS106'] == '~' ? null : floatval($data['BINS106'])));
+						insertionSAE($data, 101, $db, $suffixe);
 						break;
 
 					case "2":
-						$db->insertIntoMoyCompSem($data['code_nip'], "BIN21", $semestre, ($data['BIN21'] == '~' ? null : floatval($data['BIN21'])), "");
-						$db->insertIntoMoyCompSem($data['code_nip'], "BIN22", $semestre, ($data['BIN22'] == '~' ? null : floatval($data['BIN22'])), "");
-						$db->insertIntoMoyCompSem($data['code_nip'], "BIN23", $semestre, ($data['BIN23'] == '~' ? null : floatval($data['BIN23'])), "");
-						$db->insertIntoMoyCompSem($data['code_nip'], "BIN24", $semestre, ($data['BIN24'] == '~' ? null : floatval($data['BIN24'])), "");
-						$db->insertIntoMoyCompSem($data['code_nip'], "BIN25", $semestre, ($data['BIN25'] == '~' ? null : floatval($data['BIN25'])), "");
-						$db->insertIntoMoyCompSem($data['code_nip'], "BIN26", $semestre, ($data['BIN26'] == '~' ? null : floatval($data['BIN26'])), "");
+						insertionCompetence($data, 21, $db, $suffixe, $semestre);
 						$db->insertIntoJurySem($data['code_nip'], $semestre, floatval($data['Moy']), $data['UEs'], ($data['Bonus BIN21'] == ' ' ? null : floatval($data['Bonus BIN21'])), null);
 						insertionRessource($data, 201, $db, $suffixe);
-						$db->insertIntoMoyRess($data['code_nip'], "BINS201", ($data['BINS201'] == '~' ? null : floatval($data['BINS201'])));
-						$db->insertIntoMoyRess($data['code_nip'], "BINS202", ($data['BINS202'] == '~' ? null : floatval($data['BINS202'])));
-						$db->insertIntoMoyRess($data['code_nip'], "BINS203", ($data['BINS203'] == '~' ? null : floatval($data['BINS203'])));
-						$db->insertIntoMoyRess($data['code_nip'], "BINS204", ($data['BINS204'] == '~' ? null : floatval($data['BINS204'])));
-						$db->insertIntoMoyRess($data['code_nip'], "BINS205", ($data['BINS205'] == '~' ? null : floatval($data['BINS205'])));
-						$db->insertIntoMoyRess($data['code_nip'], "BINS206", ($data['BINS206'] == '~' ? null : floatval($data['BINS206'])));
+						insertionSAE($data, 201, $db, $suffixe);
 						$db->insertIntoMoyRess($data['code_nip'], "BINP201", ($data['BINP201'] == '~' ? null : floatval($data['BINP201'])));
 						break;
 
 					case "3":
-						$db->insertIntoMoyCompSem($data['code_nip'], "BIN31", $semestre, ($data['BIN31'] == '~' ? null : floatval($data['BIN31'])), "");
-						$db->insertIntoMoyCompSem($data['code_nip'], "BIN32", $semestre, ($data['BIN32'] == '~' ? null : floatval($data['BIN32'])), "");
-						$db->insertIntoMoyCompSem($data['code_nip'], "BIN33", $semestre, ($data['BIN33'] == '~' ? null : floatval($data['BIN33'])), "");
-						$db->insertIntoMoyCompSem($data['code_nip'], "BIN34", $semestre, ($data['BIN34'] == '~' ? null : floatval($data['BIN34'])), "");
-						$db->insertIntoMoyCompSem($data['code_nip'], "BIN35", $semestre, ($data['BIN35'] == '~' ? null : floatval($data['BIN35'])), "");
-						$db->insertIntoMoyCompSem($data['code_nip'], "BIN36", $semestre, ($data['BIN36'] == '~' ? null : floatval($data['BIN36'])), "");
+						insertionCompetence($data, 31, $db, $suffixe, $semestre);
 						$db->insertIntoJurySem($data['code_nip'], $semestre, floatval($data['Moy']), $data['UEs'], ($data['Bonus BIN31'] == ' ' ? null : floatval($data['Bonus BIN31'])), null);
 						insertionRessource($data, 301, $db, $suffixe);
-						$db->insertIntoMoyRess($data['code_nip'], "BINS301", ($data['BINS301'] == '~' ? null : floatval($data['BINS301'])));
+						insertionSAE($data, 301, $db, $suffixe);
 						break;
 
 					case "4":
-						$db->insertIntoMoyCompSem($data['code_nip'], 'BIN41', $semestre, ($data['BIN41'] == '~' ? null : floatval($data['BIN41'])), "");
-						$db->insertIntoMoyCompSem($data['code_nip'], 'BIN42', $semestre, ($data['BIN42'] == '~' ? null : floatval($data['BIN42'])), "");
-						$db->insertIntoMoyCompSem($data['code_nip'], 'BIN43', $semestre, ($data['BIN43'] == '~' ? null : floatval($data['BIN43'])), "");
-						$db->insertIntoMoyCompSem($data['code_nip'], 'BIN44', $semestre, ($data['BIN44'] == '~' ? null : floatval($data['BIN44'])), "");
-						$db->insertIntoMoyCompSem($data['code_nip'], 'BIN45', $semestre, ($data['BIN45'] == '~' ? null : floatval($data['BIN45'])), "");
-						$db->insertIntoMoyCompSem($data['code_nip'], 'BIN46', $semestre, ($data['BIN46'] == '~' ? null : floatval($data['BIN46'])), "");
+						insertionCompetence($data, 41, $db, $suffixe, $semestre);
 						$db->insertIntoJurySem($data['code_nip'], $semestre, floatval($data['Moy']), $data['UEs'], ($data['Bonus BIN41'] == ' ' ? null : floatval($data['Bonus BIN41'])), null);
 						insertionRessource($data, 401, $db, $suffixe);
 						$db->insertIntoMoyRess($data['code_nip'], 'BINP401', ($data['BINP401'] == '~' ? null : floatval($data['BINP401'])));
-						$db->insertIntoMoyRess($data['code_nip'], 'BINS401', ($data['BINS401'] == '~' ? null : floatval($data['BINS401'])));
-						$db->insertIntoMoyRess($data['code_nip'], 'BINS411', ($data['BINS411'] == '~' ? null : floatval($data['BINS411'])));
+						insertionSAE($data, 401, $db, $suffixe);
 						break;
 
 					case "5":
-						$db->insertIntoMoyCompSem($data['code_nip'], 'BIN51', $semestre, ($data['BIN51'.$suffixe] == '~' ? null : floatval($data['BIN51'.$suffixe])), "");
-						$db->insertIntoMoyCompSem($data['code_nip'], 'BIN52', $semestre, ($data['BIN52'.$suffixe] == '~' ? null : floatval($data['BIN52'.$suffixe])), "");
-						$db->insertIntoMoyCompSem($data['code_nip'], 'BIN56', $semestre, ($data['BIN56'.$suffixe] == '~' ? null : floatval($data['BIN56'.$suffixe])), "");
+						insertionCompetence($data, 51, $db, $suffixe, $semestre);
 						$db->insertIntoJurySem($data['code_nip'], $semestre, floatval($data['Moy']), $data['UEs'], ($data['Bonus BIN51'.$suffixe] == ' ' ? null : floatval($data['Bonus BIN51'.$suffixe])), null);
 						insertionRessource($data, 501, $db, $suffixe);
-						$db->insertIntoMoyRess($data['code_nip'], 'BINS501', ($data['BINS501'.$suffixe] == '~' ? null : floatval($data['BINS501'.$suffixe])));
+						insertionSAE($data, 501, $db, $suffixe);
 						break;
 
 					case "6":
-						$db->insertIntoMoyCompSem($data['code_nip'], 'BIN61', $semestre, ($data['BIN61'.$suffixe] == '~' ? null : floatval($data['BIN61'.$suffixe])), "");
-						$db->insertIntoMoyCompSem($data['code_nip'], 'BIN62', $semestre, ($data['BIN62'.$suffixe] == '~' ? null : floatval($data['BIN62'.$suffixe])), "");
-						$db->insertIntoMoyCompSem($data['code_nip'], 'BIN66', $semestre, ($data['BIN66'.$suffixe] == '~' ? null : floatval($data['BIN66'.$suffixe])), "");
+						insertionCompetence($data, 61, $db, $suffixe, $semestre);
+						$db->insertIntoJurySem($data['code_nip'], $semestre, floatval($data['Moy']), $data['UEs'], ($data['Bonus BIN61'.$suffixe] == ' ' ? null : floatval($data['Bonus BIN61'.$suffixe])), null);
 						insertionRessource($data, 601, $db, $suffixe);
 						$db->insertIntoMoyRess($data['code_nip'], 'BINP601', ($data['BINP601'.$suffixe] == '~' ? null : floatval($data['BINP601'.$suffixe])));
-						$db->insertIntoMoyRess($data['code_nip'], 'BINS601', ($data['BINS601'.$suffixe] == '~' ? null : floatval($data['BINS601'.$suffixe])));
-						$db->insertIntoMoyRess($data['code_nip'], 'BINS611', ($data['BINS611'.$suffixe] == '~' ? null : floatval($data['BINS611'.$suffixe])));
+						insertionSAE($data, 601, $db, $suffixe);
 						break;
 				}
 			}
@@ -173,7 +143,38 @@ function insertionRessource($data, $binRessourceDepart, $db, $suffixe) {
     for ($i = $binRessourceDepart; $i <= $binRessourceArrivee; $i++) {
         $nomBin = 'BINR' . $i;
         // Vérifie si la clé existe dans le tableau $data
-        if (array_key_exists($nomBin, $data)) {
+        if (array_key_exists($nomBin.$suffixe, $data)) {
+            $db->insertIntoMoyRess($data['code_nip'], $nomBin, ($data[$nomBin.$suffixe] == '~' ? null : floatval($data[$nomBin.$suffixe])));
+        } else {
+            // Si la clé n'existe pas, insère une valeur null
+            $db->insertIntoMoyRess($data['code_nip'], $nomBin, null);
+        }
+    }
+}
+
+function insertionSAE($data, $binSAEDepart, $db, $suffixe) {
+    $binSAEArrivee = 0;
+    
+    // Recherche de la colonne avec le numéro le plus élevé
+    foreach ($data as $key => $value) {
+        // Vérifie si la clé commence par 'BIN'
+        if (strpos($key, 'BINS') === 0) {
+            // Récupère le numéro après 'BIN' et le compare avec $maxColumnNumber
+            $matches = [];
+            if (preg_match('/BINS(\d+)([A-Z]*)/', $key, $matches)) {
+                $bin = intval($matches[1]);
+                if ($bin > $binSAEArrivee) {
+                    $binSAEArrivee = $bin;
+                }
+            }
+        }
+    }
+    
+    // Utilisation de la valeur maximale trouvée dans la boucle
+    for ($i = $binSAEDepart; $i <= $binSAEArrivee; $i++) {
+        $nomBin = 'BINS' . $i;
+        // Vérifie si la clé existe dans le tableau $data
+        if (array_key_exists($nomBin.$suffixe, $data)) {
             $db->insertIntoMoyRess($data['code_nip'], $nomBin, ($data[$nomBin.$suffixe] == '~' ? null : floatval($data[$nomBin.$suffixe])));
         } else {
             // Si la clé n'existe pas, insère une valeur null
@@ -187,9 +188,9 @@ function insertionCompetence($data, $binCompetenceDepart, $db, $suffixe, $semest
     
     // Recherche de la colonne avec le numéro le plus élevé
     foreach ($data as $key => $value) {
-        // Vérifie si la clé commence par 'BINR'
+        // Vérifie si la clé commence par 'BIN'
         if (strpos($key, 'BIN') === 0) {
-            // Récupère le numéro après 'BINR' et le compare avec $maxColumnNumber
+            // Récupère le numéro après 'BIN' et le compare avec $maxColumnNumber
             $matches = [];
             if (preg_match('/BIN(\d+)([A-Z]*)/', $key, $matches)) {
                 $bin = intval($matches[1]);
@@ -204,10 +205,15 @@ function insertionCompetence($data, $binCompetenceDepart, $db, $suffixe, $semest
     for ($i = $binCompetenceDepart; $i <= $binCompetenceArrivee; $i++) {
         $nomBin = 'BIN' . $i;
         // Vérifie si la clé existe dans le tableau $data
-        if (array_key_exists($nomBin, $data)) {
-            $db->insertIntoMoyCompSem($data['code_nip'], "BIN11", $semestre, ($data[$nomBin.$suffixe] == '~' ? null : floatval($data[$nomBin.$suffixe])), "");
+        if (array_key_exists($nomBin.$suffixe, $data)) {
+            $db->insertIntoMoyCompSem($data['code_nip'], $nomBin, $semestre, ($data[$nomBin.$suffixe] == '~' ? null : floatval($data[$nomBin.$suffixe])), '');
+        } else {
+            // Si la clé n'existe pas, insère une valeur null
+            $db->insertIntoMoyCompSem($data['code_nip'], $nomBin, $semestre, null, '');
         }
     }
 }
 $db->close();
 ?>
+
+
