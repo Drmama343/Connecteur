@@ -5,7 +5,7 @@ body {
 }
 
 nav {
-	position:absolute;
+	position:fixed;
 	top: 0px;
 	left: 0px;
 	background-color: #e1ffc2;
@@ -72,4 +72,5 @@ footer {
 	width: 80%;
 	padding: 20px 0;
 	text-align: center;
+	background-color: white;
 }

@@ -153,6 +153,38 @@ INSERT INTO Ressource VALUES
 	('BINS611', 'Stage'),
 	('BINP601', 'Portfolio');
 
+INSERT INTO CompSem VALUES 
+	('BIN11', 1),
+	('BIN12', 1),
+	('BIN13', 1),
+	('BIN14', 1),
+	('BIN15', 1),
+	('BIN16', 1),
+	('BIN21', 2),
+	('BIN22', 2),
+	('BIN23', 2),
+	('BIN24', 2),
+	('BIN25', 2),
+	('BIN26', 2),
+	('BIN31', 3),
+	('BIN32', 3),
+	('BIN33', 3),
+	('BIN34', 3),
+	('BIN35', 3),
+	('BIN36', 3),
+	('BIN41', 4),
+	('BIN42', 4),
+	('BIN43', 4),
+	('BIN44', 4),
+	('BIN45', 4),
+	('BIN46', 4),
+	('BIN51', 5),
+	('BIN52', 5),
+	('BIN56', 5),
+	('BIN61', 6),
+	('BIN62', 6),
+	('BIN66', 6);
+
 INSERT INTO Annee VALUES
 	('BUT1', 1, 2),
 	('BUT2', 3, 4),

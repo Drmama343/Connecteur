@@ -146,8 +146,9 @@ class DB {
 		return $this->execQuery($requete,null,'Etudiant');
 	}
 
-	public function getJuryAnnee($idannee, $anneepromo) {
-		$requete = "SELECT * from JuryAnnee WHERE idannee = $idannee and  anneepromo = $anneepromo ";
+	//fonction de frizoks
+	public function getJuryAnnee($codenip, $nomannee) {
+		$requete = "SELECT * from JuryAnnee WHERE codenip = $codenip AND nomannee = '$nomannee'";
 		return $this->execQuery($requete,null,'JuryAnnee');
 	}
 
@@ -156,14 +157,16 @@ class DB {
 		return $this->execQuery($requete,null,'JurySem');
 	}
 
+	//fonction de frizoks
 	public function getEtudiantsS5($annee) {
 		$requete = "SELECT e.* from Etudiant e Join JuryAnnee ja ON e.codenip = ja.codenip WHERE nomAnnee = 'BUT3' AND anneePromo = '$annee'";
 		return $this->execQuery($requete,null,'Etudiant');
 	}
 
-	public function getMoyCompAnnee($codenip, $idComp, $nomAnnee) {
-		$requete = "SELECT mca.moyCompAnnee from MoyCompAnnee mca Join Etudiant e ON mca.codenip = e.codenip WHERE nomAnnee = '$nomAnnee' AND idComp = '$idComp'";
-		return $this->execQuery($requete,null,'Etudiant');
+	//fonction de frizoks
+	public function getMoyAnnee($codenip, $nomannee) {
+		$requete = "SELECT * from MoyCompAnnee WHERE nomAnnee = '$nomannee' AND codenip = $codenip";
+		return $this->execQuery($requete,null,'MoyCompAnnee');
 	}
 
 	public function getRangCompAnnee($codenip, $idComp, $nomAnnee) {
