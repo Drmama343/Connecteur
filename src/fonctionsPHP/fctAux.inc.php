@@ -26,41 +26,62 @@
 	}
 
 	function menu($nom, $droit) {
-		if ( $droit === 2 ) {
-			$string  ="		<nav>
-			<div class=\"id\">
-				<p>$nom</p>
-				<p>Mode : Administrateur</p>
-			</div>
-
-			<a href=\"./accueil.php\">Accueil</a>
-			<hr class=\"hrmenu\">
-			<a href=\"./import.php\">Import</a>
-			<hr class=\"hrmenu\">
-			<a href=\"./visualisation.php\">Visualisation</a>
-			<hr class=\"hrmenu\">
-			<a href=\"./export.php\">Export</a>";
+		if ($droit === 2) {
+			$string = "<nav>
+				<div class=\"id\">
+					<p>$nom</p>
+					<p>Mode : Administrateur</p>
+				</div>
+	
+				<a href=\"./accueil.php\">Accueil</a>
+				<hr class=\"hrmenu\">
+				<a href=\"./import.php\">Import</a>
+				<hr class=\"hrmenu\">
+				<div class=\"sous-menu-wrapper\" onmouseover=\"afficherSousMenu('sousMenuUser')\" onmouseout=\"masquerSousMenu('sousMenuUser')\">
+					<p>Visualisation</p>
+					<div id=\"sousMenuUser\" style=\"display: none;\">
+						<a href=\"./visualisation.php\">Par Etudiant</a>
+						<a href=\"#\">Par Notes</a>
+					</div>
+				</div>
+				<hr class=\"hrmenu\">
+				<a href=\"./export.php\">Export</a>";
+		} else {
+			$string = "<nav>
+				<div class=\"id\">
+					<p>$nom</p>
+					<p>Mode : Utilisateur</p>
+				</div>
+	
+				<a href=\"./accueil.php\">Accueil</a>
+				<hr class=\"hrmenu\">
+				<div class=\"sous-menu-wrapper\" onmouseover=\"afficherSousMenu('sousMenuUser')\" onmouseout=\"masquerSousMenu('sousMenuUser')\">
+					<p>Visualisation</p>
+					<div id=\"sousMenuUser\" style=\"display: none;\">
+						<a href=\"./visualisation.php\">Par Etudiant</a>
+						<a href=\"#\">Par Notes</a>
+					</div>
+				</div>
+				<hr class=\"hrmenu\">
+				<a href=\"./export.php\">Export</a>";
 		}
-		else {
-			$string  ="		<nav>
-			<div class=\"id\">
-				<p>$nom</p>
-				<p>Mode : Utilisateur</p>
-			</div>
-
-			<a href=\"./accueil.php\">Accueil</a>
-			<hr class=\"hrmenu\">
-			<a href=\"./visualisation.php\">Visualisation</a>
-			<hr class=\"hrmenu\">
-			<a href=\"./export.php\">Export</a>";
-		}
-
+	
 		$string .= '
-			<a class="logout" href="../connexion.php"> <img src="../images/logout.png" alt="logout" width="50" height="40"></a>
-		</nav>' . "\n";
-
+				<a class="logout" href="../connexion.php"> <img src="../images/logout.png" alt="logout" width="50" height="40"></a>
+			</nav>' . "\n";
+	
+		$string .= "<script>
+			function afficherSousMenu(id) {
+				document.getElementById(id).style.display = 'block';
+			}
+	
+			function masquerSousMenu(id) {
+				document.getElementById(id).style.display = 'none';
+			}
+		</script>";
+	
 		return $string;
-	}
+	}	
 
 	function isLoginOK($login) {
 		$tab = ["user"=>"0","admin"=>"0"];

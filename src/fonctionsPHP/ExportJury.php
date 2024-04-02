@@ -24,7 +24,7 @@ else {
 		header("Location: ../pages/export.php");
 	}
 	else {
-		$templatePath = '../images/ModeleS1Commission.xlsx';
+		$templatePath = '../images/ModeleS'.$semester.'Jury.xlsx';
 		$spreadsheet = IOFactory::load($templatePath);
 
 		$sheet = $spreadsheet->getActiveSheet();

@@ -53,24 +53,31 @@ nav a:hover {
 }
 
 header {
-	position: relative;
-	left: 300px;
-	width: 80%;
+    position: fixed;
+	margin: 15px;
+    left: 300px;
+    width: 80%;
+    z-index: 1;
+    background-color: white;
 }
 
 section {
-	position: relative;
-	left: 300px;
-	width: 80%;
-	height: 100%;
+    position: absolute;
+    top: 100px;
+    left: 300px;
+    width: 80%;
+    height: calc(100% - 200px); /* Soustraire la hauteur du header et du footer */
+    overflow: auto;
+    z-index: 0;
 }
 
 footer {
-	position: fixed;
-	left: 300px;
-	bottom: 0px;
-	width: 80%;
-	padding: 20px 0;
-	text-align: center;
-	background-color: white;
+    position: fixed;
+    left: 300px;
+    bottom: 0px;
+    width: 80%;
+    padding: 20px 0;
+    text-align: center;
+    background-color: white;
+    z-index: 1;
 }
