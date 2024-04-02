@@ -63,7 +63,7 @@ else {
 				break;
 		}
 
-		foreach ($worksheet->getRowIterator() as $row) {
+		foreach ($sheet->getRowIterator() as $row) {
 
 			$libelles = [];
 			$rowData = [];
@@ -78,7 +78,7 @@ else {
 			$data = array_combine($libelles, $rowData);
 		}
 		
-		//recupère les etudiants qui sont de cette année et de cette promo puis fait un compte de ça
+		//recupère les etudiants qui sont de cette année et de cette promo puis fait un compte de ca
 		if ($db->getJuryAnnee($anneebut, $annee)==null)
 			return null;
 		$nbEtu = $db->getJuryAnnee($anneebut, $annee);
