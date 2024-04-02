@@ -1,51 +1,48 @@
-DROP TABLE IF EXISTS MoyCompAnnee;
-DROP TABLE IF EXISTS MoyCompSem;
-DROP TABLE IF EXISTS JuryAnnee;
-DROP TABLE IF EXISTS JurySem;
-DROP TABLE IF EXISTS MoyRess;
-DROP TABLE IF EXISTS CompSem;
-DROP TABLE IF EXISTS CompRess;
-DROP TABLE IF EXISTS PromoEtud;
-DROP TABLE IF EXISTS Etudiant;
-DROP TABLE IF EXISTS Promotion;
-DROP TABLE IF EXISTS Ressources;
-DROP TABLE IF EXISTS Competences;
-DROP TABLE IF EXISTS Semestre;
-DROP TABLE IF EXISTS Annee;
-
--- Table Annee
-CREATE TABLE Annee (
-    idAnnee INT PRIMARY KEY,
-    nomAnnee VARCHAR(50)
-);
+DROP TABLE IF EXISTS MoyCompAnnee CASCADE;
+DROP TABLE IF EXISTS MoyCompSem CASCADE;
+DROP TABLE IF EXISTS JuryAnnee CASCADE;
+DROP TABLE IF EXISTS JurySem CASCADE;
+DROP TABLE IF EXISTS MoyRess CASCADE;
+DROP TABLE IF EXISTS CompSem CASCADE;
+DROP TABLE IF EXISTS Coeff CASCADE;
+DROP TABLE IF EXISTS PromoEtud CASCADE;
+DROP TABLE IF EXISTS Etudiant CASCADE;
+DROP TABLE IF EXISTS Promotion CASCADE;
+DROP TABLE IF EXISTS Ressource CASCADE;
+DROP TABLE IF EXISTS Competence CASCADE;
+DROP TABLE IF EXISTS Annee CASCADE;
+DROP TABLE IF EXISTS Semestre CASCADE;
 
 -- Table Semestre
 CREATE TABLE Semestre (
     idSem INT PRIMARY KEY,
-    nomSem VARCHAR(50),
-    idAnnee INT,
-    FOREIGN KEY (idAnnee) REFERENCES Annee(idAnnee)
+    nomSem VARCHAR(50)
+);
+
+-- Table Annee
+CREATE TABLE Annee (
+    nomAnnee VARCHAR(50) PRIMARY KEY CHECK (nomAnnee IN ('BUT1', 'BUT2', 'BUT3')),
+    semestre1 INT,
+    semestre2 INT,
+    FOREIGN KEY (semestre1) REFERENCES Semestre(idSem),
+    FOREIGN KEY (semestre2) REFERENCES Semestre(idSem)
 );
 
 -- Table Competences
-CREATE TABLE Competences (
-    idComp INT PRIMARY KEY,
-    nomComp VARCHAR(50)
+CREATE TABLE Competence (
+    idComp VARCHAR(50) PRIMARY KEY,
+    nomComp VARCHAR(150)
 );
 
 -- Table Ressources
-CREATE TABLE Ressources (
-    idRess INT PRIMARY KEY,
-    nomRess VARCHAR(50)
+CREATE TABLE Ressource (
+    idRess VARCHAR(50) PRIMARY KEY,
+    nomRess VARCHAR(150)
 );
 
 -- Table Promotion
 CREATE TABLE Promotion (
-    anneePromo VARCHAR(50),
-    nbEtud INT,
-    idAnnee INT,
-    PRIMARY KEY (anneePromo, idAnnee),
-    FOREIGN KEY (idAnnee) REFERENCES Annee(idAnnee)
+    anneePromo VARCHAR(50) PRIMARY KEY
 );
 
 -- Table Etudiant
@@ -54,12 +51,12 @@ CREATE TABLE Etudiant (
     nom VARCHAR(50) NOT NULL,
     prenom VARCHAR(50) NOT NULL,
     cursus VARCHAR(50) NOT NULL,
-    rang INT NOT NULL,
     parcours VARCHAR(50),
     apprentissage VARCHAR(50),
     avisInge VARCHAR(50),
     avisMaster VARCHAR(50),
-    commentaire VARCHAR(50)
+    commentaire VARCHAR(50),
+    mobEtrang VARCHAR(150)
 );
 
 -- Table PromoEtud
@@ -71,33 +68,33 @@ CREATE TABLE PromoEtud (
     FOREIGN KEY (codeNip) REFERENCES Etudiant(codeNip)
 );
 
--- Table CompRess
-CREATE TABLE CompRess (
-    idComp INT,
-    idRess INT,
+-- Table Coeff
+CREATE TABLE Coeff (
+    idComp VARCHAR(50),
+    idRess VARCHAR(50),
     coeff INT,
     PRIMARY KEY (idComp, idRess),
-    FOREIGN KEY (idComp) REFERENCES Competences(idComp),
-    FOREIGN KEY (idRess) REFERENCES Ressources(idRess)
+    FOREIGN KEY (idComp) REFERENCES Competence(idComp),
+    FOREIGN KEY (idRess) REFERENCES Ressource(idRess)
 );
 
 -- Table CompSem
 CREATE TABLE CompSem (
-    idComp INT,
+    idComp VARCHAR(50),
     idSem INT,
     PRIMARY KEY (idComp, idSem),
-    FOREIGN KEY (idComp) REFERENCES Competences(idComp),
+    FOREIGN KEY (idComp) REFERENCES Competence(idComp),
     FOREIGN KEY (idSem) REFERENCES Semestre(idSem)
 );
 
 -- Table MoyRess
 CREATE TABLE MoyRess (
     codeNip INT,
-    idRess INT,
+    idRess VARCHAR(50),
     moyRess FLOAT,
     PRIMARY KEY (codeNip, idRess),
     FOREIGN KEY (codeNip) REFERENCES Etudiant(codeNip),
-    FOREIGN KEY (idRess) REFERENCES Ressources(idRess)
+    FOREIGN KEY (idRess) REFERENCES Ressource(idRess)
 );
 
 -- Table JurySem
@@ -107,6 +104,7 @@ CREATE TABLE JurySem (
     moySem FLOAT,
     UE VARCHAR(50),
     bonus FLOAT,
+    rang INT,
     PRIMARY KEY (codeNip, idSem),
     FOREIGN KEY (codeNip) REFERENCES Etudiant(codeNip),
     FOREIGN KEY (idSem) REFERENCES Semestre(idSem)
@@ -115,36 +113,41 @@ CREATE TABLE JurySem (
 -- Table JuryAnnee
 CREATE TABLE JuryAnnee (
     codeNip INT,
-    idAnnee INT,
+    nomAnnee VARCHAR(50),
     moyAnnee FLOAT,
     RCUE VARCHAR(50),
     decision VARCHAR(50),
-    PRIMARY KEY (codeNip, idAnnee),
+    rang INT,
+    anneePromo VARCHAR(50),
+    absInjust INT,
+    PRIMARY KEY (codeNip, nomAnnee),
     FOREIGN KEY (codeNip) REFERENCES Etudiant(codeNip),
-    FOREIGN KEY (idAnnee) REFERENCES Annee(idAnnee)
+    FOREIGN KEY (nomAnnee) REFERENCES Annee(nomAnnee),
+    FOREIGN KEY (anneePromo) REFERENCES Promotion(anneePromo)
 );
 
 -- Table MoyCompSem
 CREATE TABLE MoyCompSem (
     codeNip INT,
-    idComp INT,
+    idComp VARCHAR(50),
     idSem INT,
     moyCompSem FLOAT,
     avis VARCHAR(50),
     PRIMARY KEY (codeNip, idComp, idSem),
     FOREIGN KEY (codeNip) REFERENCES Etudiant(codeNip),
-    FOREIGN KEY (idComp) REFERENCES Competences(idComp),
+    FOREIGN KEY (idComp) REFERENCES Competence(idComp),
     FOREIGN KEY (idSem) REFERENCES Semestre(idSem)
 );
 
 -- Table MoyCompAnnee
 CREATE TABLE MoyCompAnnee (
     codeNip INT,
-    idComp INT,
-    idAnnee INT,
+    idComp VARCHAR(50),
+    nomAnnee VARCHAR(50),
     moyCompAnnee FLOAT,
-    PRIMARY KEY (codeNip, idComp, idAnnee),
+    avis VARCHAR(50),
+    PRIMARY KEY (codeNip, idComp, nomAnnee),
     FOREIGN KEY (codeNip) REFERENCES Etudiant(codeNip),
-    FOREIGN KEY (idComp) REFERENCES Competences(idComp),
-    FOREIGN KEY (idAnnee) REFERENCES Annee(idAnnee)
+    FOREIGN KEY (idComp) REFERENCES Competence(idComp),
+    FOREIGN KEY (nomAnnee) REFERENCES Annee(nomAnnee)
 );

@@ -7,20 +7,21 @@
 	
 	echo enTete("Visualisation",["../styles/classique.css", "../styles/virtualisation.css"]);
 	echo menu($_SESSION['nom'], $_SESSION['droitAcces']);
-	if ( $_SESSION['droitAcces'] === 2 )
+	/*if ( $_SESSION['droitAcces'] === 2 )
 		contenuAdmin();
 	else
-		contenu();
+		contenuUser();*/
+	contenuUser();
 	echo pied();
 
-	function contenu() {
+	function contenuUser() {
 		$db = DB::getInstance();
 		if ($db == null) {
 			echo "Impossible de se connecter";
 		}
 		else {
 			try {
-				$t = $db->getTout();
+				$t = $db->getEtudiants();
 			} //fin try
 			catch (Exception $e) {
 				echo $e->getMessage();
@@ -36,21 +37,32 @@
 			<table>
 				<thead>
 					<tr>
-						<th>nom</th>
-						<th>prenom</th>
-						<th>moyenne</th>
+						<th>Code NIP</th>
+						<th>Nom</th>
+						<th>Prénom</th>
+						<th>Cursus</th>
+						<th>Parcours</th>
+						<th>Apprentissage</th>
+						<th>Avis Ingénieur</th>
+						<th>Avis Master</th>
+						<th>Commentaire</th>
+						<th>Mobilité étrangère</th>
 					</tr>
 				</thead>
 				<tbody>\n";
 
 		foreach ($t as &$v) {
-			$nom = $v->getNom();
-			$prenom = $v->getPrenom();
-			$moy = $v->getMoy();
 
-			echo "<td>$nom</td>\n";
-			echo "<td>$prenom</td>\n";
-			echo "<td>$moy</td>\n";
+			echo "<td>" . $v->getCode() . "</td>\n";
+			echo "<td>" . $v->getNom() . "</td>\n";
+			echo "<td>" . $v->getPrenom() . "</td>\n";
+			echo "<td>" . $v->getCursus() . "</td>\n";
+			echo "<td>" . $v->getParcours() . "</td>\n";
+			echo "<td>" . $v->getApprentissage() . "</td>\n";
+			echo "<td>" . $v->getAvisInge() . "</td>\n";
+			echo "<td>" . $v->getAvisMaster() . "</td>\n";
+			echo "<td>" . $v->getCommentaire() . "</td>\n";
+			echo "<td>" . $v->getMobEtrang() . "</td>\n";
 
 			echo "</tr>\n";
 		}
@@ -76,7 +88,7 @@
 					}
 					$_GET['updateCli'] = $_GET['updateNp'] = null;
 				}
-				$t = $db->getTout();
+				$t = $db->getEtudiants();
 			} //fin try
 			catch (Exception $e) { 
 				echo $e->getMessage();
@@ -102,9 +114,16 @@
 					<tr>\n";
 
 		foreach ($t as &$v) {
+			$code = $v->getCode();
 			$nom = $v->getNom();
 			$prenom = $v->getPrenom();
-			$moy = $v->getMoy();
+			$cursus = $v->getCursus();
+			$parcours = $v->getParcours();
+			$apprentissage = $v->getApprentissage();
+			$avisInge = $v->getAvisInge();
+			$avisMaster = $v->getAvisMaster();
+			$commentaire = $v->getCommentaire();
+			$abs = $v->getAbsInjust();
 
 			if ( isset($_GET['updateCli'], $_GET['updateNp']) && $_GET['updateCli'] == $nom && $_GET['updateNp'] == $prenom)
 			{

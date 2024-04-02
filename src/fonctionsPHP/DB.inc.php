@@ -1,6 +1,19 @@
 <?php
 
-require ("Test.inc.php");
+require ("Annee.inc.php");
+require ("Coeff.inc.php");
+require ("Competence.inc.php");
+require ("CompSem.inc.php");
+require ("Etudiant.inc.php");
+require ("JuryAnnee.inc.php");
+require ("JurySem.inc.php");
+require ("MoyCompAnnee.inc.php");
+require ("MoyCompSem.inc.php");
+require ("MoyRess.inc.php");
+require ("PromoEtud.inc.php");
+require ("Promotion.inc.php");
+require ("Ressource.inc.php");
+require ("Semestre.inc.php");
 
 class DB {
 	  private static $instance = null; //mémorisation de l'instance de DB pour appliquer le pattern Singleton
@@ -75,31 +88,31 @@ class DB {
 	  //	que d'éléments dans le tableau passé en second paramètre.
 	  //	NB : si la requête ne renvoie aucun tuple alors la fonction renvoie un tableau vide
 	  /************************************************************************/
-	  private function execQuery($requete,$tparam,$nomClasse) {
-	  		 //on prépare la requête
-		 $stmt = $this->connect->prepare($requete);
-		 //on indique que l'on va récupére les tuples sous forme d'objets instance de Client
-		 $stmt->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, $nomClasse); 
-		 //on exécute la requête
-		 if ($tparam != null) {
-		 	$stmt->execute($tparam);
-		 }
-		 else {
-		 	$stmt->execute();
-		 }
-		 //récupération du résultat de la requête sous forme d'un tableau d'objets
-		 $tab = array();
-		 $tuple = $stmt->fetch(); //on récupère le premier tuple sous forme d'objet
-		 if ($tuple) {
-		 	//au moins un tuple a été renvoyé
-	 		  	 while ($tuple != false) {
-			   $tab[]=$tuple; //on ajoute l'objet en fin de tableau
-	  				   $tuple = $stmt->fetch(); //on récupère un tuple sous la forme
-						//d'un objet instance de la classe $nomClasse	       
-			 } //fin du while	           	     
-			 }
-		 return $tab;    
-	  }
+		private function execQuery($requete, $tparam, $nomClasse) {
+			// on prépare la requête
+			$stmt = $this->connect->prepare($requete);
+			// on indique que l'on va récupérer les tuples sous forme d'objets instance de nomClasse
+			$stmt->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, $nomClasse);
+			// on exécute la requête
+			if ($tparam != null) {
+				$stmt->execute($tparam);
+			} else {
+				$stmt->execute();
+			}
+			// récupération du résultat de la requête sous forme d'un tableau d'objets
+			$tab = array();
+			$tuple = $stmt->fetch(); // on récupère le premier tuple sous forme d'objet
+			if ($tuple) {
+				// au moins un tuple a été renvoyé
+				while ($tuple != false) {
+					// Affichage des valeurs récupérées avant conversion
+					$tab[] = $tuple; // on ajoute l'objet en fin de tableau
+					$tuple = $stmt->fetch(); // on récupère un tuple sous la forme
+					// d'un objet instance de la classe $nomClasse
+				} // fin du while
+			}
+			return $tab;
+		}
   
 	   /************************************************************************/
 	  //	Methode utilisable uniquement dans les méthodes de la classe DB
@@ -111,38 +124,149 @@ class DB {
 	  //	ATTENTION : il doit y avoir autant de ? dans le texte de la requête
 	  //	que d'éléments dans le tableau passé en second paramètre.
 	  /************************************************************************/
-	  private function execMaj($ordreSQL,$tparam) {
-	  		 $stmt = $this->connect->prepare($ordreSQL);
-		 $res = $stmt->execute($tparam); //execution de l'ordre SQL      	     
-		 return $stmt->rowCount();
-	  }
+	private function execMaj($ordreSQL,$tparam) {
+		$stmt = $this->connect->prepare($ordreSQL);
+		try {
+			$res = $stmt->execute($tparam); //execution de l'ordre SQL
+			return 0;
+		} catch (PDOException $e) { return 1; }
+	}
 
 	  /*************************************************************************
 	   * Fonctions qui peuvent être utilisées dans les scripts PHP
 	   *************************************************************************/
-	  
-	  public function getTout() {
-				  $requete = 'select * from Test';
-			return $this->execQuery($requete,null,'Test');
-	  }
+	
+	public function getEtudiants() {
+		$requete = 'SELECT * from Etudiant';
+		return $this->execQuery($requete,null,'Etudiant');
+	}
+
+	public function getJuryAnnee($idannee, $anneepromo) {
+		$requete = "SELECT * from JuryAnnee WHERE idannee = $idannee and  anneepromo = $anneepromo ";
+		return $this->execQuery($requete,null,'JuryAnnee');
+	}
+
+	public function getJurySemByEtudSem ($codenip, $idsem){
+		$requete = "SELECT * from JurySem WHERE codenip = $codenip and idsem = $idsem";
+		return $this->execQuery($requete,null,'JurySem');
+	}
+
+	public function getEtudiantsS5($annee) {
+		$requete = "SELECT e.* from Etudiant e Join JuryAnnee ja ON e.codenip = ja.codenip WHERE nomAnnee = 'BUT3' AND anneePromo = '$annee'";
+		return $this->execQuery($requete,null,'Etudiant');
+	}
+
+	public function getMoyCompAnnee($codenip, $idComp, $nomAnnee) {
+		$requete = "SELECT mca.moyCompAnnee from MoyCompAnnee mca Join Etudiant e ON mca.codenip = e.codenip WHERE nomAnnee = '$nomAnnee' AND idComp = '$idComp'";
+		return $this->execQuery($requete,null,'Etudiant');
+	}
+
+	public function getRangCompAnnee($codenip, $idComp, $nomAnnee) {
+		$requete = "SELECT mca.moyCompAnnee from MoyCompAnnee mca Join Etudiant e ON mca.codenip = e.codenip WHERE nomAnnee = '$nomAnnee' AND idComp = '$idComp'";
+		return $this->execQuery($requete,null,'Etudiant');
+	}
+
 	  // public function deleteAchat($idcli,$np) {
 	  //       $requete = 'delete from achat where ncli = ? and np = ?';
 	//       $tparam = array($idcli,$np);
 	//       return $this->execMaj($requete,$tparam);
       // }
 
-      public function updateMoy($nom,$moy) {
-      	$requete = 'update Test set moyenne = ? where nom = ?';
-	      $tparam = array($moy,$nom);
-	      return $this->execMaj($requete,$tparam);
-      }
+	public function updateEtudiant($codeNip, $cursus, $parcours, $apprentissage, $avisInge, $avisMaster, $commentaire, $etranger) {
+		$requete = 'UPDATE Etudiant SET cursus = ?, parcours = ?, apprentissage = ?, avisInge = ?, avisMaster = ?, commentaire = ?, mobEtrang = ? WHERE codeNip = ?';
+		$tparam = array($cursus, $parcours, $apprentissage, $avisInge, $avisMaster, $commentaire, $etranger, $codeNip);
+		return $this->execMaj($requete, $tparam);
+	}
+	
 
-	  public function insertTest($nom,$prenom,$moyenne) {
-			$requete = 'INSERT INTO Test VALUES (?, ?, ?)';
-		  $tparam = array($nom,$prenom,$moyenne);
-		  return $this->execMaj($requete,$tparam);
-	  }
+	
+	/*************************************************************************
+	   * Fonctions Pour Inserer des donnees dans la base
+	   *************************************************************************/
 
+	public function insertIntoPromotion($anneePromo, $nbEtud) {
+		$requete = 'INSERT INTO Promotion VALUES (?, ?)';
+		$tparam = array($anneePromo, $nbEtud);
+		return $this->execMaj($requete, $tparam);
+	}
+	
+	public function insertIntoEtudiant($codeNip, $nom, $prenom, $cursus, $parcours, $apprentissage, $avisInge, $avisMaster, $commentaire, $mobEtrang) {
+		$requete = 'INSERT INTO Etudiant VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+		$tparam = array($codeNip, $nom, $prenom, $cursus, $parcours, $apprentissage, $avisInge, $avisMaster, $commentaire, $mobEtrang);
+		return $this->execMaj($requete, $tparam);
+	}
+	
+	public function insertIntoAnnee($idAnnee, $nomAnnee) {
+		$requete = 'INSERT INTO Annee VALUES (?, ?)';
+		$tparam = array($idAnnee, $nomAnnee);
+		return $this->execMaj($requete, $tparam);
+	}
+	
+	public function insertIntoSemestre($idSem, $nomSem, $idAnnee) {
+		$requete = 'INSERT INTO Semestre VALUES (?, ?, ?)';
+		$tparam = array($idSem, $nomSem, $idAnnee);
+		return $this->execMaj($requete, $tparam);
+	}
+	
+	public function insertIntoCompetence($idComp, $nomComp) {
+		$requete = 'INSERT INTO Competence VALUES (?, ?)';
+		$tparam = array($idComp, $nomComp);
+		return $this->execMaj($requete, $tparam);
+	}
+	
+	public function insertIntoRessource($idRess, $nomRess) {
+		$requete = 'INSERT INTO Ressource VALUES (?, ?)';
+		$tparam = array($idRess, $nomRess);
+		return $this->execMaj($requete, $tparam);
+	}
+	
+	public function insertIntoPromoEtud($anneePromo, $codeNip) {
+		$requete = 'INSERT INTO PromoEtud VALUES (?, ?)';
+		$tparam = array($anneePromo, $codeNip);
+		return $this->execMaj($requete, $tparam);
+	}
+	
+	public function insertIntoCoeff($idComp, $idRess, $coeff) {
+		$requete = 'INSERT INTO Coeff VALUES (?, ?, ?)';
+		$tparam = array($idComp, $idRess, $coeff);
+		return $this->execMaj($requete, $tparam);
+	}
+	
+	public function insertIntoCompSem($idComp, $idSem) {
+		$requete = 'INSERT INTO CompSem VALUES (?, ?)';
+		$tparam = array($idComp, $idSem);
+		return $this->execMaj($requete, $tparam);
+	}
+	
+	public function insertIntoMoyRess($codeNip, $idRess, $moyRess) {
+		$requete = 'INSERT INTO MoyRess VALUES (?, ?, ?)';
+		$tparam = array($codeNip, $idRess, $moyRess);
+		return $this->execMaj($requete, $tparam);
+	}
+	
+	public function insertIntoJurySem($codeNip, $idSem, $moySem, $UE, $rang, $bonus) {
+		$requete = 'INSERT INTO JurySem VALUES (?, ?, ?, ?, ?, ?)';
+		$tparam = array($codeNip, $idSem, $moySem, $UE, $rang, $bonus);
+		return $this->execMaj($requete, $tparam);
+	}
+	
+	public function insertIntoJuryAnnee($codeNip, $idAnnee, $moyAnnee, $RCUE, $decision, $rang, $anneepromo, $absInjust) {
+		$requete = 'INSERT INTO JuryAnnee VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
+		$tparam = array($codeNip, $idAnnee, $moyAnnee, $RCUE, $decision, $rang, $anneepromo, $absInjust);
+		return $this->execMaj($requete, $tparam);
+	}
+	
+	public function insertIntoMoyCompSem($codeNip, $idComp, $idSem, $moyCompSem, $avis) {
+		$requete = 'INSERT INTO MoyCompSem VALUES (?, ?, ?, ?, ?)';
+		$tparam = array($codeNip, $idComp, $idSem, $moyCompSem, $avis);
+		return $this->execMaj($requete, $tparam);
+	}
+	
+	public function insertIntoMoyCompAnnee($codeNip, $idComp, $idAnnee, $moyCompAnnee, $avis) {
+		$requete = 'INSERT INTO MoyCompAnnee VALUES (?, ?, ?, ?, ?)';
+		$tparam = array($codeNip, $idComp, $idAnnee, $moyCompAnnee, $avis);
+		return $this->execMaj($requete, $tparam);
+	}
 } //fin classe DB
 
 ?>

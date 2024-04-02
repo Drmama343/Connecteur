@@ -18,29 +18,29 @@
 	echo pied();
 
 	function contenu($infoCommission, $infoJury, $infoPoursuite) {
-		$string = "<section><h1>Téléchargement de fichiers</h1></section>";
+		$string = "<header><h1>Téléchargement de fichiers</h1></header>";
 
 		$string .=
 		"<section>".
-		"<form action=\"../fonctionsPHP/telechargementCommission.php\" method=\"get\">".
+		"<form action=\"../fonctionsPHP/ExportCommission.php\" method=\"get\">".
 
 			"<label>Commission</label><br><br>".
 
-			"<input type=\"text\" id=\"year\" name=\"year\" placeholder=\"Année (ex: 2022-2023)\"><br>".
+			"<input type=\"text\" id=\"annee\" name=\"annee\" placeholder=\"Année (ex: 2022-2023)\"><br>".
 
-			"<label for=\"semester\">Semestre :</label>".
-			"<input type=\"radio\" id=\"semester1\" name=\"semester\" value=\"S1\">".
-			"<label for=\"semester1\">S1</label>".
-			"<input type=\"radio\" id=\"semester2\" name=\"semester\" value=\"S2\">".
-			"<label for=\"semester1\">S2</label>".
-			"<input type=\"radio\" id=\"semester3\" name=\"semester\" value=\"S3\">".
-			"<label for=\"semester1\">S3</label>".
-			"<input type=\"radio\" id=\"semester4\" name=\"semester\" value=\"S4\">".
-			"<label for=\"semester1\">S4</label>".
-			"<input type=\"radio\" id=\"semester5\" name=\"semester\" value=\"S5\">".
-			"<label for=\"semester1\">S5</label>".
-			"<input type=\"radio\" id=\"semester6\" name=\"semester\" value=\"S6\">".
-			"<label for=\"semester1\">S6</label>".
+			"<label for=\"semestre\">Semestre :</label>".
+			"<input type=\"radio\" id=\"semestre1\" name=\"semestre\" value=\"1\">".
+			"<label for=\"semestre1\">S1</label>".
+			"<input type=\"radio\" id=\"semestre2\" name=\"semestre\" value=\"2\">".
+			"<label for=\"semestre1\">S2</label>".
+			"<input type=\"radio\" id=\"semestre3\" name=\"semestre\" value=\"3\">".
+			"<label for=\"semestre1\">S3</label>".
+			"<input type=\"radio\" id=\"semestre4\" name=\"semestre\" value=\"4\">".
+			"<label for=\"semestre1\">S4</label>".
+			"<input type=\"radio\" id=\"semestre5\" name=\"semestre\" value=\"5\">".
+			"<label for=\"semestre1\">S5</label>".
+			"<input type=\"radio\" id=\"semestre6\" name=\"semestre\" value=\"6\">".
+			"<label for=\"semestre1\">S6</label>".
 
 			"<br>".
 			"<p>$infoCommission</p>".
@@ -52,25 +52,25 @@
 
 		$string .=
 		"<section>".
-		"<form action=\"../fonctionsPHP/telechargementJury.php\" method=\"get\">".
+		"<form action=\"../fonctionsPHP/ExportJury.php\" method=\"get\">".
 
 			"<label>Jury</label><br><br>".
 
-			"<input type=\"text\" id=\"year\" name=\"year\" placeholder=\"Année (ex: 2022-2023)\"><br>".
+			"<input type=\"text\" id=\"annee\" name=\"annee\" placeholder=\"Année (ex: 2022-2023)\"><br>".
 
-			"<label for=\"semester\">Semestre :</label>".
-			"<input type=\"radio\" id=\"semester1\" name=\"semester\" value=\"S1\">".
-			"<label for=\"semester1\">S1</label>".
-			"<input type=\"radio\" id=\"semester2\" name=\"semester\" value=\"S2\">".
-			"<label for=\"semester1\">S2</label>".
-			"<input type=\"radio\" id=\"semester3\" name=\"semester\" value=\"S3\">".
-			"<label for=\"semester1\">S3</label>".
-			"<input type=\"radio\" id=\"semester4\" name=\"semester\" value=\"S4\">".
-			"<label for=\"semester1\">S4</label>".
-			"<input type=\"radio\" id=\"semester5\" name=\"semester\" value=\"S5\">".
-			"<label for=\"semester1\">S5</label>".
-			"<input type=\"radio\" id=\"semester6\" name=\"semester\" value=\"S6\">".
-			"<label for=\"semester1\">S6</label>".
+			"<label for=\"semestre\">Semestre :</label>".
+			"<input type=\"radio\" id=\"semestre1\" name=\"semestre\" value=\"1\">".
+			"<label for=\"semestre1\">S1</label>".
+			"<input type=\"radio\" id=\"semestre2\" name=\"semestre\" value=\"2\">".
+			"<label for=\"semestre1\">S2</label>".
+			"<input type=\"radio\" id=\"semestre3\" name=\"semestre\" value=\"3\">".
+			"<label for=\"semestre1\">S3</label>".
+			"<input type=\"radio\" id=\"semestre4\" name=\"semestre\" value=\"4\">".
+			"<label for=\"semestre1\">S4</label>".
+			"<input type=\"radio\" id=\"semestre5\" name=\"semestre\" value=\"5\">".
+			"<label for=\"semestre1\">S5</label>".
+			"<input type=\"radio\" id=\"semestre6\" name=\"semestre\" value=\"6\">".
+			"<label for=\"semestre1\">S6</label>".
 
 			"<br>".
 			"<p>$infoJury</p>".
@@ -82,9 +82,11 @@
 
 		$string .=
 		"<section>".
-		"<form action=\"../fonctionsPHP/telechargementPoursuite.php\" method=\"get\">".
+		"<form action=\"../fonctionsPHP/ExportPoursuite.php\" method=\"get\">".
 
 			"<label>Fiche de poursuite d'études</label><br>".
+			"<br>".
+			"<input type=\"text\" id=\"annee\" name=\"annee\" placeholder=\"Année (ex: 2022-2023)\">".
 			"<br>".
 			"<p>$infoPoursuite</p>".
 			"<br>".
