@@ -36,7 +36,7 @@ class DB {
 		  // Configuration facultative de la connexion
 		  $this->connect->setAttribute(PDO::ATTR_CASE, PDO::CASE_LOWER); 
 		  $this->connect->setAttribute(PDO::ATTR_ERRMODE , PDO::ERRMODE_EXCEPTION); 
-		  }
+		  } 
 		  catch (PDOException $e) {
 	  		  		echo "probleme de connexion :".$e->getMessage();
 			return null;    
@@ -138,6 +138,11 @@ class DB {
 	
 	public function getEtudiants() {
 		$requete = 'SELECT * from Etudiant';
+		return $this->execQuery($requete,null,'Etudiant');
+	}
+
+	public function getEtudiantsByCode($code) {
+		$requete = "SELECT * from Etudiant where codenip = '$code'";
 		return $this->execQuery($requete,null,'Etudiant');
 	}
 
