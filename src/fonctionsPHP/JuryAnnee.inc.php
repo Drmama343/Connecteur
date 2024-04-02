@@ -4,7 +4,7 @@
 class JuryAnnee {
       /*avec PDO, il faut que les noms attributs soient les mêmes que ceux de la table*/
       private $codenip;
-      private $idannee;
+      private $nomannee;
 	  private $moyannee;
 	  private $rcue;
 	  private $decision;
@@ -12,9 +12,9 @@ class JuryAnnee {
 	  private $anneepromo;
 	  private $absInjust;
       
-      public function __construct($c="",$id="",$mo="",$r="",$d="",$rang="", $anneepromo="",  $absInjust=0) {
+      public function __construct($c="",$nom="",$mo="",$r="",$d="",$rang="", $anneepromo="",  $absInjust=0) {
             $this->codenip = $c;
-	      $this->idannee = $id;
+	      $this->nomannee = $nom;
 		  $this->moyannee = $mo;
 		  $this->rcue = $r;
 		  $this->decision = $d;
@@ -24,7 +24,7 @@ class JuryAnnee {
       }
 
       public function getCode() { return $this->codenip; }
-      public function getIdAnnee() { return $this->idannee;}
+      public function getNomAnnee() { return $this->nomannee;}
 	  public function getMoyAnnee() { return $this->moyannee;}
 	  public function getRCUE() { return $this->rcue;}
 	  public function getDecision() { return $this->decision;}

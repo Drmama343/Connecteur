@@ -185,7 +185,18 @@ class DB {
 		$tparam = array($cursus, $parcours, $apprentissage, $avisInge, $avisMaster, $commentaire, $etranger, $codeNip);
 		return $this->execMaj($requete, $tparam);
 	}
-	
+
+	public function updateJuryAnnee($codeNip, $nomannee, $moyannee, $rcue, $decision, $rang, $anneepromo, $absinjust) {
+		$requete = 'UPDATE JuryAnnee SET nomannee = ?, moyannee = ?, rcue = ?, decision = ?, rang = ?, anneepromo = ?, absinjust = ? WHERE codeNip = ?';
+		$tparam = array($nomannee, $moyannee, $rcue, $decision, $rang, $anneepromo, $absinjust, $codeNip);
+		return $this->execMaj($requete, $tparam);
+	}
+
+	public function updateMoyCompAnnee($codeNip, $idcomp, $nomannee, $moycompannee, $avis) {
+		$requete = 'UPDATE MoyCompAnnee SET idcomp = ?, nomannee = ?, moycompannee = ?, avis = ? WHERE codeNip = ?';
+		$tparam = array($idcomp, $nomannee, $moycompannee, $avis, $codeNip);
+		return $this->execMaj($requete, $tparam);
+	}
 
 	
 	/*************************************************************************
