@@ -57,7 +57,7 @@ else {
 					if (isset($_POST['submit'])) {
 						$db->updateEtudiant(intval($data['code_nip']), $data['Cursus'], array_key_exists('Parcours', $data) 	? $data['Parcours'] : "", (strpos($fileName, "FAP") ? substr($fileName, 0, 2) : ""), "", "", "", "");
 					} else {
-						$_SESSION['alerteErreur'] = true;
+						$_SESSION['alerteErreur'] = "Moyennes";
 						header("Location: ../pages/import.php");
 						continue;
 					}
@@ -122,96 +122,96 @@ else {
 	}
 }
 function insertionRessource($data, $binRessourceDepart, $db, $suffixe) {
-    $binRessourceArrivee = 0;
-    
-    // Recherche de la colonne avec le numéro le plus élevé
-    foreach ($data as $key => $value) {
-        // Vérifie si la clé commence par 'BINR'
-        if (strpos($key, 'BINR') === 0) {
-            // Récupère le numéro après 'BINR' et le compare avec $maxColumnNumber
-            $matches = [];
-            if (preg_match('/BINR(\d+)([A-Z]*)/', $key, $matches)) {
-                $bin = intval($matches[1]);
-                if ($bin > $binRessourceArrivee) {
-                    $binRessourceArrivee = $bin;
-                }
-            }
-        }
-    }
-    
-    // Utilisation de la valeur maximale trouvée dans la boucle
-    for ($i = $binRessourceDepart; $i <= $binRessourceArrivee; $i++) {
-        $nomBin = 'BINR' . $i;
-        // Vérifie si la clé existe dans le tableau $data
-        if (array_key_exists($nomBin.$suffixe, $data)) {
-            $db->insertIntoMoyRess($data['code_nip'], $nomBin, ($data[$nomBin.$suffixe] == '~' ? null : floatval($data[$nomBin.$suffixe])));
-        } else {
-            // Si la clé n'existe pas, insère une valeur null
-            $db->insertIntoMoyRess($data['code_nip'], $nomBin, null);
-        }
-    }
+	$binRessourceArrivee = 0;
+	
+	// Recherche de la colonne avec le numéro le plus élevé
+	foreach ($data as $key => $value) {
+		// Vérifie si la clé commence par 'BINR'
+		if (strpos($key, 'BINR') === 0) {
+			// Récupère le numéro après 'BINR' et le compare avec $maxColumnNumber
+			$matches = [];
+			if (preg_match('/BINR(\d+)([A-Z]*)/', $key, $matches)) {
+				$bin = intval($matches[1]);
+				if ($bin > $binRessourceArrivee) {
+					$binRessourceArrivee = $bin;
+				}
+			}
+		}
+	}
+	
+	// Utilisation de la valeur maximale trouvée dans la boucle
+	for ($i = $binRessourceDepart; $i <= $binRessourceArrivee; $i++) {
+		$nomBin = 'BINR' . $i;
+		// Vérifie si la clé existe dans le tableau $data
+		if (array_key_exists($nomBin.$suffixe, $data)) {
+			$db->insertIntoMoyRess($data['code_nip'], $nomBin, ($data[$nomBin.$suffixe] == '~' ? null : floatval($data[$nomBin.$suffixe])));
+		} else {
+			// Si la clé n'existe pas, insère une valeur null
+			$db->insertIntoMoyRess($data['code_nip'], $nomBin, null);
+		}
+	}
 }
 
 function insertionSAE($data, $binSAEDepart, $db, $suffixe) {
-    $binSAEArrivee = 0;
-    
-    // Recherche de la colonne avec le numéro le plus élevé
-    foreach ($data as $key => $value) {
-        // Vérifie si la clé commence par 'BIN'
-        if (strpos($key, 'BINS') === 0) {
-            // Récupère le numéro après 'BIN' et le compare avec $maxColumnNumber
-            $matches = [];
-            if (preg_match('/BINS(\d+)([A-Z]*)/', $key, $matches)) {
-                $bin = intval($matches[1]);
-                if ($bin > $binSAEArrivee) {
-                    $binSAEArrivee = $bin;
-                }
-            }
-        }
-    }
-    
-    // Utilisation de la valeur maximale trouvée dans la boucle
-    for ($i = $binSAEDepart; $i <= $binSAEArrivee; $i++) {
-        $nomBin = 'BINS' . $i;
-        // Vérifie si la clé existe dans le tableau $data
-        if (array_key_exists($nomBin.$suffixe, $data)) {
-            $db->insertIntoMoyRess($data['code_nip'], $nomBin, ($data[$nomBin.$suffixe] == '~' ? null : floatval($data[$nomBin.$suffixe])));
-        } else {
-            // Si la clé n'existe pas, insère une valeur null
-            $db->insertIntoMoyRess($data['code_nip'], $nomBin, null);
-        }
-    }
+	$binSAEArrivee = 0;
+	
+	// Recherche de la colonne avec le numéro le plus élevé
+	foreach ($data as $key => $value) {
+		// Vérifie si la clé commence par 'BIN'
+		if (strpos($key, 'BINS') === 0) {
+			// Récupère le numéro après 'BIN' et le compare avec $maxColumnNumber
+			$matches = [];
+			if (preg_match('/BINS(\d+)([A-Z]*)/', $key, $matches)) {
+				$bin = intval($matches[1]);
+				if ($bin > $binSAEArrivee) {
+					$binSAEArrivee = $bin;
+				}
+			}
+		}
+	}
+	
+	// Utilisation de la valeur maximale trouvée dans la boucle
+	for ($i = $binSAEDepart; $i <= $binSAEArrivee; $i++) {
+		$nomBin = 'BINS' . $i;
+		// Vérifie si la clé existe dans le tableau $data
+		if (array_key_exists($nomBin.$suffixe, $data)) {
+			$db->insertIntoMoyRess($data['code_nip'], $nomBin, ($data[$nomBin.$suffixe] == '~' ? null : floatval($data[$nomBin.$suffixe])));
+		} else {
+			// Si la clé n'existe pas, insère une valeur null
+			$db->insertIntoMoyRess($data['code_nip'], $nomBin, null);
+		}
+	}
 }
 
 function insertionCompetence($data, $binCompetenceDepart, $db, $suffixe, $semestre) {
-    $binCompetenceArrivee = 0;
-    
-    // Recherche de la colonne avec le numéro le plus élevé
-    foreach ($data as $key => $value) {
-        // Vérifie si la clé commence par 'BIN'
-        if (strpos($key, 'BIN') === 0) {
-            // Récupère le numéro après 'BIN' et le compare avec $maxColumnNumber
-            $matches = [];
-            if (preg_match('/BIN(\d+)([A-Z]*)/', $key, $matches)) {
-                $bin = intval($matches[1]);
-                if ($bin > $binCompetenceArrivee) {
-                    $binCompetenceArrivee = $bin;
-                }
-            }
-        }
-    }
-    
-    // Utilisation de la valeur maximale trouvée dans la boucle
-    for ($i = $binCompetenceDepart; $i <= $binCompetenceArrivee; $i++) {
-        $nomBin = 'BIN' . $i;
-        // Vérifie si la clé existe dans le tableau $data
-        if (array_key_exists($nomBin.$suffixe, $data)) {
-            $db->insertIntoMoyCompSem($data['code_nip'], $nomBin, $semestre, ($data[$nomBin.$suffixe] == '~' ? null : floatval($data[$nomBin.$suffixe])), '');
-        } else {
-            // Si la clé n'existe pas, insère une valeur null
-            $db->insertIntoMoyCompSem($data['code_nip'], $nomBin, $semestre, null, '');
-        }
-    }
+	$binCompetenceArrivee = 0;
+	
+	// Recherche de la colonne avec le numéro le plus élevé
+	foreach ($data as $key => $value) {
+		// Vérifie si la clé commence par 'BIN'
+		if (strpos($key, 'BIN') === 0) {
+			// Récupère le numéro après 'BIN' et le compare avec $maxColumnNumber
+			$matches = [];
+			if (preg_match('/BIN(\d+)([A-Z]*)/', $key, $matches)) {
+				$bin = intval($matches[1]);
+				if ($bin > $binCompetenceArrivee) {
+					$binCompetenceArrivee = $bin;
+				}
+			}
+		}
+	}
+	
+	// Utilisation de la valeur maximale trouvée dans la boucle
+	for ($i = $binCompetenceDepart; $i <= $binCompetenceArrivee; $i++) {
+		$nomBin = 'BIN' . $i;
+		// Vérifie si la clé existe dans le tableau $data
+		if (array_key_exists($nomBin.$suffixe, $data)) {
+			$db->insertIntoMoyCompSem($data['code_nip'], $nomBin, $semestre, ($data[$nomBin.$suffixe] == '~' ? null : floatval($data[$nomBin.$suffixe])), '');
+		} else {
+			// Si la clé n'existe pas, insère une valeur null
+			$db->insertIntoMoyCompSem($data['code_nip'], $nomBin, $semestre, null, '');
+		}
+	}
 }
 $db->close();
 ?>

@@ -21,7 +21,7 @@
 		
 		if ( isset($_SESSION['alerteErreur']) ) {
 			echo "		<section>\n";
-			echo "			<form action=\"../fonctionsPHP/ImportMoyennes.php\" method=\"post\" enctype=\"multipart/form-data\">\n";
+			echo "			<form action=\"../fonctionsPHP/Import".$_SESSION['alerteErreur'].".php\" method=\"post\" enctype=\"multipart/form-data\">\n";
 			echo "				<h2>Duplication de tuples</h2>\n";
 			echo "				<input type=\"text\" id=\"annee\" name=\"annee\" placeholder=\"Année (ex: 2022-2023)\"><br>\n";
 			echo "				<input type=\"file\" name=\"file\" id=\"file\" required><br>\n";
