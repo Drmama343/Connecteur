@@ -7,7 +7,7 @@ require ("../../vendor/autoload.php");
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\IOFactory;
-
+ 
 $db = DB::getInstance();
 if ($db == null) {
 	$_SESSION['info_commission'] = "Connexion à la base de données impossible";
@@ -24,7 +24,7 @@ else {
 		header("Location: ../pages/export.php");
 	}
 	else {
-		$templatePath = '../images/ModeleS1Commission.xlsx';
+		$templatePath = '../images/ModeleS'.$semestre.'Commission.xlsx';
 		$spreadsheet = IOFactory::load($templatePath);
 
 		$sheet = $spreadsheet->getActiveSheet();
@@ -63,22 +63,68 @@ else {
 				break;
 		}
 
+		foreach ($worksheet->getRowIterator() as $row) {
 
-		/*$competence
+			$libelles = [];
+			$rowData = [];
+			// Ignorer la première ligne (en-tête)
+			if ($row->getRowIndex() == 1) {
+				foreach ($row->getCellIterator() as $cell) {
+					$libelles[] = $cell->getValue();
+					$rowData[] = $cell->getColumn();
+				}
+				continue; // Une fois que nous avons obtenu les libellés, nous quittons la boucle
+			}
+			$data = array_combine($libelles, $rowData);
+		}
 		
-		if ($db->getJuryAnnee($anneebut, $annee))
+		//recupère les etudiants qui sont de cette année et de cette promo puis fait un compte de ça
+		if ($db->getJuryAnnee($anneebut, $annee)==null)
 			return null;
 		$nbEtu = $db->getJuryAnnee($anneebut, $annee);
-		
-		$moySem = $db->getJurySemByEtudSem($nbEtu[0]->getCode(), $semestre);
-		$moySemComp = $db->getMoyCompSemByEtudSem($nbEtu[0]->getCode(), $semestre, $competence);
 
 		for ($i=0; $i < count($nbEtu); $i++) { 
-			# code...
-		}*/
+			$moySem = $db->getJurySemByEtudSem($nbEtu[i]->getCode(), $semestre);
+			$moySemComp = $db->getMoyCompSemByEtudSem($nbEtu[i]->getCode(), $semestre, $competence);
+			$ligne = $moySem->getRang() + 8;
+			$etudiant = $db->getEtudiantsByCode($moySem->getCode());
+
+			$bonus = $moySem->getBonus();
+
+			//infos etudiant
+			$sheet->setCellValue('A'.$ligne, $ligne-8) //rang
+				->setCellValue('B'.$ligne, $etudiant->getNom())
+				->setCellValue('C'.$ligne, $etudiant->getPrenom())
+				->setCellValue('D'.$ligne, $etudiant->getParcours())
+				->setCellValue('E'.$ligne, $etudiant->getCursus());
+
+			//infos semestre
+			$sheet->setCellValue('F'.$ligne, $moySem->getUE())
+				->setCellValue('G'.$ligne, $moySem->getMoySem());
+
+			
+			
+			switch ($semestre) {
+				case 'value':
+					# code...
+					break;
+				
+				default:
+					$_SESSION['info_commission'] = "erreur dans l'export".$data['code_nip'];
+					header("Location: ../pages/export.php");
+					break;
+			}
+		}
+			
+			
 
 		// Envoyer le fichier Excel au navigateur
 		$writer->save('php://output');
 	}
 }
+
+/*
+$_SESSION['info_commission'] = "erreur dans l'export";
+header("Location: ../pages/export.php");
+*/
 ?>
