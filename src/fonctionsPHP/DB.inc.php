@@ -141,6 +141,16 @@ class DB {
 		return $this->execQuery($requete,null,'Etudiant');
 	}
 
+	public function getJuryAnnee($idannee, $anneepromo) {
+		$requete = "SELECT * from JuryAnnee WHERE idannee = $idannee and  anneepromo = $anneepromo ";
+		return $this->execQuery($requete,null,'JuryAnnee');
+	}
+
+	public function getJurySemByEtudSem ($codenip, $idsem){
+		$requete = "SELECT * from JurySem WHERE codenip = $codenip and idsem = $idsem";
+		return $this->execQuery($requete,null,'JurySem');
+	}
+
 	public function getEtudiantsS5($annee) {
 		$requete = "SELECT e.* from Etudiant e Join JuryAnnee ja ON e.codenip = ja.codenip WHERE nomAnnee = 'BUT3' AND anneePromo = '$annee'";
 		return $this->execQuery($requete,null,'Etudiant');
