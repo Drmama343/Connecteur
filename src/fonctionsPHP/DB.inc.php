@@ -146,6 +146,12 @@ class DB {
 		return $this->execQuery($requete,null,'Etudiant');
 	}
 
+	public function getMoyRess($code, $idRess) {
+		$requete = "SELECT * from Moyress where codenip = '$code' and idRess = '$idRess'";
+		return $this->execQuery($requete,null,'MoyRess');
+	}
+	
+
 	//fonction de frizoks
 	public function getJuryAnnee($codenip, $nomannee) {
 		$requete = "SELECT * from JuryAnnee WHERE codenip = $codenip AND nomannee = '$nomannee'";
