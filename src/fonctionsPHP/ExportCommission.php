@@ -46,6 +46,37 @@ else {
 		header('Content-Disposition: attachment;filename="' . $filename . '"');
 		header('Cache-Control: max-age=0');
 
+		$anneebut = 'BUT0';
+		switch ($semestre) {
+			case '1' || '2':
+				$anneebut = 'BUT1';
+				break;
+			case '3' || '4':
+				$anneebut = 'BUT2';
+				break;
+			case '5' || '6':
+				$anneebut = 'BUT3';
+				break;
+			
+			default:
+				$anneebut = 'BUT0';
+				break;
+		}
+
+
+		/*$competence
+		
+		if ($db->getJuryAnnee($anneebut, $annee))
+			return null;
+		$nbEtu = $db->getJuryAnnee($anneebut, $annee);
+		
+		$moySem = $db->getJurySemByEtudSem($nbEtu[0]->getCode(), $semestre);
+		$moySemComp = $db->getMoyCompSemByEtudSem($nbEtu[0]->getCode(), $semestre, $competence);
+
+		for ($i=0; $i < count($nbEtu); $i++) { 
+			# code...
+		}*/
+
 		// Envoyer le fichier Excel au navigateur
 		$writer->save('php://output');
 	}
