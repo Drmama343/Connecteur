@@ -148,9 +148,14 @@ class DB {
 
 	//fonction de toivimic 
 
-	public function getJuryAnneeByAnnees($anneebut, $nomannee) {
-		$requete = "SELECT * from JuryAnnee WHERE anneepromo = '$anneebut' AND nomannee = '$nomannee'";
+	public function getJuryAnneeByAnnees($nomannee, $anneepromo) {
+		$requete = "SELECT * from JuryAnnee WHERE anneepromo = '$anneepromo' AND nomannee = '$nomannee'";
 		return $this->execQuery($requete,null,'JuryAnnee');
+	}
+
+	public function getMoyRess($code, $idress) {
+		$requete = "SELECT * from MoyRess WHERE codenip = '$code' AND idress = '$idress'";
+		return $this->execQuery($requete,null,'MoyRess');
 	}
 	
 
