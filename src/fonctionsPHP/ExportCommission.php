@@ -63,29 +63,45 @@ else {
 				break;
 		}
 
+		$libelles = [];
+		$rowData = [];
+		$dbtfinseq = [];
+		$i = 0;
 		foreach ($sheet->getRowIterator() as $row) {
-
-			$libelles = [];
-			$rowData = [];
+			$i++;
 			// Ignorer la première ligne (en-tête)
 			if ($row->getRowIndex() == 1) {
 				foreach ($row->getCellIterator() as $cell) {
 					$libelles[] = $cell->getValue();
 					$rowData[] = $cell->getColumn();
+
+					//pour definir le debut et la fin des sequences ce qui sert lors de la lecture des notes
+					if (preg_match('/^BIN\d{2}$/', $tableau[$i]))
+					{
+						if (count($dbtfinseq) == 0){
+							$dbtfinseq[] = $i;
+						}
+						else {
+							$dbtfinseq[] = $i-1;
+							$dbtfinseq[] = $i;
+						}
+					}
+					if ($i == count($libelles))
+						$dbtfinseq[] = $i;
 				}
 				continue; // Une fois que nous avons obtenu les libellés, nous quittons la boucle
 			}
-			$data = array_combine($libelles, $rowData);
+
+
 		}
 		
-		//recupère les etudiants qui sont de cette année et de cette promo puis fait un compte de ça
+		//recupère les etudiants qui sont de cette année et de cette promo puis fait un compte de ca
 		if ($db->getJuryAnnee($anneebut, $annee)==null)
 			return null;
 		$nbEtu = $db->getJuryAnnee($anneebut, $annee);
 
 		for ($i=0; $i < count($nbEtu); $i++) { 
 			$moySem = $db->getJurySemByEtudSem($nbEtu[i]->getCode(), $semestre);
-			$moySemComp = $db->getMoyCompSemByEtudSem($nbEtu[i]->getCode(), $semestre, $competence);
 			$ligne = $moySem->getRang() + 8;
 			$etudiant = $db->getEtudiantsByCode($moySem->getCode());
 
@@ -102,24 +118,34 @@ else {
 			$sheet->setCellValue('F'.$ligne, $moySem->getUE())
 				->setCellValue('G'.$ligne, $moySem->getMoySem());
 
-			
-			
-			switch ($semestre) {
-				case 'value':
-					# code...
-					break;
-				
-				default:
-					$_SESSION['info_commission'] = "erreur dans l'export".$data['code_nip'];
-					header("Location: ../pages/export.php");
-					break;
+			for ($i=0; $i < count($dbtfinseq); $i+2) { 
+				completerMoyCompSem($db, $sheet, $ligne, $nbEtu[i], $semestre, $competence, $moySem->getBonus(), $libelles, $rowData, $dbtfinseq[$i], $dbtfinseq[$i+1]);
 			}
+	
 		}
 			
 			
 
 		// Envoyer le fichier Excel au navigateur
 		$writer->save('php://output');
+	}
+}
+
+function completerMoyCompSem($db, $sheet, $ligne, $etudiant, $semestre, $competence, $bonus, $libelles, $rowData, $debut, $fin) {
+
+	if ($debut - $fin <= 2){
+		$_SESSION['info_commission'] = "erreur dans le modele ou la methode";
+		header("Location: ../pages/export.php");
+	}
+
+	//moy de la comp sem et le bonus
+	$moySemComp = $db->getMoyCompSemByEtudSem($etudiant->getCode(), $semestre, $competence);
+	$sheet->setCellValue($rowData[$debut].$ligne, $moySemComp->getMoyCompSem());
+	$sheet->setCellValue($rowData[$debut+1].$ligne, $bonus);
+
+	//moyenne des ressources
+	for ($i=$debut+2; $i < $fin; $i++) { 
+		$sheet->setCellValue($rowData[$i].$ligne, $db->getMoyRess($etudiant->getCode(), $libelles[i]));
 	}
 }
 

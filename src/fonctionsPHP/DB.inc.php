@@ -146,6 +146,12 @@ class DB {
 		return $this->execQuery($requete,null,'Etudiant');
 	}
 
+	public function getMoyRess($code, $idRess) {
+		$requete = "SELECT * from Moyress where codenip = '$code' and idRess = '$idRess'";
+		return $this->execQuery($requete,null,'MoyRess');
+	}
+	
+
 	//fonction de frizoks
 	public function getJuryAnnee($codenip, $nomannee) {
 		$requete = "SELECT * from JuryAnnee WHERE codenip = $codenip AND nomannee = '$nomannee'";
@@ -185,7 +191,18 @@ class DB {
 		$tparam = array($cursus, $parcours, $apprentissage, $avisInge, $avisMaster, $commentaire, $etranger, $codeNip);
 		return $this->execMaj($requete, $tparam);
 	}
-	
+
+	public function updateJuryAnnee($codeNip, $nomannee, $moyannee, $rcue, $decision, $rang, $anneepromo, $absinjust) {
+		$requete = 'UPDATE JuryAnnee SET nomannee = ?, moyannee = ?, rcue = ?, decision = ?, rang = ?, anneepromo = ?, absinjust = ? WHERE codeNip = ?';
+		$tparam = array($nomannee, $moyannee, $rcue, $decision, $rang, $anneepromo, $absinjust, $codeNip);
+		return $this->execMaj($requete, $tparam);
+	}
+
+	public function updateMoyCompAnnee($codeNip, $idcomp, $nomannee, $moycompannee, $avis) {
+		$requete = 'UPDATE MoyCompAnnee SET idcomp = ?, nomannee = ?, moycompannee = ?, avis = ? WHERE codeNip = ?';
+		$tparam = array($idcomp, $nomannee, $moycompannee, $avis, $codeNip);
+		return $this->execMaj($requete, $tparam);
+	}
 
 	
 	/*************************************************************************
