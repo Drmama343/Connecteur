@@ -98,7 +98,7 @@ else {
 					foreach ($nbComp as $competence) {
 						$avis = $db->getAvisParComp($codenip, $competence);
 						if (!empty($avis)) {
-							$sheet->setCellValue($lettre.$ligneDebut, $avis[0]);
+							$sheet->setCellValue($lettre.$ligneDebut, $avis);
 						} else {
 							$sheet->setCellValue($lettre.$ligneDebut, '');
 						}
