@@ -195,9 +195,14 @@ class DB {
 
 	//fonction de toivimic 
 
-	public function getJuryAnneeByAnnees($anneebut, $nomannee) {
-		$requete = "SELECT * from JuryAnnee WHERE anneepromo = '$anneebut' AND nomannee = '$nomannee'";
+	public function getJuryAnneeByAnnees($nomannee, $anneepromo) {
+		$requete = "SELECT * from JuryAnnee WHERE anneepromo = '$anneepromo' AND nomannee = '$nomannee'";
 		return $this->execQuery($requete,null,'JuryAnnee');
+	}
+
+	public function getMoyRess($code, $idress) {
+		$requete = "SELECT * from MoyRess WHERE codenip = '$code' AND idress = '$idress'";
+		return $this->execQuery($requete,null,'MoyRess');
 	}
 	
 
@@ -226,6 +231,17 @@ class DB {
 
 	public function getRangCompAnnee($codenip, $idComp, $nomAnnee) {
 		$requete = "SELECT mca.moyCompAnnee from MoyCompAnnee mca Join Etudiant e ON mca.codenip = e.codenip WHERE nomAnnee = '$nomAnnee' AND idComp = '$idComp'";
+		return $this->execQuery($requete,null,'Etudiant');
+	}
+
+	// les fonctions du ydro qui a besoin d'un stage
+	public function getCompBySem($idSem) {
+		$requete = "SELECT * FROM Competence WHERE idSem = '$idSem'";
+		return $this->execQuery($requete,null,'Competence');
+	}
+	
+	public function getAvisSem($codenip, $idComp, $idSem) {
+		$requete = "SELECT * FROM MoyCompSem mcs JOIN Etudiant e ON mcs.codenip = e.codenip WHERE idComp = '$idComp' AND idSem = '$idSem'";
 		return $this->execQuery($requete,null,'Etudiant');
 	}
 
