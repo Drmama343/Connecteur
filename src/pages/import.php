@@ -21,17 +21,17 @@
 		echo "		<section>\n";
 		
 		if ( isset($_SESSION['alerteErreur']) ) {
-			echo "		<section>\n";
-			echo "			<form action=\"../fonctionsPHP/Import".$_SESSION['alerteErreur'].".php\" method=\"post\" enctype=\"multipart/form-data\">\n";
-			echo "				<h2>Duplication de tuples</h2>\n";
-			echo "				<input type=\"text\" id=\"annee\" name=\"annee\" placeholder=\"Année (ex: 2022-2023)\"><br>\n";
-			echo "				<input type=\"file\" name=\"file\" id=\"file\" required><br>\n";
-			echo "				<p>Le remplissage de la base de données a été intérompu car des données apparaissent plusieurs fois.</p>\n";
-			echo "				<p>Voulez vous :</p>\n";
-			echo "				<input type=\"reset\" name=\"reset\" value=\"Annuler\" onclick=\"redirect()\">\n";
-			echo "				<input type=\"submit\" name=\"submit\" value=\"Ecraser\">\n";
-			echo "			</form>\n";
-			echo "		</section>\n";
+			echo "			<article>\n";
+			echo "				<form action=\"../fonctionsPHP/ImportMoyennes.php\" method=\"post\" enctype=\"multipart/form-data\">\n";
+			echo "					<h2>Duplication de tuples</h2>\n";
+			echo "					<input type=\"text\" id=\"annee\" name=\"annee\" placeholder=\"Année (ex: 2022-2023)\"><br>\n";
+			echo "					<input type=\"file\" name=\"file\" id=\"file\" required><br>\n";
+			echo "					<p>Le remplissage de la base de données a été intérompu car des données apparaissent plusieurs fois.</p>\n";
+			echo "					<p>Voulez vous :</p>\n";
+			echo "					<input type=\"reset\" name=\"reset\" value=\"Annuler\" onclick=\"redirect()\">\n";
+			echo "					<input type=\"submit\" name=\"submit\" value=\"Ecraser\">\n";
+			echo "				</form>\n";
+			echo "			</article>\n";
 			unset($_SESSION['alerteErreur']);
 
 			echo "<script>

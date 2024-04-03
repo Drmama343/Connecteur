@@ -268,7 +268,7 @@ else {
 
 			//Commentaire
 			$pdf->SetXY(41, 247);
-			$pdf->Cell(10, 10, $etudiant->getMobEtrang(), 0, 0, 'L');
+			$pdf->Cell(10, 10, $etudiant->getCommentaire(), 0, 0, 'L');
 		}
 
 		// Nom du fichier du nouveau PDF
