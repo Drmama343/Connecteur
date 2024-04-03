@@ -189,5 +189,3 @@ INSERT INTO Annee VALUES
 	('BUT1', 1, 2),
 	('BUT2', 3, 4),
 	('BUT3', 5, 6);
-
-INSERT INTO Promotion VALUES ('2022-2023');

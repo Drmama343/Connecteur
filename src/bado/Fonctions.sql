@@ -98,4 +98,27 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+CREATE OR REPLACE FUNCTION count_avis_by_type(annee_param VARCHAR)
+RETURNS TABLE (
+	tf BIGINT,
+	f BIGINT,
+	af BIGINT,
+	sa BIGINT,
+	r BIGINT
+) AS $$
+BEGIN
+	RETURN QUERY
+	SELECT
+		COUNT(CASE WHEN avisInge = 'Tres Favorable' THEN 1 END) AS tf,
+		COUNT(CASE WHEN avisInge = 'Favorable' THEN 1 END) AS f,
+		COUNT(CASE WHEN avisInge = 'Assez Favorable' THEN 1 END) AS af,
+		COUNT(CASE WHEN avisInge = 'Sans Avis' THEN 1 END) AS sa,
+		COUNT(CASE WHEN avisInge = 'Reserve' THEN 1 END) AS r
+	FROM Etudiant
+	JOIN JuryAnnee ON Etudiant.codeNip = JuryAnnee.codenip
+	WHERE annee = annee_param;
+END;
+$$ LANGUAGE plpgsql;
+
+
 

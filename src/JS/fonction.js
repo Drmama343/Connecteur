@@ -146,7 +146,7 @@ function enableEditMode(row) {
             const text = cells[i].textContent;
             // Créer une liste déroulante avec les options spécifiées
             const selectList = document.createElement("select");
-            const options = ['Tres Favorable', 'Favorable', 'Assez Favorable', 'Sans Avis', 'Reserve'];
+            const options = ['Tres Favorable', 'Favorable', 'Assez Favorable', 'Sans Avis', 'Reserve', ''];
             options.forEach(option => {
                 const optionElement = document.createElement("option");
                 optionElement.value = option;

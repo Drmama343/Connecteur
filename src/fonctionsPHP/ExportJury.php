@@ -98,14 +98,14 @@ else {
 					foreach ($nbComp as $competence) {
 						$avis = $db->getAvisParComp($codenip, $competence);
 						if (!empty($avis)) {
-							$sheet->setCellValue($lettre.$ligneDebut, $avis[0]);
+							$sheet->setCellValue($lettre.$ligneDebut, $avis);
 						} else {
 							$sheet->setCellValue($lettre.$ligneDebut, '');
 						}
 						$lettre++;
 					}
 		
-					$jurySem = $db->getJurySemByEtudSem($codenip, $semestre);
+					$jurySem = $db->getJurySemByEtudSemTest($codenip, $semestre);
 		
 					if (!empty($jurySem)) {
 						foreach ($jurySem as $jury) {

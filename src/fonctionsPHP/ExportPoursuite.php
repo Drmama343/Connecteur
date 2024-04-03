@@ -64,6 +64,9 @@ else {
 				$maths3 = $db->MoyenneEtRangMathsParAnnee($etudiant->getCode(), 'BUT3');
 				$anglais1 = $db->MoyenneEtRangAnglaisParAnnee($etudiant->getCode(), 'BUT1');
 				$anglais2 = $db->MoyenneEtRangAnglaisParAnnee($etudiant->getCode(), 'BUT2');
+				/*$avisInge = ;
+				$avisMaster = ;
+				$nbEtud = ;*/
 			} //fin try
 			catch (Exception $e) {
 				$_SESSION['info_poursuite'] = $e->getMessage();
@@ -79,7 +82,7 @@ else {
 			$pdf->Cell(120, 10, $etudiant->getNom() . " " . $etudiant->getPrenom(), 0, 0, 'L');
 
 			//Apprentissage
-			if($etudiant->getApprentissage() === "S4")
+			if($etudiant->getApprentissage() === "S5")
 			{
 				$pdf->SetXY(88, 48.5);
 				$pdf->Cell(27, 10, 'Non', 0, 0, 'L');

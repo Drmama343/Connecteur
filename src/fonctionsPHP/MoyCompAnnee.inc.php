@@ -4,14 +4,16 @@
 class MoyCompAnnee {
       /*avec PDO, il faut que les noms attributs soient les mêmes que ceux de la table*/
       private $codenip;
+	  private $anneepromo;
       private $numcomp;
       private $nomannee;
 	  private $moycompannee;
 	  private $avis;
 	  private $rang;
 	
-	public function __construct($i="",$n="",$a="",$m="",$av="",$ra=0) {
+	public function __construct($i="",$an="",$n="",$a="",$m="",$av="",$ra=0) {
 		$this->codenip = $i;
+		$this->anneepromo = $an;
 		$this->numcomp = $n;
 		$this->nomannee = $a;
 		$this->moycompannee = $m;
@@ -20,6 +22,7 @@ class MoyCompAnnee {
 	}
 
       public function getCodeNip() { return $this->codenip; }
+	  public function getAnneePromo() { return $this->anneepromo; }
       public function getNumComp() { return $this->numcomp;}
       public function getNomAnnee() { return $this->nomannee; }
 	  public function getMoyCompAnnee() { return $this->moycompannee; }
