@@ -181,9 +181,7 @@ function insertJuryAnnee($db, $codenip, $nomannee, $moyannee, $rcue, $decision, 
 }
 
 function insertMoyCompAnnee($db, $codenip, $idcomp, $nomannee, $moycompannee, $avis, $rang) {
-	$val = $db->insertIntoMoyCompAnnee($codenip, $idcomp, $nomannee, $moycompannee, $avis, $rang);
-	var_dump($val);
-	if($val === 1)
+	if($db->insertIntoMoyCompAnnee($codenip, $idcomp, $nomannee, $moycompannee, $avis, $rang) === 1)
 	{
 		$db->updateMoyCompAnnee($codenip, $idcomp, $nomannee, $moycompannee, $avis, $rang);
 	}
