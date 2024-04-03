@@ -67,7 +67,7 @@ else {
 							insertMoyCompSem($db, intval($data['code_nip']), 'BIN16', '1', floatval($rowData[49]), $rowData[50]);
 							break;
 						case "2":
-							insertJuryAnnee($db, intval($data['code_nip']), 'BUT1', null, $data['RCUEs'], $data['Année'],null, "2022-2023", intval($data['Abs'] - $data['Just.']));
+							insertJuryAnnee($db, intval($data['code_nip']), "2022-2023", 'BUT1', null, $data['RCUEs'], $data['Année'],null, intval($data['Abs'] - $data['Just.']));
 
 							$db->insertIntoJurySem(intval($data['code_nip']), '2', floatval($data['Moy']), $data['UEs'], null, intval($data['Rg']));
 
@@ -173,10 +173,10 @@ else {
 	}
 } //fin du else connexion reussie
 
-function insertJuryAnnee($db, $codenip, $nomannee, $moyannee, $rcue, $decision, $rang, $anneepromo, $abs) {
-	if($db->insertIntoJuryAnnee($codenip, $nomannee, $moyannee, $rcue, $decision, $rang, $anneepromo, $abs) === 1)
+function insertJuryAnnee($db, $codenip, $anneepromo, $nomannee, $moyannee, $rcue, $decision, $rang, $abs) {
+	if($db->insertIntoJuryAnnee($codenip, $anneepromo, $nomannee, $moyannee, $rcue, $decision, $rang, $abs) === 1)
 	{
-		$db->updateJuryAnnee($codenip, $nomannee, $moyannee, $rcue, $decision, $rang, $anneepromo, $abs);
+		$db->updateJuryAnnee($codenip, $anneepromo, $nomannee, $moyannee, $rcue, $decision, $rang, $abs);
 	}
 }
 
