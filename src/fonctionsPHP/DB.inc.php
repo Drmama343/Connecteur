@@ -166,6 +166,21 @@ class DB {
 		// Récupération du résultat
 		$result = $stmt->fetch(PDO::FETCH_ASSOC);
 		return $result;
+    }
+
+	public function MettreAJourRangsCompetencesParAnnee($annee) {
+		// Préparation de la requête pour appeler la fonction
+		$stmt = $this->connect->prepare("SELECT MettreAJourRangsCompetencesParAnnee(:annee_param)");
+   
+		// Remplacement des paramètres de la fonction
+		$stmt->bindParam(':annee_param', $annee, PDO::PARAM_STR);
+		
+		// Exécution de la requête
+		$stmt->execute();
+		
+		// Récupération du résultat
+		$result = $stmt->fetch(PDO::FETCH_ASSOC);
+		return $result;
    }
 	
 	public function getEtudiants() {
@@ -180,10 +195,21 @@ class DB {
 
 	//fonction de toivimic 
 
-	public function getJuryAnneeByAnnees($anneebut, $nomannee) {
-		$requete = "SELECT * from JuryAnnee WHERE anneepromo = '$anneebut' AND nomannee = '$nomannee'";
+	public function getJuryAnneeByAnnees($nomannee, $anneepromo) {
+		$requete = "SELECT * from JuryAnnee WHERE anneepromo = '$anneepromo' AND nomannee = '$nomannee'";
 		return $this->execQuery($requete,null,'JuryAnnee');
 	}
+
+	public function getMoyRess($code, $idress) {
+		$requete = "SELECT * from MoyRess WHERE codenip = '$code' AND idress = '$idress'";
+		return $this->execQuery($requete,null,'MoyRess');
+	}
+
+	public function getMoyCompSem($code, $competence, $semestre) {
+		$requete = "SELECT * from MoyCompSem WHERE codenip = '$code' AND idcomp = '$competence' AND idsem = '$semestre'";
+		return $this->execQuery($requete,null,'MoyCompSem');
+	}
+	
 
 	//fonction de frizoks
 	public function getJuryAnnee($codenip, $nomannee) {
@@ -203,7 +229,7 @@ class DB {
 	}
 
 	//fonction de frizoks
-	public function getMoyAnnee($codenip, $nomannee) {
+	public function getMoyCompAnnee($codenip, $nomannee) {
 		$requete = "SELECT * from MoyCompAnnee WHERE nomAnnee = '$nomannee' AND codenip = $codenip";
 		return $this->execQuery($requete,null,'MoyCompAnnee');
 	}
@@ -230,9 +256,9 @@ class DB {
 	//       return $this->execMaj($requete,$tparam);
       // }
 
-	public function updateEtudiant($codeNip, $cursus, $parcours, $apprentissage, $avisInge, $avisMaster, $commentaire, $etranger) {
-		$requete = 'UPDATE Etudiant SET cursus = ?, parcours = ?, apprentissage = ?, avisInge = ?, avisMaster = ?, commentaire = ?, mobEtrang = ? WHERE codeNip = ?';
-		$tparam = array($cursus, $parcours, $apprentissage, $avisInge, $avisMaster, $commentaire, $etranger, $codeNip);
+	public function updateEtudiant($codeNip, $nom, $prenom, $cursus, $parcours, $apprentissage, $avisInge, $avisMaster, $commentaire, $etranger) {
+		$requete = 'UPDATE Etudiant SET nom = ?, prenom = ?, cursus = ?, parcours = ?, apprentissage = ?, avisInge = ?, avisMaster = ?, commentaire = ?, mobEtrang = ? WHERE codeNip = ?';
+		$tparam = array($nom, $prenom, $cursus, $parcours, $apprentissage, $avisInge, $avisMaster, $commentaire, $etranger, $codeNip);
 		return $this->execMaj($requete, $tparam);
 	}
 
@@ -277,9 +303,9 @@ class DB {
 		return $this->execMaj($requete, $tparam);
 	}
 	
-	public function insertIntoCompetence($idComp, $nomComp) {
-		$requete = 'INSERT INTO Competence VALUES (?, ?)';
-		$tparam = array($idComp, $nomComp);
+	public function insertIntoCompetence($idComp, $nomComp, $numComp) {
+		$requete = 'INSERT INTO Competence VALUES (?, ?, ?)';
+		$tparam = array($idComp, $nomComp, $numComp);
 		return $this->execMaj($requete, $tparam);
 	}
 	
@@ -331,9 +357,9 @@ class DB {
 		return $this->execMaj($requete, $tparam);
 	}
 	
-	public function insertIntoMoyCompAnnee($codeNip, $idComp, $idAnnee, $moyCompAnnee, $avis) {
-		$requete = 'INSERT INTO MoyCompAnnee VALUES (?, ?, ?, ?, ?)';
-		$tparam = array($codeNip, $idComp, $idAnnee, $moyCompAnnee, $avis);
+	public function insertIntoMoyCompAnnee($codeNip, $numComp, $idAnnee, $moyCompAnnee, $avis, $rang) {
+		$requete = 'INSERT INTO MoyCompAnnee VALUES (?, ?, ?, ?, ?, ?)';
+		$tparam = array($codeNip, $numComp, $idAnnee, $moyCompAnnee, $avis, $rang);
 		return $this->execMaj($requete, $tparam);
 	}
 } //fin classe DB

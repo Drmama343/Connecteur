@@ -13,14 +13,14 @@ class JuryAnnee {
 	  private $absinjust;
       
       public function __construct($c="",$nom="",$mo="",$r="",$d="",$rang="", $anneepromo="", $absinjust=0) {
-            $this->codenip = $c;
-	      $this->nomannee = $nom;
-		  $this->moyannee = $mo;
-		  $this->rcue = $r;
-		  $this->decision = $d;
-		  $this->rang = $rang;
-		  $this->anneepromo = $anneepromo;
-		  $this->absinjust = $absinjust;
+			$this->codenip = $c;
+			$this->nomannee = $nom;
+			$this->moyannee = $mo;
+			$this->rcue = $r;
+			$this->decision = $d;
+			$this->rang = $rang;
+			$this->anneepromo = $anneepromo;
+			$this->absinjust = $absinjust;
       }
 
       public function getCode() { return $this->codenip; }

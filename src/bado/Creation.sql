@@ -31,7 +31,8 @@ CREATE TABLE Annee (
 -- Table Competences
 CREATE TABLE Competence (
     idComp VARCHAR(50) PRIMARY KEY,
-    nomComp VARCHAR(150)
+    nomComp VARCHAR(150),
+	numComp INT
 );
 
 -- Table Ressources
@@ -142,12 +143,12 @@ CREATE TABLE MoyCompSem (
 -- Table MoyCompAnnee
 CREATE TABLE MoyCompAnnee (
     codeNip INT,
-    idComp VARCHAR(50),
+    numComp INT,
     nomAnnee VARCHAR(50),
     moyCompAnnee FLOAT,
     avis VARCHAR(50),
-    PRIMARY KEY (codeNip, idComp, nomAnnee),
+	rang INT,
+    PRIMARY KEY (codeNip, numComp, nomAnnee),
     FOREIGN KEY (codeNip) REFERENCES Etudiant(codeNip),
-    FOREIGN KEY (idComp) REFERENCES Competence(idComp),
     FOREIGN KEY (nomAnnee) REFERENCES Annee(nomAnnee)
 );
