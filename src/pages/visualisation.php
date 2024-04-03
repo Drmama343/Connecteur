@@ -92,24 +92,23 @@
 		echo "</header>";
 	
 		echo "<form method='post' action='valider_modifications.php'>"; // Formulaire pour soumettre les modifications
-    echo "<section>";
-    echo "<table id=\"etudiantsTable\">";
-    echo "<thead id=\"tableHeader\">";
-    echo "<tr>";
-    echo "<th>Code NIP</th>";
-    echo "<th>Nom</th>";
-    echo "<th>Prénom</th>";
-    echo "<th>Cursus</th>";
-    echo "<th>Parcours</th>";
-    echo "<th>Apprentissage</th>";
-    echo "<th>Avis Ingénieur</th>";
-    echo "<th>Avis Master</th>";
-    echo "<th>Commentaire</th>";
-    echo "<th>Mobilité étrangère</th>";
-    echo "<th>Modifier</th>"; // Ajout d'une colonne pour le bouton Modifier
-    echo "</tr>";
-    echo "</thead>";
-    echo "<tbody id=\"tableBody\">\n";
+		echo "<section>";
+		echo "<table id=\"etudiantsTable\">";
+		echo "<thead id=\"tableHeader\">";
+		echo "<tr>";
+		echo "<th>Code NIP</th>";
+		echo "<th>Nom</th>";
+		echo "<th>Prénom</th>";
+		echo "<th>Cursus</th>";
+		echo "<th>Parcours</th>";
+		echo "<th>Apprentissage</th>";
+		echo "<th>Avis Ingénieur</th>";
+		echo "<th>Avis Master</th>";
+		echo "<th>Commentaire</th>";
+		echo "<th>Mobilité étrangère</th>";
+		echo "</tr>";
+		echo "</thead>";
+		echo "<tbody id=\"tableBody\">\n";
 
     foreach ($t as &$v) {
         echo "<tr>";
@@ -123,7 +122,7 @@
         echo "<td>" . $v->getAvisMaster() . "</td>";
         echo "<td>" . $v->getCommentaire() . "</td>";
         echo "<td>" . $v->getMobEtrang() . "</td>";
-        echo "<td><button type='button' onclick='toggleEditMode(this)'>Modifier</button></td>"; // Bouton pour activer le mode édition
+        echo "<td><button type='button' class='edit-button' onclick='toggleEditMode(this)'>Modifier</button><button type='button' class='cancel-button' style='display:none;' onclick='reloadPage()'>Annuler</button></td>"; // Bouton pour activer le mode édition
         echo "</tr>";
     }
 
@@ -138,47 +137,70 @@
 
 		echo '
 		<script>
-		function toggleEditMode(button) {
-			const row = button.parentNode.parentNode;
-			const cells = row.querySelectorAll("td:not(:last-child)");
-			const isEditing = button.textContent === "Valider";
-			const cancelButton = row.querySelector(".cancel-button");
-	
-			if (isEditing) {
-				// Valider les modifications
-				for (let i = 0; i < cells.length; i++) {
-					const input = cells[i].querySelector("input[type=text]");
-					cells[i].textContent = input.value;
-				}
-				button.textContent = "Modifier";
-				cancelButton.style.display = "none"; // Cacher le bouton "Annuler"
-			} else {
-				// Activer le mode édition
-				for (let i = 3; i < cells.length; i++) {
-					const text = cells[i].textContent;
-					cells[i].innerHTML = "<input type=\'text\' value=\'" + text + "\'>";
-					// Fixer la largeur des cellules
-					cells[i].style.width = cells[i].offsetWidth + "px";
-				}
-				button.textContent = "Valider";
-				cancelButton.style.display = ""; // Afficher le bouton "Annuler"
+			// Fonction pour recharger la page
+			function reloadPage() {
+				location.reload();
 			}
-		}
-	
-		// Fonction pour annuler les modifications
-		function cancelEdit(button) {
-			const row = button.parentNode.parentNode;
-			const cells = row.querySelectorAll("td:not(:last-child)");
-			const editButton = row.querySelector(".edit-button");
-	
-			for (let i = 0; i < cells.length; i++) {
-				const text = cells[i].querySelector("input[type=text]").value;
-				cells[i].textContent = text;
+
+			// Fonction pour valider et soumettre les modifications
+			function validateChanges() {
+				const rows = document.querySelectorAll("#etudiantsTable tbody tr");
+				for (let i = 0; i < rows.length; i++) {
+					const inputs = rows[i].querySelectorAll("input[type=text]");
+					for (let j = 0; j < inputs.length; j++) {
+						if (inputs[j].value === "") {
+							alert("Veuillez remplir tous les champs avant de valider.");
+							return;
+						}
+					}
+				}
+
+				// Tous les champs sont remplis, vous pouvez maintenant soumettre les modifications
+				// Collecter les données et appeler la fonction updateEtudiant
+				for (let i = 0; i < rows.length; i++) {
+					const cells = rows[i].querySelectorAll("td:not(:last-child)");
+					const codeNip = cells[0].textContent;
+					const cursus = cells[3].textContent;
+					const parcours = cells[4].textContent;
+					const apprentissage = cells[5].textContent;
+					const avisInge = cells[6].textContent;
+					const avisMaster = cells[7].textContent;
+					const commentaire = cells[8].textContent;
+					const etranger = cells[9].textContent;
+
+					// Appeler la fonction updateEtudiant avec les valeurs récupérées
+					updateEtudiant(codeNip, cursus, parcours, apprentissage, avisInge, avisMaster, commentaire, etranger);
+				}
+
+				// Recharger la page après la validation
+				reloadPage();
 			}
-	
-			editButton.textContent = "Modifier";
-			button.style.display = "none"; // Cacher le bouton "Annuler"
-		}
+
+			// Fonction pour basculer entre le mode d édition et de validation
+			function toggleEditMode(button) {
+				const row = button.parentNode.parentNode;
+				const cells = row.querySelectorAll("td:not(:last-child)");
+				const isEditing = button.textContent === "Valider";
+				const cancelButton = row.querySelector(".cancel-button");
+
+				if (isEditing) {
+					// Valider les modifications
+					for (let i = 1; i < cells.length; i++) {
+						const input = cells[i].querySelector("input[type=text]");
+						cells[i].textContent = input.value;
+					}
+					button.textContent = "Modifier";
+					cancelButton.style.display = "none"; // Cacher le bouton "Annuler"
+				} else {
+					// Activer le mode édition
+					for (let i = 1; i < cells.length; i++) {
+						const text = cells[i].textContent;
+						cells[i].innerHTML = "<input type=\'text\' value=\'" + text + "\'>";
+					}
+					button.textContent = "Valider";
+					cancelButton.style.display = ""; // Afficher le bouton "Annuler"
+				}
+			}
 
 			// Script JavaScript pour le tri et la recherche
 			document.addEventListener("DOMContentLoaded", function () {
