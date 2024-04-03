@@ -129,7 +129,7 @@ class DB {
 		try {
 			$res = $stmt->execute($tparam); //execution de l'ordre SQL
 			return 0;
-		} catch (PDOException $e) { return 1; }
+		} catch (PDOException $e) { return $e->getMessage(); }
 	}
 
 	  /*************************************************************************
@@ -158,6 +158,21 @@ class DB {
    
 		// Remplacement des paramètres de la fonction
 		$stmt->bindParam(':nip_param', $codenip, PDO::PARAM_INT);
+		$stmt->bindParam(':annee_param', $annee, PDO::PARAM_STR);
+		
+		// Exécution de la requête
+		$stmt->execute();
+		
+		// Récupération du résultat
+		$result = $stmt->fetch(PDO::FETCH_ASSOC);
+		return $result;
+    }
+
+	public function MettreAJourRangsCompetencesParAnnee($annee) {
+		// Préparation de la requête pour appeler la fonction
+		$stmt = $this->connect->prepare("SELECT MettreAJourRangsCompetencesParAnnee(:annee_param)");
+   
+		// Remplacement des paramètres de la fonction
 		$stmt->bindParam(':annee_param', $annee, PDO::PARAM_STR);
 		
 		// Exécution de la requête
@@ -214,7 +229,7 @@ class DB {
 	}
 
 	//fonction de frizoks
-	public function getMoyAnnee($codenip, $nomannee) {
+	public function getMoyCompAnnee($codenip, $nomannee) {
 		$requete = "SELECT * from MoyCompAnnee WHERE nomAnnee = '$nomannee' AND codenip = $codenip";
 		return $this->execQuery($requete,null,'MoyCompAnnee');
 	}
@@ -288,9 +303,9 @@ class DB {
 		return $this->execMaj($requete, $tparam);
 	}
 	
-	public function insertIntoCompetence($idComp, $nomComp) {
-		$requete = 'INSERT INTO Competence VALUES (?, ?)';
-		$tparam = array($idComp, $nomComp);
+	public function insertIntoCompetence($idComp, $nomComp, $numComp) {
+		$requete = 'INSERT INTO Competence VALUES (?, ?, ?)';
+		$tparam = array($idComp, $nomComp, $numComp);
 		return $this->execMaj($requete, $tparam);
 	}
 	
@@ -342,9 +357,9 @@ class DB {
 		return $this->execMaj($requete, $tparam);
 	}
 	
-	public function insertIntoMoyCompAnnee($codeNip, $idComp, $idAnnee, $moyCompAnnee, $avis) {
-		$requete = 'INSERT INTO MoyCompAnnee VALUES (?, ?, ?, ?, ?)';
-		$tparam = array($codeNip, $idComp, $idAnnee, $moyCompAnnee, $avis);
+	public function insertIntoMoyCompAnnee($codeNip, $numComp, $idAnnee, $moyCompAnnee, $avis, $rang) {
+		$requete = 'INSERT INTO MoyCompAnnee VALUES (?, ?, ?, ?, ?, ?)';
+		$tparam = array($codeNip, $numComp, $idAnnee, $moyCompAnnee, $avis, $rang);
 		return $this->execMaj($requete, $tparam);
 	}
 } //fin classe DB
