@@ -135,6 +135,38 @@ class DB {
 	  /*************************************************************************
 	   * Fonctions qui peuvent être utilisées dans les scripts PHP
 	   *************************************************************************/
+
+	public function MoyenneMathsParAnnee($codenip, $annee) {
+		 // Préparation de la requête pour appeler la fonction
+		 $stmt = $this->connect->prepare("SELECT MoyenneMathsParAnnee(:nip_param, :annee_param)");
+    
+		 // Remplacement des paramètres de la fonction
+		 $stmt->bindParam(':nip_param', $codenip, PDO::PARAM_INT);
+		 $stmt->bindParam(':annee_param', $annee, PDO::PARAM_STR);
+		 
+		 // Exécution de la requête
+		 $stmt->execute();
+		 
+		 // Récupération du résultat
+		 $result = $stmt->fetch(PDO::FETCH_ASSOC);
+		 return $result;
+	}
+
+	public function MoyenneAnglaisParAnnee($codenip, $annee) {
+		// Préparation de la requête pour appeler la fonction
+		$stmt = $this->connect->prepare("SELECT MoyenneAnglaisParAnnee(:nip_param, :annee_param)");
+   
+		// Remplacement des paramètres de la fonction
+		$stmt->bindParam(':nip_param', $codenip, PDO::PARAM_INT);
+		$stmt->bindParam(':annee_param', $annee, PDO::PARAM_STR);
+		
+		// Exécution de la requête
+		$stmt->execute();
+		
+		// Récupération du résultat
+		$result = $stmt->fetch(PDO::FETCH_ASSOC);
+		return $result;
+   }
 	
 	public function getEtudiants() {
 		$requete = 'SELECT * from Etudiant';
