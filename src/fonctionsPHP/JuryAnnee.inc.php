@@ -4,22 +4,22 @@
 class JuryAnnee {
       /*avec PDO, il faut que les noms attributs soient les mêmes que ceux de la table*/
       private $codenip;
+	  private $anneepromo;
       private $nomannee;
 	  private $moyannee;
 	  private $rcue;
 	  private $decision;
 	  private $rang;
-	  private $anneepromo;
 	  private $absinjust;
       
-      public function __construct($c="",$nom="",$mo="",$r="",$d="",$rang="", $anneepromo="", $absinjust=0) {
+      public function __construct($c="",$anneepromo="",$nom="",$mo="",$r="",$d="",$rang="", $absinjust=0) {
 			$this->codenip = $c;
+			$this->anneepromo = $anneepromo;
 			$this->nomannee = $nom;
 			$this->moyannee = $mo;
 			$this->rcue = $r;
 			$this->decision = $d;
 			$this->rang = $rang;
-			$this->anneepromo = $anneepromo;
 			$this->absinjust = $absinjust;
       }
 
