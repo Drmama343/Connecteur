@@ -189,6 +189,11 @@ class DB {
 		$requete = "SELECT * from MoyRess WHERE codenip = '$code' AND idress = '$idress'";
 		return $this->execQuery($requete,null,'MoyRess');
 	}
+
+	public function getMoyCompSem($code, $competence, $semestre) {
+		$requete = "SELECT * from MoyCompSem WHERE codenip = '$code' AND idcomp = '$competence' AND idsem = '$semestre'";
+		return $this->execQuery($requete,null,'MoyCompSem');
+	}
 	
 
 	//fonction de frizoks
