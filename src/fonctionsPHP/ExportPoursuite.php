@@ -59,11 +59,11 @@ else {
 				$jury1 = $db->getJuryAnnee($etudiant->getCode(), 'BUT1');
 				$jury2 = $db->getJuryAnnee($etudiant->getCode(), 'BUT2');
 				$jury3 = $db->getJuryAnnee($etudiant->getCode(), 'BUT3');
-				$maths1 = $db->MoyenneMathsParAnnee($etudiant->getCode(), 'BUT1');
-				$maths2 = $db->MoyenneMathsParAnnee($etudiant->getCode(), 'BUT2');
-				$maths3 = $db->MoyenneMathsParAnnee($etudiant->getCode(), 'BUT3');
-				$anglais1 = $db->MoyenneAnglaisParAnnee($etudiant->getCode(), 'BUT1');
-				$anglais2 = $db->MoyenneAnglaisParAnnee($etudiant->getCode(), 'BUT2');
+				$maths1 = $db->MoyenneEtRangMathsParAnnee($etudiant->getCode(), 'BUT1');
+				$maths2 = $db->MoyenneEtRangMathsParAnnee($etudiant->getCode(), 'BUT2');
+				$maths3 = $db->MoyenneEtRangMathsParAnnee($etudiant->getCode(), 'BUT3');
+				$anglais1 = $db->MoyenneEtRangAnglaisParAnnee($etudiant->getCode(), 'BUT1');
+				$anglais2 = $db->MoyenneEtRangAnglaisParAnnee($etudiant->getCode(), 'BUT2');
 			} //fin try
 			catch (Exception $e) {
 				$_SESSION['info_poursuite'] = $e->getMessage();
@@ -105,8 +105,6 @@ else {
 				$pdf->Cell(27, 10, 'Non', 0, 0, 'L');
 			}
 
-			var_dump($maths1);
-
 			//parcours
 			$pdf->SetXY(88, 53);
 			$pdf->Cell(27, 10, $etudiant->getParcours(), 0, 0, 'L');
@@ -133,9 +131,9 @@ else {
 			$pdf->SetXY(80, 114);
 			$pdf->Cell(10, 10, (count($note1) >= 6 ? $note1[5]->getMoyCompAnnee() : "~"), 0, 0, 'L');
 			$pdf->SetXY(80, 119);
-			$pdf->Cell(10, 10, (count($maths1) >= 1 ? $maths1["moyennemathsparannee"] : "~"), 0, 0, 'L');
+			$pdf->Cell(10, 10, (count($maths1) >= 1 && $maths1["moyenne"] > 0 ? $maths1["moyenne"] : "~"), 0, 0, 'L');
 			$pdf->SetXY(80, 124);
-			$pdf->Cell(10, 10, (count($anglais1) >= 1 ? $anglais1["moyenneanglaisparannee"] : "~"), 0, 0, 'L');
+			$pdf->Cell(10, 10, (count($anglais1) >= 1 && $anglais1["moyenne"] > 0 ? $anglais1["moyenne"] : "~"), 0, 0, 'L');
 
 			//BUT1 - Rang
 			$pdf->SetXY(93, 88);
@@ -151,9 +149,9 @@ else {
 			$pdf->SetXY(93, 114);
 			$pdf->Cell(10, 10, (count($note1) >= 6 ? $note1[5]->getRang() : "~"), 0, 0, 'L');
 			$pdf->SetXY(93, 119);
-			$pdf->Cell(10, 10, '~', 0, 0, 'L');
+			$pdf->Cell(10, 10, (count($maths1) >= 1 && $maths1["moyenne"] > 0 ? $maths1["rang"] : "~"), 0, 0, 'L');
 			$pdf->SetXY(93, 124);
-			$pdf->Cell(10, 10, '~', 0, 0, 'L');
+			$pdf->Cell(10, 10, (count($anglais1) >= 1 && $anglais1["moyenne"] > 0 ? $anglais1["rang"] : "~"), 0, 0, 'L');
 
 			//BUT2 - Moy
 			$pdf->SetXY(105, 88);
@@ -169,9 +167,9 @@ else {
 			$pdf->SetXY(105, 114);
 			$pdf->Cell(10, 10, (count($note2) >= 6 ? $note2[5]->getMoyCompAnnee() : "~"), 0, 0, 'L');
 			$pdf->SetXY(105, 119);
-			$pdf->Cell(10, 10, (count($maths2) >= 1 ? $maths2["moyennemathsparannee"] : "~"), 0, 0, 'L');
+			$pdf->Cell(10, 10, (count($maths2) >= 1 && $maths2["moyenne"] > 0 ? $maths2["moyenne"] : "~"), 0, 0, 'L');
 			$pdf->SetXY(105, 124);
-			$pdf->Cell(10, 10, (count($anglais2) >= 1 ? $anglais2["moyenneanglaisparannee"] : "~"), 0, 0, 'L');
+			$pdf->Cell(10, 10, (count($anglais2) >= 1 && $anglais2["moyenne"] > 0 ? $anglais2["moyenne"] : "~"), 0, 0, 'L');
 
 			//BUT2 - Rang
 			$pdf->SetXY(118, 88);
@@ -187,9 +185,9 @@ else {
 			$pdf->SetXY(118, 114);
 			$pdf->Cell(10, 10, (count($note2) >= 6 ? $note2[5]->getRang() : "~"), 0, 0, 'L');
 			$pdf->SetXY(118, 119);
-			$pdf->Cell(10, 10, '~', 0, 0, 'L');
+			$pdf->Cell(10, 10, (count($maths2) >= 1 && $maths2["moyenne"] > 0 ? $maths2["rang"] : "~"), 0, 0, 'L');
 			$pdf->SetXY(118, 124);
-			$pdf->Cell(10, 10, '~', 0, 0, 'L');
+			$pdf->Cell(10, 10, (count($anglais2) >= 1 && $anglais2["moyenne"] > 0 ? $anglais2["rang"] : "~"), 0, 0, 'L');
 
 			//Absences
 			$pdf->SetXY(80, 129.5);
@@ -205,7 +203,7 @@ else {
 			$pdf->SetXY(91, 173);
 			$pdf->Cell(10, 10, (count($note3) >= 3 ? $note3[2]->getMoyCompAnnee() : "~"), 0, 0, 'L');
 			$pdf->SetXY(91, 178);
-			$pdf->Cell(10, 10, (count($maths3) >= 1 ? $maths3["moyennemathsparannee"] : "~"), 0, 0, 'L');
+			$pdf->Cell(10, 10, (count($maths3) >= 1 && $maths3["moyenne"] > 0 ? $maths3["moyenne"] : "~"), 0, 0, 'L');
 
 			//BUT3 - Rang
 			$pdf->SetXY(111, 147);
@@ -215,7 +213,7 @@ else {
 			$pdf->SetXY(111, 173);
 			$pdf->Cell(10, 10, (count($note3) >= 3 ? $note3[2]->getRang() : "~"), 0, 0, 'L');
 			$pdf->SetXY(111, 178);
-			$pdf->Cell(10, 10, '~', 0, 0, 'L');
+			$pdf->Cell(10, 10, (count($maths3) >= 1 && $maths3["moyenne"] > 0 ? $maths3["rang"] : "~"), 0, 0, 'L');
 
 			//Absences
 			$pdf->SetXY(91, 183.5);
@@ -223,29 +221,53 @@ else {
 
 			//Cases à cocher (ingé)
 			$pdf->SetFont('Arial', 'B', 5);
-			$pdf->SetXY(81.2, 215.5);
-			$pdf->Cell(10, 10, 'x', 0, 0, 'L');
-			$pdf->SetXY(106.2, 215.5);
-			$pdf->Cell(10, 10, 'x', 0, 0, 'L');
-			$pdf->SetXY(129.9, 215.5);
-			$pdf->Cell(10, 10, 'x', 0, 0, 'L');
-			$pdf->SetXY(153.7, 215.5);
-			$pdf->Cell(10, 10, 'x', 0, 0, 'L');
-			$pdf->SetXY(181.3, 215.5);
-			$pdf->Cell(10, 10, 'x', 0, 0, 'L');
+
+			switch ($etudiant->getAvisInge()) {
+				case 'Tres Favorable':
+					$pdf->SetXY(81.2, 215.5);
+					$pdf->Cell(10, 10, 'x', 0, 0, 'L');
+					break;
+				case 'Favorable':
+					$pdf->SetXY(106.2, 215.5);
+					$pdf->Cell(10, 10, 'x', 0, 0, 'L');
+					break;
+				case 'Assez Favorable':
+					$pdf->SetXY(129.9, 215.5);
+					$pdf->Cell(10, 10, 'x', 0, 0, 'L');
+					break;
+				case 'Sans Avis':
+					$pdf->SetXY(153.7, 215.5);
+					$pdf->Cell(10, 10, 'x', 0, 0, 'L');
+					break;
+				case 'Reserve':
+					$pdf->SetXY(181.3, 215.5);
+					$pdf->Cell(10, 10, 'x', 0, 0, 'L');
+					break;
+			}
 
 			//Cases à cocher (master)
-			$pdf->SetXY(81.2, 223);
-			$pdf->Cell(10, 10, 'x', 0, 0, 'L');
-			$pdf->SetXY(106.2, 223);
-			$pdf->Cell(10, 10, 'x', 0, 0, 'L');
-			$pdf->SetXY(129.9, 223);
-			$pdf->Cell(10, 10, 'x', 0, 0, 'L');
-			$pdf->SetXY(153.7, 223);
-			$pdf->Cell(10, 10, 'x', 0, 0, 'L');
-			$pdf->SetXY(181.3, 223);
-			$pdf->Cell(10, 10, 'x', 0, 0, 'L');
-
+			switch ($etudiant->getAvisMaster()) {
+				case 'Tres Favorable':
+					$pdf->SetXY(81.2, 223);
+					$pdf->Cell(10, 10, 'x', 0, 0, 'L');
+					break;
+				case 'Favorable':
+					$pdf->SetXY(106.2, 223);
+					$pdf->Cell(10, 10, 'x', 0, 0, 'L');
+					break;
+				case 'Assez Favorable':
+					$pdf->SetXY(129.9, 223);
+					$pdf->Cell(10, 10, 'x', 0, 0, 'L');
+					break;
+				case 'Sans Avis':
+					$pdf->SetXY(153.7, 223);
+					$pdf->Cell(10, 10, 'x', 0, 0, 'L');
+					break;
+				case 'Reserve':
+					$pdf->SetXY(181.3, 223);
+					$pdf->Cell(10, 10, 'x', 0, 0, 'L');
+					break;
+			}
 			$pdf->SetFont('Arial', '', 10);
 
 			//Total promo
