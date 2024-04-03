@@ -188,9 +188,9 @@ class DB {
 	//       return $this->execMaj($requete,$tparam);
       // }
 
-	public function updateEtudiant($codeNip, $cursus, $parcours, $apprentissage, $avisInge, $avisMaster, $commentaire, $etranger) {
-		$requete = 'UPDATE Etudiant SET cursus = ?, parcours = ?, apprentissage = ?, avisInge = ?, avisMaster = ?, commentaire = ?, mobEtrang = ? WHERE codeNip = ?';
-		$tparam = array($cursus, $parcours, $apprentissage, $avisInge, $avisMaster, $commentaire, $etranger, $codeNip);
+	public function updateEtudiant($codeNip, $nom, $prenom, $cursus, $parcours, $apprentissage, $avisInge, $avisMaster, $commentaire, $etranger) {
+		$requete = 'UPDATE Etudiant SET nom = ?, prenom = ?, cursus = ?, parcours = ?, apprentissage = ?, avisInge = ?, avisMaster = ?, commentaire = ?, mobEtrang = ? WHERE codeNip = ?';
+		$tparam = array($nom, $prenom, $cursus, $parcours, $apprentissage, $avisInge, $avisMaster, $commentaire, $etranger, $codeNip);
 		return $this->execMaj($requete, $tparam);
 	}
 
