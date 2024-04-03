@@ -213,12 +213,12 @@ class DB {
 
 	//fonction de frizoks
 	public function getJuryAnnee($codenip, $nomannee) {
-		$requete = "SELECT * from JuryAnnee WHERE codenip = $codenip AND nomannee = '$nomannee'";
+		$requete = "SELECT * from JuryAnnee WHERE codenip = '$codenip' AND nomannee = '$nomannee'";
 		return $this->execQuery($requete,null,'JuryAnnee');
 	}
 
 	public function getJurySemByEtudSem ($codenip, $idsem){
-		$requete = "SELECT * from JurySem WHERE codenip = $codenip and idsem = $idsem";
+		$requete = "SELECT * from JurySem WHERE codenip = '$codenip' and idsem = '$idsem'";
 		return $this->execQuery($requete,null,'JurySem');
 	}
 
