@@ -129,7 +129,7 @@ class DB {
 		try {
 			$res = $stmt->execute($tparam); //execution de l'ordre SQL
 			return 0;
-		} catch (PDOException $e) { return $e->getMessage(); }
+		} catch (PDOException $e) { return 1; }
 	}
 
 	  /*************************************************************************

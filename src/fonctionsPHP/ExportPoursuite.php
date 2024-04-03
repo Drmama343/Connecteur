@@ -105,6 +105,8 @@ else {
 				$pdf->Cell(27, 10, 'Non', 0, 0, 'L');
 			}
 
+			var_dump($maths1);
+
 			//parcours
 			$pdf->SetXY(88, 53);
 			$pdf->Cell(27, 10, $etudiant->getParcours(), 0, 0, 'L');
