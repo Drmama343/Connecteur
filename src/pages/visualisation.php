@@ -121,7 +121,7 @@
 			echo "			<td>" . $v->getAvisMaster() . "</td>\n";
 			echo "			<td>" . $v->getCommentaire() . "</td>\n";
 			echo "			<td>" . $v->getMobEtrang() . "</td>\n";
-			echo "			<td><button type='button' class='edit-button' onclick='toggleEditMode(this)'>Modifier</button><button type='button' class='cancel-button' style='display:none;' onclick='reloadPage()'>Annuler</button></td>\n"; // Bouton pour activer le mode édition
+			echo "			<td class=\"colonneBtn\"><button type='button' class='edit-button' onclick='toggleEditMode(this)'>Modifier</button><button type='button' class='cancel-button' style='display:none;' onclick='reloadPage()'>Annuler</button></td>\n"; // Bouton pour activer le mode édition
 			echo "		</tr>\n";
 		}
 
