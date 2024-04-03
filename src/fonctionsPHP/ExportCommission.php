@@ -115,12 +115,29 @@ if ($db == null) {
 			$sheet->setCellValue('F'.$ligne, $moySem[0]->getUE())
 				->setCellValue('G'.$ligne, $moySem[0]->getMoySem());
 
-				
 
-			$moySemComp = $db->getMoyCompSem($etudiant[0]->getCode(), $libelles[9], $semestre);
-			var_dump($moySemComp);
-			$sheet->setCellValue($rowData[9].$ligne, $moySemComp[0]->getMoyCompSem());
-			$sheet->setCellValue($rowData[10].$ligne, $bonus);
+			$ress = "";
+			$moySemComp = null;
+			for ($ii=0; $ii < count($libelles)-15; $ii++) {
+				if (preg_match('/^BIN\d{2}$/', $libelles[$ii])) {
+					$ress = $libelles[$ii];
+					$moySemComp = $db->getMoyCompSem($etudiant[0]->getCode(), $libelles[7], $semestre);
+					$sheet->setCellValue($rowData[$ii].$ligne, $moySemComp[0]->getMoyCompSem());
+					$sheet->setCellValue($rowData[($ii)+1].$ligne, $bonus);
+					$ii++;
+				}
+				else {
+					if ($ress !== ""){
+						$sheet->setCellValue($rowData[$ii].$ligne, $db->getMoyRess($etudiant[0]->getCode(), $libelles[$ii])[0]->getMoyRess());
+					}
+				}
+			}
+
+			/*for ($ii=0; $ii < count($dbtfinseq); $ii+2){
+				$moySemComp = $db->getMoyCompSem($etudiant[0]->getCode(), $libelles[7], $semestre);
+				$sheet->setCellValue($rowData[$dbtfinseq[$ii]].$ligne, $moySemComp[0]->getMoyCompSem());
+				$sheet->setCellValue($rowData[($dbtfinseq[$ii]+1)].$ligne, $bonus);
+			}*/
 
 			//infos notes et bonus dans comp
 			/*for ($ii=0; $ii < count($dbtfinseq); $ii+2) { 
