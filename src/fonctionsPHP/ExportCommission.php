@@ -63,7 +63,7 @@ else {
 				break;
 		}
 
-		foreach ($worksheet->getRowIterator() as $row) {
+		foreach ($sheet->getRowIterator() as $row) {
 
 			$libelles = [];
 			$rowData = [];
