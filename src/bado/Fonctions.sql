@@ -98,26 +98,25 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION count_avis_by_type(nom_annee VARCHAR)
+CREATE OR REPLACE FUNCTION count_avis_by_type(annee_param VARCHAR)
 RETURNS TABLE (
-	tres_favorable_count BIGINT,
-	favorable_count BIGINT,
-	assez_favorable_count BIGINT,
-	sans_avis_count BIGINT,
-	reserve_count BIGINT
+	tf BIGINT,
+	f BIGINT,
+	af BIGINT,
+	sa BIGINT,
+	r BIGINT
 ) AS $$
 BEGIN
 	RETURN QUERY
 	SELECT
-		COUNT(CASE WHEN avisInge = 'Tres Favorable' THEN 1 END) AS tres_favorable_count,
-		COUNT(CASE WHEN avisInge = 'Favorable' THEN 1 END) AS favorable_count,
-		COUNT(CASE WHEN avisInge = 'Assez Favorable' THEN 1 END) AS assez_favorable_count,
-		COUNT(CASE WHEN avisInge = 'Sans Avis' THEN 1 END) AS sans_avis_count,
-		COUNT(CASE WHEN avisInge = 'Reserve' THEN 1 END) AS reserve_count
+		COUNT(CASE WHEN avisInge = 'Tres Favorable' THEN 1 END) AS tf,
+		COUNT(CASE WHEN avisInge = 'Favorable' THEN 1 END) AS f,
+		COUNT(CASE WHEN avisInge = 'Assez Favorable' THEN 1 END) AS af,
+		COUNT(CASE WHEN avisInge = 'Sans Avis' THEN 1 END) AS sa,
+		COUNT(CASE WHEN avisInge = 'Reserve' THEN 1 END) AS r
 	FROM Etudiant
-	JOIN PromoEtud ON Etudiant.codeNip = PromoEtud.codeNip
-	JOIN Annee ON PromoEtud.anneePromo = Annee.nomAnnee
-	JOIN MoyCompAnnee ON Etudiant.codeNip = MoyCompAnnee.codeNip;
+	JOIN JuryAnnee ON Etudiant.codeNip = JuryAnnee.codenip
+	WHERE annee = annee_param;
 END;
 $$ LANGUAGE plpgsql;
 
