@@ -4,14 +4,16 @@
 class JurySem {
       /*avec PDO, il faut que les noms attributs soient les mêmes que ceux de la table*/
       private $codenip;
+	  private $anneepromo;
       private $idsem;
 	  private $moysem;
 	  private $ue;
 	  private $rang;
 	  private $bonus;
       
-      public function __construct($c="",$id="",$mo="",$r="",$d="",$rang="") {
+      public function __construct($c="",$an="",$id="",$mo="",$r="",$d="",$rang="") {
             $this->codenip = $c;
+			$this->anneepromo = $an;
 	      $this->idsem = $id;
 		  $this->moysem = $mo;
 		  $this->ue = $r;
@@ -20,6 +22,7 @@ class JurySem {
       }
 
       public function getCode() { return $this->codenip; }
+	  public function getAnneePromo() { return $this->anneepromo; }
       public function getIdSem() { return $this->idsem;}
 	  public function getMoySem() { return $this->moysem;}
 	  public function getUE() { return $this->ue;}

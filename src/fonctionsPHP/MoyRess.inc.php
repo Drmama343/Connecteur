@@ -4,16 +4,19 @@
 class MoyRess {
       /*avec PDO, il faut que les noms attributs soient les mêmes que ceux de la table*/
       private $codenip;
+	  private $anneepromo;
       private $idress;
 	  private $moyress;
 	
 	public function __construct($i="",$n="",$a="",$m="") {
 		$this->codenip = $i;
-		$this->idress = $n;
-		$this->moyress = $a;
+		$this->anneepromo = $n;
+		$this->idress = $a;
+		$this->moyress = $m;
 	}
 
       public function getCodeNip() { return $this->codenip; }
+	  public function getAnneePromo() { return $this->anneepromo; }
       public function getIdRess() { return $this->idress;}
 	  public function getMoyRess() { return $this->moyress; }
 
