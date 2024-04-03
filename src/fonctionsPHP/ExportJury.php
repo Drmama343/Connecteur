@@ -28,7 +28,7 @@ else {
 		$spreadsheet = IOFactory::load($templatePath);
 
 		$sheet = $spreadsheet->getActiveSheet();
-
+ 
 		$sheet->getStyle('A1:B2')->getFont()->setSize(14)->setBold(true);
 
 		// Ajouter des données au fichier Excel

@@ -146,6 +146,14 @@ class DB {
 		return $this->execQuery($requete,null,'Etudiant');
 	}
 
+	//fonction de toivimic 
+
+	public function getJuryAnneeByAnnees($anneebut, $nomannee) {
+		$requete = "SELECT * from JuryAnnee WHERE anneepromo = '$anneebut' AND nomannee = '$nomannee'";
+		return $this->execQuery($requete,null,'JuryAnnee');
+	}
+	
+
 	//fonction de frizoks
 	public function getJuryAnnee($codenip, $nomannee) {
 		$requete = "SELECT * from JuryAnnee WHERE codenip = $codenip AND nomannee = '$nomannee'";

@@ -79,9 +79,9 @@ else {
 		}
 		
 		//recupère les etudiants qui sont de cette année et de cette promo puis fait un compte de ca
-		if ($db->getJuryAnnee($anneebut, $annee)==null)
+		if ($db->getJuryAnneeByAnnees($anneebut, $annee)==null)
 			return null;
-		$nbEtu = $db->getJuryAnnee($anneebut, $annee);
+		$nbEtu = $db->getJuryAnneeByAnnees($anneebut, $annee);
 
 		for ($i=0; $i < count($nbEtu); $i++) { 
 			$moySem = $db->getJurySemByEtudSem($nbEtu[i]->getCode(), $semestre);
