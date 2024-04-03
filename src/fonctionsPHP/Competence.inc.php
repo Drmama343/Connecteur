@@ -5,14 +5,17 @@ class Competence {
       /*avec PDO, il faut que les noms attributs soient les mêmes que ceux de la table*/
       private $idComp;
       private $nomComp;
+	  private $numComp;
       
-      public function __construct($i="",$n="") {
-            $this->idComp = $i;
+      public function __construct($i="",$n="",$s=0) {
+          $this->idComp = $i;
 	      $this->nomComp = $n;
+		  $this->numComp = $s;
       }
 
       public function getIdComp() { return $this->idComp; }
       public function getNomComp() { return $this->nomComp;}
+	  public function getNumComp() { return $this->numComp;}
 
       public function __toString() {
 	     $res = "<br/>";

@@ -41,9 +41,9 @@ BEGIN
     SET rang = Classement.rang
     FROM (
         SELECT idcomp, codenip,
-               RANK() OVER (PARTITION BY idcomp ORDER BY moycompannee DESC) AS rang
+               RANK() OVER (PARTITION BY numcomp ORDER BY moycompannee DESC) AS rang
         FROM moycompannee
-        WHERE annee_param = 'BUT1' -- ou 'BUT2', 'BUT3' selon l'année souhaitée
+        WHERE nomannee = annee_param
     ) AS Classement
     WHERE m.idcomp = Classement.idcomp
     AND m.codenip = Classement.codenip;

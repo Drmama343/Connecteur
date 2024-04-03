@@ -50,7 +50,9 @@ else {
 			$pdf->useTemplate($templateId);
 
 			try {
-				$db->CalculerRangCompetencesParAnnee('BUT1');
+				$db->MettreAJourRangsCompetencesParAnnee('BUT1');
+				$db->MettreAJourRangsCompetencesParAnnee('BUT2');
+				$db->MettreAJourRangsCompetencesParAnnee('BUT3');
 				$note1 = $db->getMoyCompAnnee($etudiant->getCode(), 'BUT1');
 				$note2 = $db->getMoyCompAnnee($etudiant->getCode(), 'BUT2');
 				$note3 = $db->getMoyCompAnnee($etudiant->getCode(), 'BUT3');
