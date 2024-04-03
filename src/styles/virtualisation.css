@@ -1,6 +1,6 @@
 table {
-    border-collapse: collapse;
-    width: 100%;
+    border-collapse:collapse;
+    width: 90%;
 	height: 80%;
 }
 
@@ -14,7 +14,7 @@ th {
     background-color: #f2f2f2;
 }
 
-.btnAJour {
+button {
 	background-color: olivedrab;
 	text-decoration: none;
 	color: black;
@@ -35,4 +35,8 @@ th {
 	border: 1px solid red;
 	border-radius: 4px;
 	box-sizing: border-box;
+}
+
+input[type=text] {
+    width: 95px; /* Vous pouvez ajuster cette valeur selon vos préférences */
 }
