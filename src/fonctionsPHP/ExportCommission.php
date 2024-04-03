@@ -86,31 +86,49 @@ if ($db == null) {
 
 	$nbEtu = [];
 	$nbEtu = $db->getJuryAnneeByAnnees($anneebut, $annee);
+	$i=0;
 
-	for ($i=0; $i < count($nbEtu); $i++) { 
-		$moySem = $db->getJurySemByEtudSem($nbEtu[$i]->getCode(), $semestre);
-		$ligne = $moySem[0]->getRang();
-		$ligne += 8;
-		$etudiant = $db->getEtudiantsByCode($moySem[0]->getCode());
+	foreach($nbEtu as $etu) {
+		if ( $etu !== null ) {
+			$moySem = $db->getJurySemByEtudSem($etu->getCode(), $semestre);
+			$ligne = $etu->getRang();
+			$ligne += 8 + $i;
+			
+			try {
+				$etudiant = $db->getEtudiantsByCode($moySem[0]->getCode());
+			} catch (\Throwable $th) {
+				var_dump('bitr');
+			}
+			//var_dump($etudiant);
+			
 
-		$bonus = $moySem[0]->getBonus();
+			$bonus = $moySem[0]->getBonus() !== null ? $moySem[0]->getBonus() : 0;
 
-		//infos etudiant
-		$sheet->setCellValue('A'.$ligne, ''.$ligne-8) //rang
-			->setCellValue('B'.$ligne, $etudiant[0]->getNom())
-			->setCellValue('C'.$ligne, $etudiant[0]->getPrenom())
-			->setCellValue('D'.$ligne, $etudiant[0]->getParcours())
-			->setCellValue('E'.$ligne, $etudiant[0]->getCursus());
+			//infos etudiant
+			$sheet->setCellValue('A'.$ligne, ''.$ligne-8) //rang
+				->setCellValue('B'.$ligne, $etudiant[0]->getNom())
+				->setCellValue('C'.$ligne, $etudiant[0]->getPrenom())
+				->setCellValue('D'.$ligne, $etudiant[0]->getParcours())
+				->setCellValue('E'.$ligne, $etudiant[0]->getCursus());
 
-		//infos semestre
-		$sheet->setCellValue('F'.$ligne, $moySem[0]->getUE())
-			->setCellValue('G'.$ligne, $moySem[0]->getMoySem());
+			//infos semestre
+			$sheet->setCellValue('F'.$ligne, $moySem[0]->getUE())
+				->setCellValue('G'.$ligne, $moySem[0]->getMoySem());
 
-		for ($ii=0; $ii < count($dbtfinseq); $ii+2) { 
-			completerMoyCompSem($db, $sheet, $ligne, $nbEtu[$i], $semestre, $libelles[$dbtfinseq[$ii]], $moySem[0]->getBonus(), $libelles, $rowData, $dbtfinseq[$ii], $dbtfinseq[$ii+1]);
-			continue;
+				
+
+			$moySemComp = $db->getMoyCompSem($etudiant[0]->getCode(), $libelles[9], $semestre);
+			var_dump($moySemComp);
+			$sheet->setCellValue($rowData[9].$ligne, $moySemComp[0]->getMoyCompSem());
+			$sheet->setCellValue($rowData[10].$ligne, $bonus);
+
+			//infos notes et bonus dans comp
+			/*for ($ii=0; $ii < count($dbtfinseq); $ii+2) { 
+				completerMoyCompSem($db, $sheet, $ligne, $etu, $semestre, $libelles[$dbtfinseq[$ii]], $moySem[0]->getBonus(), $libelles, $rowData, $dbtfinseq[$ii], $dbtfinseq[$ii+1]);
+				continue;
+			}*/
+			$i++;
 		}
-
 	}
 
 	// Récupérer les données des étudiants et les compléter dans le fichier Excel
@@ -140,14 +158,12 @@ function completerMoyCompSem($db, $sheet, $ligne, $etudiant, $semestre, $compete
 	}
 
 	//moy de la comp sem et le bonus
-	$moySemComp = $db->getMoyCompSem($etudiant->getCode(), $competence, $semestre);
-	$sheet->setCellValue($rowData[$debut].$ligne, $moySemComp[0]->getMoyCompSem());
-	$sheet->setCellValue($rowData[$debut+1].$ligne, $bonus);
+	
 
 	//moyenne des ressources
-	for ($i=$debut+2; $i < $fin; $i++) { 
-		$sheet->setCellValue($rowData[$i].$ligne, $db->getMoyRess($etudiant->getCode(), $libelles[$i]));
-	}
+	/*for ($i=$debut+2; $i < $fin; $i++) { 
+		$sheet->setCellValue('A1', "i");
+	}*/
 }
 
 /*
