@@ -5,7 +5,7 @@
 
 	session_start();
 	
-	echo enTete("Visualisation",["../styles/classique.css", "../styles/virtualisation.css"]);
+	echo enTete("Visualisation",["../styles/classique.css", "../styles/visualisation.css"]);
 	echo menu($_SESSION['nom'], $_SESSION['droitAcces']);
 	if ( $_SESSION['droitAcces'] === 2 )
 		contenuAdmin();
