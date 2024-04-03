@@ -135,6 +135,38 @@ class DB {
 	  /*************************************************************************
 	   * Fonctions qui peuvent être utilisées dans les scripts PHP
 	   *************************************************************************/
+
+	public function MoyenneMathsParAnnee($codenip, $annee) {
+		 // Préparation de la requête pour appeler la fonction
+		 $stmt = $this->connect->prepare("SELECT MoyenneMathsParAnnee(:nip_param, :annee_param)");
+    
+		 // Remplacement des paramètres de la fonction
+		 $stmt->bindParam(':nip_param', $codenip, PDO::PARAM_INT);
+		 $stmt->bindParam(':annee_param', $annee, PDO::PARAM_STR);
+		 
+		 // Exécution de la requête
+		 $stmt->execute();
+		 
+		 // Récupération du résultat
+		 $result = $stmt->fetch(PDO::FETCH_ASSOC);
+		 return $result;
+	}
+
+	public function MoyenneAnglaisParAnnee($codenip, $annee) {
+		// Préparation de la requête pour appeler la fonction
+		$stmt = $this->connect->prepare("SELECT MoyenneAnglaisParAnnee(:nip_param, :annee_param)");
+   
+		// Remplacement des paramètres de la fonction
+		$stmt->bindParam(':nip_param', $codenip, PDO::PARAM_INT);
+		$stmt->bindParam(':annee_param', $annee, PDO::PARAM_STR);
+		
+		// Exécution de la requête
+		$stmt->execute();
+		
+		// Récupération du résultat
+		$result = $stmt->fetch(PDO::FETCH_ASSOC);
+		return $result;
+   }
 	
 	public function getEtudiants() {
 		$requete = 'SELECT * from Etudiant';
@@ -184,6 +216,17 @@ class DB {
 
 	public function getRangCompAnnee($codenip, $idComp, $nomAnnee) {
 		$requete = "SELECT mca.moyCompAnnee from MoyCompAnnee mca Join Etudiant e ON mca.codenip = e.codenip WHERE nomAnnee = '$nomAnnee' AND idComp = '$idComp'";
+		return $this->execQuery($requete,null,'Etudiant');
+	}
+
+	// les fonctions du ydro qui a besoin d'un stage
+	public function getCompBySem($idSem) {
+		$requete = "SELECT * FROM Competence WHERE idSem = '$idSem'";
+		return $this->execQuery($requete,null,'Competence');
+	}
+	
+	public function getAvisSem($codenip, $idComp, $idSem) {
+		$requete = "SELECT * FROM MoyCompSem mcs JOIN Etudiant e ON mcs.codenip = e.codenip WHERE idComp = '$idComp' AND idSem = '$idSem'";
 		return $this->execQuery($requete,null,'Etudiant');
 	}
 

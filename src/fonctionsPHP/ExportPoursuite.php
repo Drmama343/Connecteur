@@ -56,6 +56,12 @@ else {
 				$jury1 = $db->getJuryAnnee($etudiant->getCode(), 'BUT1');
 				$jury2 = $db->getJuryAnnee($etudiant->getCode(), 'BUT2');
 				$jury3 = $db->getJuryAnnee($etudiant->getCode(), 'BUT3');
+				$maths1 = $db->MoyenneMathsParAnnee($etudiant->getCode(), 'BUT1');
+				$maths2 = $db->MoyenneMathsParAnnee($etudiant->getCode(), 'BUT2');
+				$maths3 = $db->MoyenneMathsParAnnee($etudiant->getCode(), 'BUT3');
+				$anglais1 = $db->MoyenneAnglaisParAnnee($etudiant->getCode(), 'BUT1');
+				$anglais2 = $db->MoyenneAnglaisParAnnee($etudiant->getCode(), 'BUT2');
+				$anglais3 = $db->MoyenneAnglaisParAnnee($etudiant->getCode(), 'BUT3');
 			} //fin try
 			catch (Exception $e) {
 				$_SESSION['info_poursuite'] = $e->getMessage();
@@ -109,6 +115,8 @@ else {
 			$pdf->SetXY(73.5, 62);
 			$pdf->Cell(120, 10, $etudiant->getMobEtrang(), 0, 0, 'L');
 
+			//var_dump($maths1);
+
 			//BUT1 - Moy
 			$pdf->SetXY(80, 88);
 			$pdf->Cell(10, 10, (count($note1) >= 1 ? $note1[0]->getMoyCompAnnee() : "~"), 0, 0, 'L');
@@ -123,7 +131,7 @@ else {
 			$pdf->SetXY(80, 114);
 			$pdf->Cell(10, 10, (count($note1) >= 6 ? $note1[5]->getMoyCompAnnee() : "~"), 0, 0, 'L');
 			$pdf->SetXY(80, 119);
-			$pdf->Cell(10, 10, '~', 0, 0, 'L');
+			$pdf->Cell(10, 10, (count($maths1) >= 1 ? $maths1["moyennemathsparannee"] : "~"), 0, 0, 'L');
 			$pdf->SetXY(80, 124);
 			$pdf->Cell(10, 10, '~', 0, 0, 'L');
 

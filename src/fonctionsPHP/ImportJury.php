@@ -176,14 +176,14 @@ else {
 function insertJuryAnnee($db, $codenip, $nomannee, $moyannee, $rcue, $decision, $rang, $anneepromo, $abs) {
 	if($db->insertIntoJuryAnnee($codenip, $nomannee, $moyannee, $rcue, $decision, $rang, $anneepromo, $abs) === 1)
 	{
-		$db->updateIntoJuryAnnee($codenip, $nomannee, $moyannee, $rcue, $decision, $rang, $anneepromo, $abs);
+		$db->updateJuryAnnee($codenip, $nomannee, $moyannee, $rcue, $decision, $rang, $anneepromo, $abs);
 	}
 }
 
 function insertMoyCompAnnee($db, $codenip, $idcomp, $nomannee, $moycompannee, $avis) {
 	if($db->insertIntoMoyCompAnnee($codenip, $idcomp, $nomannee, $moycompannee, $avis) === 1)
 	{
-		$db->updateIntoMoyCompAnnee($codenip, $idcomp, $nomannee, $moycompannee, $avis);
+		$db->updateMoyCompAnnee($codenip, $idcomp, $nomannee, $moycompannee, $avis);
 	}
 }
 $db->close();
