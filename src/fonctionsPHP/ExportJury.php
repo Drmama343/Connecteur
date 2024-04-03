@@ -105,7 +105,7 @@ else {
 						$lettre++;
 					}
 		
-					$jurySem = $db->getJurySemByEtudSem($codenip, $semestre);
+					$jurySem = $db->getJurySemByEtudSemTest($codenip, $semestre);
 		
 					if (!empty($jurySem)) {
 						foreach ($jurySem as $jury) {
