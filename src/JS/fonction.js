@@ -31,16 +31,16 @@ function validateChanges() {
 	for (let i = 0; i < rows.length; i++) {
 		if (rows[i].classList.contains("edit-mode")) {
 			const cells = rows[i].querySelectorAll("td:not(:last-child)");
-			const codeNip = cells[0].textContent;
-			const nom = cells[1].querySelector('input').value;
-			const prenom = cells[2].querySelector('input').value;
-			const cursus = cells[3].querySelector('input').value;
-			const parcours = cells[4].querySelector('input').value;
-			const apprenti = cells[5].querySelector('input').value;
-			const avisI = cells[6].querySelector('input').value;
-			const avisM = cells[7].querySelector('input').value;
-			const commentaire = cells[8].querySelector('input').value;
-			const mobilite = cells[9].querySelector('input').value;
+            const codeNip = cells[0].textContent;
+            const nom = cells[1].querySelector('input').value;
+            const prenom = cells[2].querySelector('input').value;
+            const cursus = cells[3].querySelector('input').value;
+            const parcours = cells[4].querySelector('input').value;
+            const apprenti = cells[5].querySelector('input').value;
+            const avisI = cells[6].querySelector('select').value; // Récupérer la valeur de la liste déroulante
+            const avisM = cells[7].querySelector('select').value; // Récupérer la valeur de la liste déroulante
+            const commentaire = cells[8].querySelector('input').value;
+            const mobilite = cells[9].querySelector('input').value;
 
 			const inputCodeNip = document.createElement("input");
 			inputCodeNip.type = "hidden";
@@ -141,8 +141,25 @@ function enableEditMode(row) {
     originalCellValues = Array.from(cells).map(cell => cell.textContent);
 
     for (let i = 1; i < cells.length; i++) {
-        const text = cells[i].textContent;
-        cells[i].innerHTML = "<input type='text' value='" + text + "'>";
+        // Vérifiez si la colonne est "avisInge" ou "avisMaster"
+        if (i === 6 || i === 7) { // 6 pour avisInge, 7 pour avisMaster
+            const text = cells[i].textContent;
+            // Créer une liste déroulante avec les options spécifiées
+            const selectList = document.createElement("select");
+            const options = ['Tres Favorable', 'Favorable', 'Assez Favorable', 'Sans Avis', 'Reserve'];
+            options.forEach(option => {
+                const optionElement = document.createElement("option");
+                optionElement.value = option;
+                optionElement.text = option;
+                selectList.appendChild(optionElement);
+            });
+            selectList.value = text; // Sélectionner la valeur actuelle
+            cells[i].innerHTML = ""; // Nettoyer la cellule
+            cells[i].appendChild(selectList); // Ajouter la liste déroulante
+        } else {
+            const text = cells[i].textContent;
+            cells[i].innerHTML = "<input type='text' value='" + text + "'>";
+        }
     }
     button.textContent = "Valider";
     cancelButton.style.display = "inline-block";
@@ -155,9 +172,17 @@ function disableEditMode(row) {
     const cancelButton = row.querySelector(".cancel-button");
 
     for (let i = 1; i < cells.length; i++) {
-        const input = cells[i].querySelector("input[type=text]");
-        if (input !== null) {
-            cells[i].textContent = originalCellValues[i - 1]; // Rétablir la valeur d'origine
+        // Vérifiez si la colonne est "avisInge" ou "avisMaster"
+        if (i === 6 || i === 7) { // 6 pour avisInge, 7 pour avisMaster
+            const selectList = cells[i].querySelector("select");
+            if (selectList !== null) {
+                cells[i].textContent = selectList.value; // Rétablir la valeur sélectionnée
+            }
+        } else {
+            const input = cells[i].querySelector("input[type=text]");
+            if (input !== null) {
+                cells[i].textContent = originalCellValues[i - 1]; // Rétablir la valeur d'origine
+            }
         }
     }
     button.textContent = "Modifier";

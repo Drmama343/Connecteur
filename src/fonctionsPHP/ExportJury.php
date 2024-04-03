@@ -30,19 +30,34 @@ else {
 
 		$sheet = $spreadsheet->getActiveSheet();
 
-		$anneebut = 'BUT0';
 		switch ($semestre) {
-			case '1' || '2':
+			case '1' :
+				$comp = 'BIN11';
 				$anneebut = 'BUT1';
 				break;
-			case '3' || '4':
+			case '2' :
+				$comp = 'BIN21';
+				$anneebut = 'BUT1';
+				break;
+			case '3' :
+				$comp = 'BIN31';
 				$anneebut = 'BUT2';
 				break;
-			case '5' || '6':
+			case '4' :
+				$comp = 'BIN41';
+				$anneebut = 'BUT2';
+				break;
+			case '5' :
+				$comp = 'BIN51';
+				$anneebut = 'BUT3';
+				break;
+			case '6' :
+				$comp = 'BIN61';
 				$anneebut = 'BUT3';
 				break;
 			
 			default:
+				$comp = 'BIN0';
 				$anneebut = 'BUT0';
 				break;
 		}
@@ -50,36 +65,61 @@ else {
 		// Créer un objet Writer pour exporter le fichier Excel
 		$writer = new Xlsx($spreadsheet);
 
-		if ($db->getJuryAnneeByAnnees($anneebut, $annee)==null)
-			return null;
+		$avisSem = [];
+		$etudiant = [];
+
+		$nbEtu = [];
 		$nbEtu = $db->getJuryAnneeByAnnees($anneebut, $annee);
 
-		$comp = $db->getCompBySem($semestre);
-		var_dump($nbEtu);
-		var_dump($comp);
-		for ($i=0; $i < count($nbEtu); $i++) { 
-			$avisSem = $db->getAvisSem($nbEtu[i]->getCode(), $idComp, $semestre);
-			$ligne = $avisSem->getRang() + 8;
-			var_dump($ligne);
-			$etudiant = $db->getEtudiantsByCode($avisSem->getCode());
+		$nbComp = [];
+		$nbComp = $db->getCompBySem($semestre);
 
+		
 
-			//infos etudiant
-			$sheet->setCellValue('A'.$ligne, $etudiant->getCode())
-				->setCellValue('B'.$ligne, $ligne-8) //rang
-				->setCellValue('C'.$ligne, $etudiant->getNom())
-				->setCellValue('D'.$ligne, $etudiant->getPrenom())
-				->setCellValue('E'.$ligne, $etudiant->getParcours())
-				->setCellValue('F'.$ligne, $etudiant->getCursus());
+		$ligneDebut = 9;
 
-			//infos semestre
-			//$sheet->setCellValue('G'.$ligne, $moySem->getUE())
-			//	->setCellValue('H'.$ligne, $moySem->getMoySem());
-
-			//for ($i=0; $i < count($dbtfinseq); $i+2) { 
-			//	completerMoyCompSem($db, $sheet, $ligne, $nbEtu[i], $semestre, $competence, $moySem->getBonus(), $libelles, $rowData, $dbtfinseq[$i], $dbtfinseq[$i+1]);
-			//}
-	
+		foreach ($nbEtu as $etu) {
+			$avisSem = $db->getAvisSem($etu->getCode(), $comp, $semestre);
+		
+			if (!empty($avisSem)) {
+				$avis = $avisSem[0];
+				$etudiants = $db->getEtudiantsByCode($avis->getCode());
+				
+		
+				foreach ($etudiants as $etudiant) {
+					$codenip = $etudiant->getCode();
+					$sheet->setCellValue('B'.$ligneDebut, $ligneDebut - 8) //rang
+						  ->setCellValue('C'.$ligneDebut, $etudiant->getNom())
+						  ->setCellValue('D'.$ligneDebut, $etudiant->getPrenom())
+						  ->setCellValue('E'.$ligneDebut, $etudiant->getParcours())
+						  ->setCellValue('F'.$ligneDebut, $etudiant->getCursus());
+		
+					$lettre = 'G';
+					foreach ($nbComp as $competence) {
+						$avis = $db->getAvisParComp($codenip, $competence);
+						if (!empty($avis)) {
+							$sheet->setCellValue($lettre.$ligneDebut, $avis[0]);
+						} else {
+							$sheet->setCellValue($lettre.$ligneDebut, '');
+						}
+						$lettre++;
+					}
+		
+					$jurySem = $db->getJurySemByEtudSem($codenip, $semestre);
+		
+					if (!empty($jurySem)) {
+						foreach ($jurySem as $jury) {
+							$sheet->setCellValue('M'.$ligneDebut, $jury->getUE())
+								  ->setCellValue('N'.$ligneDebut, $jury->getMoySem());
+							$ligneDebut++;
+						}
+					} else {
+						$sheet->setCellValue('M'.$ligneDebut, '')
+							  ->setCellValue('N'.$ligneDebut, '');
+						$ligneDebut++;
+					}
+				}
+			}
 		}
 
 		// Définir les en-têtes HTTP pour le téléchargement du fichier
