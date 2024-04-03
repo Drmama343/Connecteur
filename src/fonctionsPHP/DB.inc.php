@@ -166,6 +166,21 @@ class DB {
 		// Récupération du résultat
 		$result = $stmt->fetch(PDO::FETCH_ASSOC);
 		return $result;
+    }
+
+	public function CalculerRangCompetencesParAnnee($annee) {
+		// Préparation de la requête pour appeler la fonction
+		$stmt = $this->connect->prepare("SELECT CalculerRangCompetencesParAnnee(:annee_param)");
+   
+		// Remplacement des paramètres de la fonction
+		$stmt->bindParam(':annee_param', $annee, PDO::PARAM_STR);
+		
+		// Exécution de la requête
+		$stmt->execute();
+		
+		// Récupération du résultat
+		$result = $stmt->fetch(PDO::FETCH_ASSOC);
+		return $result;
    }
 	
 	public function getEtudiants() {
@@ -204,7 +219,7 @@ class DB {
 	}
 
 	//fonction de frizoks
-	public function getMoyAnnee($codenip, $nomannee) {
+	public function getMoyCompAnnee($codenip, $nomannee) {
 		$requete = "SELECT * from MoyCompAnnee WHERE nomAnnee = '$nomannee' AND codenip = $codenip";
 		return $this->execQuery($requete,null,'MoyCompAnnee');
 	}
@@ -321,9 +336,9 @@ class DB {
 		return $this->execMaj($requete, $tparam);
 	}
 	
-	public function insertIntoMoyCompAnnee($codeNip, $idComp, $idAnnee, $moyCompAnnee, $avis) {
-		$requete = 'INSERT INTO MoyCompAnnee VALUES (?, ?, ?, ?, ?)';
-		$tparam = array($codeNip, $idComp, $idAnnee, $moyCompAnnee, $avis);
+	public function insertIntoMoyCompAnnee($codeNip, $idComp, $idAnnee, $moyCompAnnee, $avis, $rang) {
+		$requete = 'INSERT INTO MoyCompAnnee VALUES (?, ?, ?, ?, ?, ?)';
+		$tparam = array($codeNip, $idComp, $idAnnee, $moyCompAnnee, $avis, $rang);
 		return $this->execMaj($requete, $tparam);
 	}
 } //fin classe DB

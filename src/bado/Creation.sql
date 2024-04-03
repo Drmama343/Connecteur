@@ -146,6 +146,7 @@ CREATE TABLE MoyCompAnnee (
     nomAnnee VARCHAR(50),
     moyCompAnnee FLOAT,
     avis VARCHAR(50),
+	rang INT,
     PRIMARY KEY (codeNip, idComp, nomAnnee),
     FOREIGN KEY (codeNip) REFERENCES Etudiant(codeNip),
     FOREIGN KEY (idComp) REFERENCES Competence(idComp),
