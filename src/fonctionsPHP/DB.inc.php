@@ -182,6 +182,17 @@ class DB {
 		return $this->execQuery($requete,null,'Etudiant');
 	}
 
+	// les fonctions du ydro qui a besoin d'un stage
+	public function getCompBySem($idSem) {
+		$requete = "SELECT * FROM Competence WHERE idSem = '$idSem'";
+		return $this->execQuery($requete,null,'Competence');
+	}
+	
+	public function getAvisSem($codenip, $idComp, $idSem) {
+		$requete = "SELECT * FROM MoyCompSem mcs JOIN Etudiant e ON mcs.codenip = e.codenip WHERE idComp = '$idComp' AND idSem = '$idSem'";
+		return $this->execQuery($requete,null,'Etudiant');
+	}
+
 	  // public function deleteAchat($idcli,$np) {
 	  //       $requete = 'delete from achat where ncli = ? and np = ?';
 	//       $tparam = array($idcli,$np);
