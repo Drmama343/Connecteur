@@ -50,12 +50,20 @@ else {
 			$pdf->useTemplate($templateId);
 
 			try {
-				$note1 = $db->getMoyAnnee($etudiant->getCode(), 'BUT1');
-				$note2 = $db->getMoyAnnee($etudiant->getCode(), 'BUT2');
-				$note3 = $db->getMoyAnnee($etudiant->getCode(), 'BUT3');
+				$db->MettreAJourRangsCompetencesParAnnee('BUT1');
+				$db->MettreAJourRangsCompetencesParAnnee('BUT2');
+				$db->MettreAJourRangsCompetencesParAnnee('BUT3');
+				$note1 = $db->getMoyCompAnnee($etudiant->getCode(), 'BUT1');
+				$note2 = $db->getMoyCompAnnee($etudiant->getCode(), 'BUT2');
+				$note3 = $db->getMoyCompAnnee($etudiant->getCode(), 'BUT3');
 				$jury1 = $db->getJuryAnnee($etudiant->getCode(), 'BUT1');
 				$jury2 = $db->getJuryAnnee($etudiant->getCode(), 'BUT2');
 				$jury3 = $db->getJuryAnnee($etudiant->getCode(), 'BUT3');
+				$maths1 = $db->MoyenneMathsParAnnee($etudiant->getCode(), 'BUT1');
+				$maths2 = $db->MoyenneMathsParAnnee($etudiant->getCode(), 'BUT2');
+				$maths3 = $db->MoyenneMathsParAnnee($etudiant->getCode(), 'BUT3');
+				$anglais1 = $db->MoyenneAnglaisParAnnee($etudiant->getCode(), 'BUT1');
+				$anglais2 = $db->MoyenneAnglaisParAnnee($etudiant->getCode(), 'BUT2');
 			} //fin try
 			catch (Exception $e) {
 				$_SESSION['info_poursuite'] = $e->getMessage();
@@ -123,23 +131,23 @@ else {
 			$pdf->SetXY(80, 114);
 			$pdf->Cell(10, 10, (count($note1) >= 6 ? $note1[5]->getMoyCompAnnee() : "~"), 0, 0, 'L');
 			$pdf->SetXY(80, 119);
-			$pdf->Cell(10, 10, '~', 0, 0, 'L');
+			$pdf->Cell(10, 10, (count($maths1) >= 1 ? $maths1["moyennemathsparannee"] : "~"), 0, 0, 'L');
 			$pdf->SetXY(80, 124);
-			$pdf->Cell(10, 10, '~', 0, 0, 'L');
+			$pdf->Cell(10, 10, (count($anglais1) >= 1 ? $anglais1["moyenneanglaisparannee"] : "~"), 0, 0, 'L');
 
 			//BUT1 - Rang
 			$pdf->SetXY(93, 88);
-			$pdf->Cell(10, 10, (count($jury1) >= 1 ? $jury1[0]->getRang() : "~"), 0, 0, 'L');
+			$pdf->Cell(10, 10, (count($note1) >= 1 ? $note1[0]->getRang() : "~"), 0, 0, 'L');
 			$pdf->SetXY(93, 93);
-			$pdf->Cell(10, 10, (count($jury1) >= 1 ? $jury1[0]->getRang() : "~"), 0, 0, 'L');
+			$pdf->Cell(10, 10, (count($note1) >= 2 ? $note1[1]->getRang() : "~"), 0, 0, 'L');
 			$pdf->SetXY(93, 98);
-			$pdf->Cell(10, 10, (count($jury1) >= 1 ? $jury1[0]->getRang() : "~"), 0, 0, 'L');
+			$pdf->Cell(10, 10, (count($note1) >= 3 ? $note1[2]->getRang() : "~"), 0, 0, 'L');
 			$pdf->SetXY(93, 103);
-			$pdf->Cell(10, 10, (count($jury1) >= 1 ? $jury1[0]->getRang() : "~"), 0, 0, 'L');
+			$pdf->Cell(10, 10, (count($note1) >= 4 ? $note1[3]->getRang() : "~"), 0, 0, 'L');
 			$pdf->SetXY(93, 108.5);
-			$pdf->Cell(10, 10, (count($jury1) >= 1 ? $jury1[0]->getRang() : "~"), 0, 0, 'L');
+			$pdf->Cell(10, 10, (count($note1) >= 5 ? $note1[4]->getRang() : "~"), 0, 0, 'L');
 			$pdf->SetXY(93, 114);
-			$pdf->Cell(10, 10, (count($jury1) >= 1 ? $jury1[0]->getRang() : "~"), 0, 0, 'L');
+			$pdf->Cell(10, 10, (count($note1) >= 6 ? $note1[5]->getRang() : "~"), 0, 0, 'L');
 			$pdf->SetXY(93, 119);
 			$pdf->Cell(10, 10, '~', 0, 0, 'L');
 			$pdf->SetXY(93, 124);
@@ -159,23 +167,23 @@ else {
 			$pdf->SetXY(105, 114);
 			$pdf->Cell(10, 10, (count($note2) >= 6 ? $note2[5]->getMoyCompAnnee() : "~"), 0, 0, 'L');
 			$pdf->SetXY(105, 119);
-			$pdf->Cell(10, 10, '~', 0, 0, 'L');
+			$pdf->Cell(10, 10, (count($maths2) >= 1 ? $maths2["moyennemathsparannee"] : "~"), 0, 0, 'L');
 			$pdf->SetXY(105, 124);
-			$pdf->Cell(10, 10, '~', 0, 0, 'L');
+			$pdf->Cell(10, 10, (count($anglais2) >= 1 ? $anglais2["moyenneanglaisparannee"] : "~"), 0, 0, 'L');
 
 			//BUT2 - Rang
 			$pdf->SetXY(118, 88);
-			$pdf->Cell(10, 10, (count($jury2) >= 1 ? $jury2[0]->getRang() : "~"), 0, 0, 'L');
+			$pdf->Cell(10, 10, (count($note2) >= 1 ? $note2[0]->getRang() : "~"), 0, 0, 'L');
 			$pdf->SetXY(118, 93);
-			$pdf->Cell(10, 10, (count($jury2) >= 1 ? $jury2[0]->getRang() : "~"), 0, 0, 'L');
+			$pdf->Cell(10, 10, (count($note2) >= 2 ? $note2[1]->getRang() : "~"), 0, 0, 'L');
 			$pdf->SetXY(118, 98);
-			$pdf->Cell(10, 10, (count($jury2) >= 1 ? $jury2[0]->getRang() : "~"), 0, 0, 'L');
+			$pdf->Cell(10, 10, (count($note2) >= 3 ? $note2[2]->getRang() : "~"), 0, 0, 'L');
 			$pdf->SetXY(118, 103);
-			$pdf->Cell(10, 10, (count($jury2) >= 1 ? $jury2[0]->getRang() : "~"), 0, 0, 'L');
+			$pdf->Cell(10, 10, (count($note2) >= 4 ? $note2[3]->getRang() : "~"), 0, 0, 'L');
 			$pdf->SetXY(118, 108.5);
-			$pdf->Cell(10, 10, (count($jury2) >= 1 ? $jury2[0]->getRang() : "~"), 0, 0, 'L');
+			$pdf->Cell(10, 10, (count($note2) >= 5 ? $note2[4]->getRang() : "~"), 0, 0, 'L');
 			$pdf->SetXY(118, 114);
-			$pdf->Cell(10, 10, (count($jury2) >= 1 ? $jury2[0]->getRang() : "~"), 0, 0, 'L');
+			$pdf->Cell(10, 10, (count($note2) >= 6 ? $note2[5]->getRang() : "~"), 0, 0, 'L');
 			$pdf->SetXY(118, 119);
 			$pdf->Cell(10, 10, '~', 0, 0, 'L');
 			$pdf->SetXY(118, 124);
@@ -195,15 +203,15 @@ else {
 			$pdf->SetXY(91, 173);
 			$pdf->Cell(10, 10, (count($note3) >= 3 ? $note3[2]->getMoyCompAnnee() : "~"), 0, 0, 'L');
 			$pdf->SetXY(91, 178);
-			$pdf->Cell(10, 10, '~', 0, 0, 'L');
+			$pdf->Cell(10, 10, (count($maths3) >= 1 ? $maths3["moyennemathsparannee"] : "~"), 0, 0, 'L');
 
 			//BUT3 - Rang
 			$pdf->SetXY(111, 147);
-			$pdf->Cell(10, 10, (count($jury3) >= 1 ? $jury3[0]->getRang() : "~"), 0, 0, 'L');
+			$pdf->Cell(10, 10, (count($note3) >= 1 ? $note3[0]->getRang() : "~"), 0, 0, 'L');
 			$pdf->SetXY(111, 153);
-			$pdf->Cell(10, 10, (count($jury3) >= 1 ? $jury3[0]->getRang() : "~"), 0, 0, 'L');
+			$pdf->Cell(10, 10, (count($note3) >= 2 ? $note3[1]->getRang() : "~"), 0, 0, 'L');
 			$pdf->SetXY(111, 173);
-			$pdf->Cell(10, 10, (count($jury3) >= 1 ? $jury3[0]->getRang() : "~"), 0, 0, 'L');
+			$pdf->Cell(10, 10, (count($note3) >= 3 ? $note3[2]->getRang() : "~"), 0, 0, 'L');
 			$pdf->SetXY(111, 178);
 			$pdf->Cell(10, 10, '~', 0, 0, 'L');
 
