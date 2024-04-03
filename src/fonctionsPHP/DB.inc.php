@@ -27,9 +27,9 @@ class DB {
 	  		  // Connexion à la base de données
 		  $host = "woody"; // ou l'adresse IP de votre serveur PostgreSQL
 			$port = "5432"; // port par défaut pour PostgreSQL
-			$dbname = "ca220584";
-			$user = "ca220584";
-			$password = "Miss10sur10!"; 
+			$dbname = "bt220740";
+			$user = "bt220740";
+			$password = "8623baillobt"; 
 		  try {
 		  // Connexion à la base
 		  	  $this->connect = new PDO("pgsql:host=$host;port=$port;dbname=$dbname;user=$user;password=$password");
@@ -247,6 +247,11 @@ class DB {
 	
 	public function getAvisSem($codenip, $idComp, $idSem) {
 		$requete = "SELECT * FROM MoyCompSem mcs JOIN Etudiant e ON mcs.codenip = e.codenip WHERE idComp = '$idComp' AND idSem = '$idSem'";
+		return $this->execQuery($requete,null,'Etudiant');
+	}
+
+	public function getAvisParComp($codenip, $idComp) {
+		$requete = "SELECT avis FROM MoyCompSem mcs JOIN Etudiant e ON mcs.codenip = e.codenip WHERE idComp = '$idComp'";
 		return $this->execQuery($requete,null,'Etudiant');
 	}
 
