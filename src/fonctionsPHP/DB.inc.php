@@ -184,7 +184,6 @@ class DB {
 		$requete = "SELECT * from JuryAnnee WHERE anneepromo = '$anneebut' AND nomannee = '$nomannee'";
 		return $this->execQuery($requete,null,'JuryAnnee');
 	}
-	
 
 	//fonction de frizoks
 	public function getJuryAnnee($codenip, $nomannee) {
@@ -216,8 +215,8 @@ class DB {
 
 	// les fonctions du ydro qui a besoin d'un stage
 	public function getCompBySem($idSem) {
-		$requete = "SELECT * FROM Competence WHERE idSem = '$idSem'";
-		return $this->execQuery($requete,null,'Competence');
+		$requete = "SELECT * FROM CompSem WHERE idSem = '$idSem'";
+		return $this->execQuery($requete,null,'CompSem');
 	}
 	
 	public function getAvisSem($codenip, $idComp, $idSem) {

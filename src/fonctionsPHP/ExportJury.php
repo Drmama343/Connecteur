@@ -50,13 +50,12 @@ else {
 		// Créer un objet Writer pour exporter le fichier Excel
 		$writer = new Xlsx($spreadsheet);
 
-		if ($db->getJuryAnneeByAnnees($anneebut, $annee)==null)
-			return null;
-		$nbEtu = $db->getJuryAnneeByAnnees($anneebut, $annee);
-
 		$comp = $db->getCompBySem($semestre);
+
+		$nbEtu = [];
+		$nbEtu = $db->getJuryAnneeByAnnees($anneebut, $annee);
 		var_dump($nbEtu);
-		var_dump($comp);
+		
 		for ($i=0; $i < count($nbEtu); $i++) { 
 			$avisSem = $db->getAvisSem($nbEtu[i]->getCode(), $idComp, $semestre);
 			$ligne = $avisSem->getRang() + 8;
