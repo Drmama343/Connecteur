@@ -292,14 +292,20 @@ class DB {
 	}
 
 	public function updateJuryAnnee($codeNip, $nomannee, $moyannee, $rcue, $decision, $rang, $anneepromo, $absinjust) {
-		$requete = 'UPDATE JuryAnnee SET nomannee = ?, moyannee = ?, rcue = ?, decision = ?, rang = ?, anneepromo = ?, absinjust = ? WHERE codeNip = ?';
+		$requete = 'UPDATE JuryAnnee SET nomAnnee = ?, moyAnnee = ?, rcue = ?, decision = ?, rang = ?, anneePromo = ?, absInjust = ? WHERE codeNip = ?';
 		$tparam = array($nomannee, $moyannee, $rcue, $decision, $rang, $anneepromo, $absinjust, $codeNip);
 		return $this->execMaj($requete, $tparam);
 	}
 
-	public function updateMoyCompAnnee($codeNip, $idcomp, $nomannee, $moycompannee, $avis) {
-		$requete = 'UPDATE MoyCompAnnee SET idcomp = ?, nomannee = ?, moycompannee = ?, avis = ? WHERE codeNip = ?';
-		$tparam = array($idcomp, $nomannee, $moycompannee, $avis, $codeNip);
+	public function updateMoyCompAnnee($codeNip, $idcomp, $nomannee, $moycompannee, $avis, $rang) {
+		$requete = 'UPDATE MoyCompAnnee SET idComp = ?, nomAnnee = ?, moyCompAnnee = ?, avis = ?, rang = ? WHERE codeNip = ?';
+		$tparam = array($idcomp, $nomannee, $moycompannee, $avis, $rang, $codeNip);
+		return $this->execMaj($requete, $tparam);
+	}
+	
+	public function updateMoyCompSem($codenip, $idcomp, $idsem, $moycompsem, $avis) {
+		$requete = 'UPDATE MoyCompSem SET moyCompSem = ?, avis = ? WHERE codeNip = ? AND idComp = ? AND idSem = ?';
+		$tparam = array($moycompsem, $avis, $codenip, $idcomp, $idsem);
 		return $this->execMaj($requete, $tparam);
 	}
 

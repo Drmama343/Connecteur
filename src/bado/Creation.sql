@@ -54,8 +54,8 @@ CREATE TABLE Etudiant (
     cursus VARCHAR(50) NOT NULL,
     parcours VARCHAR(50),
     apprentissage VARCHAR(50),
-    avisInge VARCHAR(50) CHECK (avisInge IN ('Tres Favorable', 'Favorable', 'Assez Favorable', 'Sans Avis', 'Reserve')),
-    avisMaster VARCHAR(50) CHECK (avisMaster IN ('Tres Favorable', 'Favorable', 'Assez Favorable', 'Sans Avis', 'Reserve')),
+    avisInge VARCHAR(50) CHECK (avisInge IN ('Tres Favorable', 'Favorable', 'Assez Favorable', 'Sans Avis', 'Reserve', '')),
+    avisMaster VARCHAR(50) CHECK (avisMaster IN ('Tres Favorable', 'Favorable', 'Assez Favorable', 'Sans Avis', 'Reserve', '')),
     commentaire VARCHAR(50),
     mobEtrang VARCHAR(150)
 );
