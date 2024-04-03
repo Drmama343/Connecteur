@@ -115,8 +115,8 @@ BEGIN
 		COUNT(CASE WHEN avisInge = 'Sans Avis' THEN 1 END) AS sa,
 		COUNT(CASE WHEN avisInge = 'Reserve' THEN 1 END) AS r
 	FROM Etudiant
-	JOIN JuryAnnee ON Etudiant.codeNip = JuryAnnee.codenip
-	WHERE annee = annee_param;
+	JOIN JurySem ON Etudiant.codeNip = JurySem.codenip
+	WHERE JurySem.anneePromo = annee_param AND JurySem.idSem = 5;
 END;
 $$ LANGUAGE plpgsql;
 
