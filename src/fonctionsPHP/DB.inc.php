@@ -204,6 +204,11 @@ class DB {
 		$requete = "SELECT * from MoyRess WHERE codenip = '$code' AND idress = '$idress'";
 		return $this->execQuery($requete,null,'MoyRess');
 	}
+
+	public function getMoyCompSem($code, $competence, $semestre) {
+		$requete = "SELECT * from MoyCompSem WHERE codenip = '$code' AND idcomp = '$competence' AND idsem = '$semestre'";
+		return $this->execQuery($requete,null,'MoyCompSem');
+	}
 	
 
 	//fonction de frizoks
@@ -251,9 +256,9 @@ class DB {
 	//       return $this->execMaj($requete,$tparam);
       // }
 
-	public function updateEtudiant($codeNip, $cursus, $parcours, $apprentissage, $avisInge, $avisMaster, $commentaire, $etranger) {
-		$requete = 'UPDATE Etudiant SET cursus = ?, parcours = ?, apprentissage = ?, avisInge = ?, avisMaster = ?, commentaire = ?, mobEtrang = ? WHERE codeNip = ?';
-		$tparam = array($cursus, $parcours, $apprentissage, $avisInge, $avisMaster, $commentaire, $etranger, $codeNip);
+	public function updateEtudiant($codeNip, $nom, $prenom, $cursus, $parcours, $apprentissage, $avisInge, $avisMaster, $commentaire, $etranger) {
+		$requete = 'UPDATE Etudiant SET nom = ?, prenom = ?, cursus = ?, parcours = ?, apprentissage = ?, avisInge = ?, avisMaster = ?, commentaire = ?, mobEtrang = ? WHERE codeNip = ?';
+		$tparam = array($nom, $prenom, $cursus, $parcours, $apprentissage, $avisInge, $avisMaster, $commentaire, $etranger, $codeNip);
 		return $this->execMaj($requete, $tparam);
 	}
 

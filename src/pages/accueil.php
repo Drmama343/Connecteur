@@ -3,7 +3,7 @@
 
 	session_start();
 	
-echo enTete("Accueil",["../styles/classique.css", "../styles/accueil.css"]);
+    echo enTete("Accueil",["../styles/classique.css", "../styles/accueil.css"]);
 	echo menu($_SESSION['nom'], $_SESSION['droitAcces']);
 	echo contenu();
 	echo pied();

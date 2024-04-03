@@ -82,31 +82,33 @@ if ($db == null) {
 	}
 
 	// Ajout de la dernière valeur pour $dbtfinseq après la boucle
-	$dbtfinseq[] = $i;
+	$dbtfinseq[] = count($libelles);
 
 	$nbEtu = [];
 	$nbEtu = $db->getJuryAnneeByAnnees($anneebut, $annee);
 
 	for ($i=0; $i < count($nbEtu); $i++) { 
-		$moySem = $db->getJurySemByEtudSem($nbEtu[i]->getCode(), $semestre);
-		$ligne = $moySem->getRang() + 8;
-		$etudiant = $db->getEtudiantsByCode($moySem->getCode());
+		$moySem = $db->getJurySemByEtudSem($nbEtu[$i]->getCode(), $semestre);
+		$ligne = $moySem[0]->getRang();
+		$ligne += 8;
+		$etudiant = $db->getEtudiantsByCode($moySem[0]->getCode());
 
-		$bonus = $moySem->getBonus();
+		$bonus = $moySem[0]->getBonus();
 
 		//infos etudiant
 		$sheet->setCellValue('A'.$ligne, ''.$ligne-8) //rang
-			->setCellValue('B'.$ligne, $etudiant->getNom())
-			->setCellValue('C'.$ligne, $etudiant->getPrenom())
-			->setCellValue('D'.$ligne, $etudiant->getParcours())
-			->setCellValue('E'.$ligne, $etudiant->getCursus());
+			->setCellValue('B'.$ligne, $etudiant[0]->getNom())
+			->setCellValue('C'.$ligne, $etudiant[0]->getPrenom())
+			->setCellValue('D'.$ligne, $etudiant[0]->getParcours())
+			->setCellValue('E'.$ligne, $etudiant[0]->getCursus());
 
 		//infos semestre
-		$sheet->setCellValue('F'.$ligne, $moySem->getUE())
-			->setCellValue('G'.$ligne, $moySem->getMoySem());
+		$sheet->setCellValue('F'.$ligne, $moySem[0]->getUE())
+			->setCellValue('G'.$ligne, $moySem[0]->getMoySem());
 
-		for ($i=0; $i < count($dbtfinseq); $i+2) { 
-			completerMoyCompSem($db, $sheet, $ligne, $nbEtu[i], $semestre, $competence, $moySem->getBonus(), $libelles, $rowData, $dbtfinseq[$i], $dbtfinseq[$i+1]);
+		for ($ii=0; $ii < count($dbtfinseq); $ii+2) { 
+			completerMoyCompSem($db, $sheet, $ligne, $nbEtu[$i], $semestre, $libelles[$dbtfinseq[$ii]], $moySem[0]->getBonus(), $libelles, $rowData, $dbtfinseq[$ii], $dbtfinseq[$ii+1]);
+			continue;
 		}
 
 	}
@@ -132,19 +134,19 @@ if ($db == null) {
 
 function completerMoyCompSem($db, $sheet, $ligne, $etudiant, $semestre, $competence, $bonus, $libelles, $rowData, $debut, $fin) {
 
-	if ($debut - $fin <= 2){
+	if ($fin - $debut <= 2){
 		$_SESSION['info_commission'] = "erreur dans le modele ou la methode";
 		header("Location: ../pages/export.php");
 	}
 
 	//moy de la comp sem et le bonus
-	$moySemComp = $db->getMoyCompSemByEtudSem($etudiant->getCode(), $semestre, $competence);
-	$sheet->setCellValue($rowData[$debut].$ligne, $moySemComp->getMoyCompSem());
+	$moySemComp = $db->getMoyCompSem($etudiant->getCode(), $competence, $semestre);
+	$sheet->setCellValue($rowData[$debut].$ligne, $moySemComp[0]->getMoyCompSem());
 	$sheet->setCellValue($rowData[$debut+1].$ligne, $bonus);
 
 	//moyenne des ressources
 	for ($i=$debut+2; $i < $fin; $i++) { 
-		$sheet->setCellValue($rowData[$i].$ligne, $db->getMoyRess($etudiant->getCode(), $libelles[i]));
+		$sheet->setCellValue($rowData[$i].$ligne, $db->getMoyRess($etudiant->getCode(), $libelles[$i]));
 	}
 }
 
