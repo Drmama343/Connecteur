@@ -297,17 +297,10 @@ else {
 	}
 } //fin du else connexion reussie
 
-<<<<<<< HEAD
-function insertJuryAnnee($db, $codenip, $annee, $nomannee, $moyannee, $rcue, $decision, $rang, $anneepromo, $abs) {
-	if($db->insertIntoJuryAnnee($codenip, $annee, $nomannee, $moyannee, $rcue, $decision, $rang, $anneepromo, $abs) === 1)
-	{
-		$db->updateJuryAnnee($codenip, $annee, $nomannee, $moyannee, $rcue, $decision, $rang, $anneepromo, $abs);
-=======
 function insertJuryAnnee($db, $codenip, $anneepromo, $nomannee, $moyannee, $rcue, $decision, $rang, $abs) {
 	if($db->insertIntoJuryAnnee($codenip, $anneepromo, $nomannee, $moyannee, $rcue, $decision, $rang, $abs) === 1)
 	{
 		$db->updateJuryAnnee($codenip, $anneepromo, $nomannee, $moyannee, $rcue, $decision, $rang, $abs);
->>>>>>> d290535f2d3bfd53e02fad26c5746fde707ac253
 	}
 }
 

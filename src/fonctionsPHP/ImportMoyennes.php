@@ -71,14 +71,14 @@ else {
 				switch ($semestre) {
 					case "1":
 						insertionCompetence($data, 11, $db, $suffixe, $semestre);
-						$db->insertIntoJurySem($data['code_nip'], $annee, $semestre, floatval($data['Moy']), $data['UEs'], ($data['Bonus BIN11'] == ' ' ? null : floatval($data['Bonus BIN11'])), null);
+						$db->insertIntoJurySem($data['code_nip'], $annee, $semestre, floatval($data['Moy']), $data['UEs'], ($data['Bonus BIN11'] == ' ' ? null : floatval($data['Bonus BIN11'])), $data['Rg']);
 						insertionRessource($data, 101, $db, $suffixe);
 						insertionSAE($data, 101, $db, $suffixe);
 						break;
 
 					case "2":
 						insertionCompetence($data, 21, $db, $suffixe, $semestre);
-						$db->insertIntoJurySem($data['code_nip'], $annee, $semestre, floatval($data['Moy']), $data['UEs'], ($data['Bonus BIN21'] == ' ' ? null : floatval($data['Bonus BIN21'])), null);
+						$db->insertIntoJurySem($data['code_nip'], $annee, $semestre, floatval($data['Moy']), $data['UEs'], ($data['Bonus BIN21'] == ' ' ? null : floatval($data['Bonus BIN21'])), $data['Rg']);
 						insertionRessource($data, 201, $db, $suffixe);
 						insertionSAE($data, 201, $db, $suffixe);
 						$db->insertIntoMoyRess($data['code_nip'], $annee, "BINP201", ($data['BINP201'] == '~' ? null : floatval($data['BINP201'])));
@@ -86,14 +86,14 @@ else {
 
 					case "3":
 						insertionCompetence($data, 31, $db, $suffixe, $semestre);
-						$db->insertIntoJurySem($data['code_nip'], $annee, $semestre, floatval($data['Moy']), $data['UEs'], ($data['Bonus BIN31'] == ' ' ? null : floatval($data['Bonus BIN31'])), null);
+						$db->insertIntoJurySem($data['code_nip'], $annee, $semestre, floatval($data['Moy']), $data['UEs'], ($data['Bonus BIN31'] == ' ' ? null : floatval($data['Bonus BIN31'])), $data['Rg']);
 						insertionRessource($data, 301, $db, $suffixe);
 						insertionSAE($data, 301, $db, $suffixe);
 						break;
 
 					case "4":
 						insertionCompetence($data, 41, $db, $suffixe, $semestre);
-						$db->insertIntoJurySem($data['code_nip'], $annee, $semestre, floatval($data['Moy']), $data['UEs'], ($data['Bonus BIN41'] == ' ' ? null : floatval($data['Bonus BIN41'])), null);
+						$db->insertIntoJurySem($data['code_nip'], $annee, $semestre, floatval($data['Moy']), $data['UEs'], ($data['Bonus BIN41'] == ' ' ? null : floatval($data['Bonus BIN41'])), $data['Rg']);
 						insertionRessource($data, 401, $db, $suffixe);
 						$db->insertIntoMoyRess($data['code_nip'], $annee, 'BINP401', ($data['BINP401'] == '~' ? null : floatval($data['BINP401'])));
 						insertionSAE($data, 401, $db, $suffixe);
@@ -101,14 +101,14 @@ else {
 
 					case "5":
 						insertionCompetence($data, 51, $db, $suffixe, $semestre);
-						$db->insertIntoJurySem($data['code_nip'], $annee, $semestre, floatval($data['Moy']), $data['UEs'], ($data['Bonus BIN51'.$suffixe] == ' ' ? null : floatval($data['Bonus BIN51'.$suffixe])), null);
+						$db->insertIntoJurySem($data['code_nip'], $annee, $semestre, floatval($data['Moy']), $data['UEs'], ($data['Bonus BIN51'.$suffixe] == ' ' ? null : floatval($data['Bonus BIN51'.$suffixe])), $data['Rg']);
 						insertionRessource($data, 501, $db, $suffixe);
 						insertionSAE($data, 501, $db, $suffixe);
 						break;
 
 					case "6":
 						insertionCompetence($data, 61, $db, $suffixe, $semestre);
-						$db->insertIntoJurySem($data['code_nip'], $annee, $semestre, floatval($data['Moy']), $data['UEs'], ($data['Bonus BIN61'.$suffixe] == ' ' ? null : floatval($data['Bonus BIN61'.$suffixe])), null);
+						$db->insertIntoJurySem($data['code_nip'], $annee, $semestre, floatval($data['Moy']), $data['UEs'], ($data['Bonus BIN61'.$suffixe] == ' ' ? null : floatval($data['Bonus BIN61'.$suffixe])), $data['Rg']);
 						insertionRessource($data, 601, $db, $suffixe);
 						$db->insertIntoMoyRess($data['code_nip'], $annee, 'BINP601', ($data['BINP601'.$suffixe] == '~' ? null : floatval($data['BINP601'.$suffixe])));
 						insertionSAE($data, 601, $db, $suffixe);
