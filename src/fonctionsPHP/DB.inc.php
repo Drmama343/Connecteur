@@ -218,6 +218,11 @@ class DB {
 		$requete = "SELECT e.* from Etudiant e JOIN JurySem j ON e.codenip = j.codenip WHERE j.anneePromo = '$annee' AND j.idSem = $semestre";
 		return $this->execQuery($requete,null,'Etudiant');
 	}
+	
+	public function getRessources() {
+		$requete = 'SELECT * from Ressource';
+		return $this->execQuery($requete,null,'Ressource');
+	}
 
 	public function getEtudiantsByCode($code) {
 		$requete = "SELECT * from Etudiant where codenip = '$code'";
@@ -245,6 +250,21 @@ class DB {
 
 	public function getMoyRessByCodeAnneeIdRess($code, $anneepromo, $idress) {
 		$requete = "SELECT * from MoyRess WHERE codenip = '$code' and anneepromo = '$anneepromo' AND idress = '$idress'";
+		return $this->execQuery($requete,null,'MoyRess');
+	}
+
+	public function getAllMoyRess() {
+		$requete = "SELECT DISTINCT * from MoyRess";
+		return $this->execQuery($requete,null,'MoyRess');
+	}
+
+	public function getMoyCompSem($code, $competence, $semestre) {
+		$requete = "SELECT * from MoyCompSem WHERE codenip = '$code' AND idcomp = '$competence' AND idsem = '$semestre'";
+		return $this->execQuery($requete,null,'MoyCompSem');
+	}
+
+	public function getMoyRessByEtu($code, $idRess, $annee) {
+		$requete = "SELECT * from MoyRess WHERE codenip = '$code' AND idRess = '$idRess' AND anneePromo = '$annee'";
 		return $this->execQuery($requete,null,'MoyRess');
 	}
 
@@ -306,6 +326,12 @@ class DB {
 		$requete = "SELECT avis FROM MoyCompSem mcs JOIN Etudiant e ON mcs.codenip = e.codenip WHERE idComp = '$idComp'";
 		return $this->execQuery($requete,null,null);
 	}
+
+	public function getPromotions() {
+		$requete = "SELECT * FROM Promotion";
+		return $this->execQuery($requete,null,'Promotion');
+	}
+
 
 	  // public function deleteAchat($idcli,$np) {
 	  //       $requete = 'delete from achat where ncli = ? and np = ?';

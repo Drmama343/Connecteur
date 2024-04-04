@@ -26,7 +26,7 @@ function validateChanges() {
 	// Créer un formulaire et ajouter les données modifiées
 	const form = document.createElement("form");
 	form.method = "post";
-	form.action = "../fonctionsPHP/ModifierVisu.php";
+	form.action = "../fonctionsPHP/ModifierVisuEtu.php";
 
 	for (let i = 0; i < rows.length; i++) {
 		if (rows[i].classList.contains("edit-mode")) {

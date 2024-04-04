@@ -70,23 +70,16 @@ if ($db == null) {
 		}
 	}
 
-	// Maintenant, nous vérifions les libellés pour définir le début et la fin des séquences
-	for ($i=0; $i < count($libelles); $i++) {
-		if (preg_match('/^BIN\d{2}$/', $libelles[$i])) {
-			if (count($dbtfinseq) == 0) {
-				$dbtfinseq[] = $i;
-			} else {
-				$dbtfinseq[] = $i - 1;
-				$dbtfinseq[] = $i;
-			}
-		}
-	}
-
 	// Ajout de la dernière valeur pour $dbtfinseq après la boucle
 	$dbtfinseq[] = count($libelles);
 
 	$nbEtu = [];
 	$nbEtu = $db->getJurySemByAnneeSem($annee, $semestre);
+
+	if ($nbEtu[0] === null){
+		$_SESSION['info_commission'] = "Il n'y a aucune donnée pour se semestre, veuillez insérez des fichiers pour ce semestre";
+		header("Location: ../pages/export.php");
+	}
 
 	foreach($nbEtu as $etu) {
 		if ( $etu !== null ) {
@@ -138,17 +131,6 @@ if ($db == null) {
 				}
 			}
 
-			/*for ($ii=0; $ii < count($dbtfinseq); $ii+2){
-				$moySemComp = $db->getMoyCompSem($etudiant[0]->getCode(), $libelles[7], $semestre);
-				$sheet->setCellValue($rowData[$dbtfinseq[$ii]].$ligne, $moySemComp[0]->getMoyCompSem());
-				$sheet->setCellValue($rowData[($dbtfinseq[$ii]+1)].$ligne, $bonus);
-			}*/
-
-			//infos notes et bonus dans comp
-			/*for ($ii=0; $ii < count($dbtfinseq); $ii+2) { 
-				completerMoyCompSem($db, $sheet, $ligne, $etu, $semestre, $libelles[$dbtfinseq[$ii]], $moySem[0]->getBonus(), $libelles, $rowData, $dbtfinseq[$ii], $dbtfinseq[$ii+1]);
-				continue;
-			}*/
 		}
 	}
 
@@ -171,21 +153,6 @@ if ($db == null) {
 	$writer->save('php://output');
 }
 
-function completerMoyCompSem($db, $sheet, $ligne, $etudiant, $semestre, $competence, $bonus, $libelles, $rowData, $debut, $fin) {
-
-	if ($fin - $debut <= 2){
-		$_SESSION['info_commission'] = "erreur dans le modele ou la methode";
-		header("Location: ../pages/export.php");
-	}
-
-	//moy de la comp sem et le bonus
-	
-
-	//moyenne des ressources
-	/*for ($i=$debut+2; $i < $fin; $i++) { 
-		$sheet->setCellValue('A1', "i");
-	}*/
-}
 
 /*
 $_SESSION['info_commission'] = "erreur dans l'export";
