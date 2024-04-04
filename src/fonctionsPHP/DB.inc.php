@@ -282,7 +282,7 @@ class DB {
 	}
 
 	public function updateMoyRess($codeNip, $annee, $idress, $moyress) {
-		$requete = 'UPDATE JuryAnnee SET moyRess = ? WHERE codeNip = ? AND anneePromo = ? AND idRess = ?';
+		$requete = 'UPDATE MoyRess SET moyRess = ? WHERE codeNip = ? AND anneePromo = ? AND idRess = ?';
 		$tparam = array($moyress, $codeNip, $annee, $idress);
 		return $this->execMaj($requete, $tparam);
 	}
@@ -294,7 +294,7 @@ class DB {
 	}
 
 	public function updateJuryAnnee($codeNip, $annee, $nomannee, $moyannee, $rcue, $decision, $rang, $absinjust) {
-		$requete = 'UPDATE JuryAnnee SET moyAnnee = ?, rcue = ?, decision = ?, rang = ?, anneePromo = ?, absInjust = ? WHERE codeNip = ? AND anneePromo = ? AND nomAnnee = ?';
+		$requete = 'UPDATE JuryAnnee SET moyAnnee = ?, rcue = ?, decision = ?, rang = ?, absInjust = ? WHERE codeNip = ? AND anneePromo = ? AND nomAnnee = ?';
 		$tparam = array($moyannee, $rcue, $decision, $rang, $absinjust, $codeNip, $annee, $nomannee);
 		return $this->execMaj($requete, $tparam);
 	}
@@ -368,7 +368,7 @@ class DB {
 		$requete = 'INSERT INTO MoyRess VALUES (?, ?, ?, ?)';
 		$tparam = array($codeNip, $annee, $idRess, $moyRess);
 		$val = $this->execMaj($requete, $tparam);
-		if($val === 1) {return $this->updateMoyRess($codeNip, $annee, $idRess, $moyRess);}
+		if($val !== 0) {return $this->updateMoyRess($codeNip, $annee, $idRess, $moyRess);}
 		return $val;
 	}
 	
@@ -376,7 +376,7 @@ class DB {
 		$requete = 'INSERT INTO JurySem VALUES (?, ?, ?, ?, ?, ?, ?)';
 		$tparam = array($codeNip, $annee, $idSem, $moySem, $UE, $rang, $bonus);
 		$val = $this->execMaj($requete, $tparam);
-		if($val === 1) {return $this->updateJurySem($codeNip, $annee, $idSem, $moySem, $UE, $rang, $bonus);}
+		if($val !== 0) {return $this->updateJurySem($codeNip, $annee, $idSem, $moySem, $UE, $rang, $bonus);}
 		return $val;
 	}
 	
@@ -384,7 +384,7 @@ class DB {
 		$requete = 'INSERT INTO JuryAnnee VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
 		$tparam = array($codeNip, $annee, $nomAnnee, $moyAnnee, $RCUE, $decision, $rang, $absInjust);
 		$val = $this->execMaj($requete, $tparam);
-		if($val === 1) {return $this->updateJuryAnnee($codeNip, $annee, $nomAnnee, $moyAnnee, $RCUE, $decision, $rang, $absInjust);}
+		if($val !== 0) {return $this->updateJuryAnnee($codeNip, $annee, $nomAnnee, $moyAnnee, $RCUE, $decision, $rang, $absInjust);}
 		return $val;
 	}
 	
@@ -392,7 +392,7 @@ class DB {
 		$requete = 'INSERT INTO MoyCompSem VALUES (?, ?, ?, ?, ?, ?)';
 		$tparam = array($codeNip, $annee, $idComp, $idSem, $moyCompSem, $avis);
 		$val = $this->execMaj($requete, $tparam);
-		if($val === 1) {return $this->updateMoyCompSem($codeNip, $annee, $idComp, $idSem, $moyCompSem, $avis);}
+		if($val !== 0) {return $this->updateMoyCompSem($codeNip, $annee, $idComp, $idSem, $moyCompSem, $avis);}
 		return $val;
 	}
 	
@@ -400,7 +400,7 @@ class DB {
 		$requete = 'INSERT INTO MoyCompAnnee VALUES (?, ?, ?, ?, ?, ?, ?)';
 		$tparam = array($codeNip, $annee, $numComp, $idAnnee, $moyCompAnnee, $avis, $rang);
 		$val = $this->execMaj($requete, $tparam);
-		if($val === 1) {return $this->updateMoyCompAnnee($codeNip, $annee, $numComp, $idAnnee, $moyCompAnnee, $avis, $rang);}
+		if($val !== 0) {return $this->updateMoyCompAnnee($codeNip, $annee, $numComp, $idAnnee, $moyCompAnnee, $avis, $rang);}
 		return $val;
 	}
 } //fin classe DB
