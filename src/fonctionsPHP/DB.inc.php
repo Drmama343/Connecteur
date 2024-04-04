@@ -136,12 +136,13 @@ class DB {
 	   * Fonctions qui peuvent être utilisées dans les scripts PHP
 	   *************************************************************************/
 
-	public function MoyenneEtRangMathsParAnnee($codenip, $annee) {
+	public function MoyenneEtRangMathsParAnnee($codenip, $nomannee, $annee) {
 		// Préparation de la requête pour appeler la fonction de moyenne
-		$stmt_moyenne = $this->connect->prepare("SELECT MoyenneMathsParAnnee(:nip_param, :annee_param)");
+		$stmt_moyenne = $this->connect->prepare("SELECT MoyenneMathsParAnnee(:nip_param, :nomannee_param, :annee_param)");
 
 		// Remplacement des paramètres de la fonction de moyenne
 		$stmt_moyenne->bindParam(':nip_param', $codenip, PDO::PARAM_INT);
+		$stmt_moyenne->bindParam(':nomannee_param', $nomannee, PDO::PARAM_STR);
 		$stmt_moyenne->bindParam(':annee_param', $annee, PDO::PARAM_STR);
 
 		// Exécution de la requête de moyenne
@@ -151,11 +152,12 @@ class DB {
 		$result['moyenne'] = $stmt_moyenne->fetchColumn();
 
 		// Préparation de la requête pour appeler la fonction de rang
-		$stmt_rang = $this->connect->prepare("SELECT RangMaths(:nip_param, :annee_param)");
+		$stmt_rang = $this->connect->prepare("SELECT RangMaths(:nip_param, :nomannee_param, :annee_param)");
 
 		// Remplacement des paramètres de la fonction de rang
-		$stmt_rang->bindParam(':nip_param', $codenip, PDO::PARAM_INT);
-		$stmt_rang->bindParam(':annee_param', $annee, PDO::PARAM_STR);
+		$stmt_moyenne->bindParam(':nip_param', $codenip, PDO::PARAM_INT);
+		$stmt_moyenne->bindParam(':nomannee_param', $nomannee, PDO::PARAM_STR);
+		$stmt_moyenne->bindParam(':annee_param', $annee, PDO::PARAM_STR);
 
 		// Exécution de la requête de rang
 		$stmt_rang->execute();
@@ -166,12 +168,13 @@ class DB {
 		return $result;
 	}
 
-	public function MoyenneEtRangAnglaisParAnnee($codenip, $annee) {
+	public function MoyenneEtRangAnglaisParAnnee($codenip, $nomannee, $annee) {
 		// Préparation de la requête pour appeler la fonction de moyenne
-		$stmt_moyenne = $this->connect->prepare("SELECT MoyenneAnglaisParAnnee(:nip_param, :annee_param)");
+		$stmt_moyenne = $this->connect->prepare("SELECT MoyenneAnglaisParAnnee(:nip_param, :nomannee_param, :annee_param)");
 
 		// Remplacement des paramètres de la fonction de moyenne
 		$stmt_moyenne->bindParam(':nip_param', $codenip, PDO::PARAM_INT);
+		$stmt_moyenne->bindParam(':nomannee_param', $nomannee, PDO::PARAM_STR);
 		$stmt_moyenne->bindParam(':annee_param', $annee, PDO::PARAM_STR);
 
 		// Exécution de la requête de moyenne
@@ -181,11 +184,12 @@ class DB {
 		$result['moyenne'] = $stmt_moyenne->fetchColumn();
 
 		// Préparation de la requête pour appeler la fonction de rang
-		$stmt_rang = $this->connect->prepare("SELECT RangAnglais(:nip_param, :annee_param)");
+		$stmt_rang = $this->connect->prepare("SELECT RangAnglais(:nip_param, :nomannee_param, :annee_param)");
 
 		// Remplacement des paramètres de la fonction de rang
-		$stmt_rang->bindParam(':nip_param', $codenip, PDO::PARAM_INT);
-		$stmt_rang->bindParam(':annee_param', $annee, PDO::PARAM_STR);
+		$stmt_moyenne->bindParam(':nip_param', $codenip, PDO::PARAM_INT);
+		$stmt_moyenne->bindParam(':nomannee_param', $nomannee, PDO::PARAM_STR);
+		$stmt_moyenne->bindParam(':annee_param', $annee, PDO::PARAM_STR);
 
 		// Exécution de la requête de rang
 		$stmt_rang->execute();
@@ -194,13 +198,14 @@ class DB {
 		$result['rang'] = $stmt_rang->fetchColumn();
 	}
 
-	public function MettreAJourRangsCompetencesParAnnee($annee) {
+	public function MettreAJourRangsCompetencesParAnnee($nomannee, $annee) {
 		// Préparation de la requête pour appeler la fonction
-		$stmt = $this->connect->prepare("SELECT MettreAJourRangsCompetencesParAnnee(:annee_param)");
-	
-		// Remplacement des paramètres de la fonction
+		$stmt = $this->connect->prepare("SELECT MettreAJourRangsCompetencesParAnnee(:nomannee_param, :annee_param)");
+
+		// Remplacement des paramètres de la fonction de rang
+		$stmt->bindParam(':nomannee_param', $nomannee, PDO::PARAM_STR);
 		$stmt->bindParam(':annee_param', $annee, PDO::PARAM_STR);
-		
+
 		// Exécution de la requête
 		$stmt->execute();
 		
@@ -218,7 +223,7 @@ class DB {
 		$requete = "SELECT e.* from Etudiant e JOIN JurySem j ON e.codenip = j.codenip WHERE j.anneePromo = '$annee' AND j.idSem = $semestre";
 		return $this->execQuery($requete,null,'Etudiant');
 	}
-	
+
 	public function getRessources() {
 		$requete = 'SELECT * from Ressource';
 		return $this->execQuery($requete,null,'Ressource');
@@ -279,8 +284,8 @@ class DB {
 	}
 
 	//fonction de frizoks
-	public function getJuryAnnee($codenip, $nomannee) {
-		$requete = "SELECT * from JuryAnnee WHERE codenip = $codenip AND nomannee = '$nomannee'";
+	public function getJuryAnnee($codenip, $nomannee, $annee) {
+		$requete = "SELECT * from JuryAnnee WHERE codenip = $codenip AND nomannee = '$nomannee' AND anneePromo = '$annee'";
 		return $this->execQuery($requete,null,'JuryAnnee');
 	}
 
@@ -301,8 +306,8 @@ class DB {
 	}
 
 	//fonction de frizoks
-	public function getMoyCompAnnee($codenip, $nomannee) {
-		$requete = "SELECT * from MoyCompAnnee WHERE nomAnnee = '$nomannee' AND codenip = $codenip";
+	public function getMoyCompAnnee($codenip, $nomannee, $annee) {
+		$requete = "SELECT * from MoyCompAnnee WHERE nomAnnee = '$nomannee' AND codenip = $codenip AND anneePromo = '$annee'";
 		return $this->execQuery($requete,null,'MoyCompAnnee');
 	}
 
