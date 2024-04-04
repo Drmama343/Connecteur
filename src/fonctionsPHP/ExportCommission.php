@@ -98,7 +98,7 @@ if ($db == null) {
 			//si on trouve le lib de la colonne comme une comp, on rempli la moy de la comp et le bonus sinon c'est que c'est une ressource et on cherche la moyenne de la ressource
 			$ress = "";
 			$moySemComp = null;
-			for ($ii=0; $ii < count($libelles)-14; $ii++) {
+			for ($ii=0; $ii < count($libelles); $ii++) {
 				if (preg_match('/^BIN\d{2}$/', $libelles[$ii])) {
 					$ress = $libelles[$ii];
 					$moySemComp = $db->getMoyCompSemByCodeAnneeCompSem($etudiant[0]->getCode(), $annee, $libelles[7], $semestre);
