@@ -188,6 +188,11 @@ class DB {
 		return $this->execQuery($requete,null,'Etudiant');
 	}
 
+	public function getRessources() {
+		$requete = 'SELECT * from Ressource';
+		return $this->execQuery($requete,null,'Ressource');
+	}
+
 	public function getEtudiantsByCode($code) {
 		$requete = "SELECT * from Etudiant where codenip = '$code'";
 		return $this->execQuery($requete,null,'Etudiant');
@@ -202,6 +207,11 @@ class DB {
 
 	public function getMoyRess($code, $idress) {
 		$requete = "SELECT * from MoyRess WHERE codenip = '$code' AND idress = '$idress'";
+		return $this->execQuery($requete,null,'MoyRess');
+	}
+
+	public function getAllMoyRess() {
+		$requete = "SELECT * from MoyRess";
 		return $this->execQuery($requete,null,'MoyRess');
 	}
 
