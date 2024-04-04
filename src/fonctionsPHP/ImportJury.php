@@ -46,125 +46,6 @@ else {
 				$rowData = [];
 				foreach ($row->getCellIterator() as $cell) {
 					$rowData[] = $cell->getValue();
-					// Créer un tableau associatif avec les libellés et les données de chaque ligne
-					$data = array_combine($libelles, $rowData);
-
-					$db->insertIntoEtudiant(intval($data['code_nip']), $rowData[5], $data['Prénom'], "", "", (strpos($fileName, "FAP") ? substr($fileName, 0, 2) : ""), "", "", "", "");
-
-					$semestre = substr($fileName, 1, 2);
-					switch ($semestre) {
-						case "1":
-							insertJuryAnnee($db, intval($data['code_nip']), 'BUT1', null, $data['RCUEs'], $data['Année'], null, "2022-2023", intval($data['Abs'] - $data['Just.']));
-
-							$db->insertIntoJurySem(intval($data['code_nip']), '1', floatval($data['Moy']), $data['UEs'], null, intval($data['Rg']));
-
-							//insert ou update
-							insertMoyCompAnnee($db, intval($data['code_nip']), 1, 'BUT1', floatval($rowData[23]), $rowData[24], 0);
-							insertMoyCompAnnee($db, intval($data['code_nip']), 2, 'BUT1', floatval($rowData[25]), $rowData[26], 0);
-							insertMoyCompAnnee($db, intval($data['code_nip']), 3, 'BUT1', floatval($rowData[27]), $rowData[28], 0);
-							insertMoyCompAnnee($db, intval($data['code_nip']), 4, 'BUT1', floatval($rowData[29]), $rowData[30], 0);
-							insertMoyCompAnnee($db, intval($data['code_nip']), 5, 'BUT1', floatval($rowData[31]), $rowData[32], 0);
-							insertMoyCompAnnee($db, intval($data['code_nip']), 6, 'BUT1', floatval($rowData[33]), $rowData[34], 0);
-
-							insertMoyCompSem($db, intval($data['code_nip']), 'BIN11', '1', floatval($rowData[39]), $rowData[40]);
-							insertMoyCompSem($db, intval($data['code_nip']), 'BIN12', '1', floatval($rowData[41]), $rowData[42]);
-							insertMoyCompSem($db, intval($data['code_nip']), 'BIN13', '1', floatval($rowData[43]), $rowData[44]);
-							insertMoyCompSem($db, intval($data['code_nip']), 'BIN14', '1', floatval($rowData[45]), $rowData[46]);
-							insertMoyCompSem($db, intval($data['code_nip']), 'BIN15', '1', floatval($rowData[47]), $rowData[48]);
-							insertMoyCompSem($db, intval($data['code_nip']), 'BIN16', '1', floatval($rowData[49]), $rowData[50]);
-							break;
-						case "2":
-							insertJuryAnnee($db, intval($data['code_nip']), "2022-2023", 'BUT1', null, $data['RCUEs'], $data['Année'],null, intval($data['Abs'] - $data['Just.']));
-
-							$db->insertIntoJurySem(intval($data['code_nip']), '2', floatval($data['Moy']), $data['UEs'], null, intval($data['Rg']));
-
-							//insert ou update
-							insertMoyCompAnnee($db, intval($data['code_nip']), 1, 'BUT1', floatval($rowData[23]), $rowData[24], 0);
-							insertMoyCompAnnee($db, intval($data['code_nip']), 2, 'BUT1', floatval($rowData[25]), $rowData[26], 0);
-							insertMoyCompAnnee($db, intval($data['code_nip']), 3, 'BUT1', floatval($rowData[27]), $rowData[28], 0);
-							insertMoyCompAnnee($db, intval($data['code_nip']), 4, 'BUT1', floatval($rowData[29]), $rowData[30], 0);
-							insertMoyCompAnnee($db, intval($data['code_nip']), 5, 'BUT1', floatval($rowData[31]), $rowData[32], 0);
-							insertMoyCompAnnee($db, intval($data['code_nip']), 6, 'BUT1', floatval($rowData[33]), $rowData[34], 0);
-
-							insertMoyCompSem($db, intval($data['code_nip']), 'BIN21', '2', floatval($rowData[39]), $rowData[40]);
-							insertMoyCompSem($db, intval($data['code_nip']), 'BIN22', '2', floatval($rowData[41]), $rowData[42]);
-							insertMoyCompSem($db, intval($data['code_nip']), 'BIN23', '2', floatval($rowData[43]), $rowData[44]);
-							insertMoyCompSem($db, intval($data['code_nip']), 'BIN24', '2', floatval($rowData[45]), $rowData[46]);
-							insertMoyCompSem($db, intval($data['code_nip']), 'BIN25', '2', floatval($rowData[47]), $rowData[48]);
-							insertMoyCompSem($db, intval($data['code_nip']), 'BIN26', '2', floatval($rowData[49]), $rowData[50]);
-							break;
-						case "3":
-							//insert ou update
-							insertJuryAnnee($db, intval($data['code_nip']), 'BUT2', null, $data['RCUEs'], $data['Année'], null, "2022-2023", intval($data['Abs'] - $data['Just.']));
-
-							$db->insertIntoJurySem(intval($data['code_nip']), '3', floatval($data['Moy']), $data['UEs'], null, intval($data['Rg']));
-
-							//insert ou update
-							insertMoyCompAnnee($db, intval($data['code_nip']), 1, 'BUT2', floatval($rowData[23]), $rowData[24], 0);
-							insertMoyCompAnnee($db, intval($data['code_nip']), 2, 'BUT2', floatval($rowData[25]), $rowData[26], 0);
-							insertMoyCompAnnee($db, intval($data['code_nip']), 3, 'BUT2', floatval($rowData[27]), $rowData[28], 0);
-							insertMoyCompAnnee($db, intval($data['code_nip']), 4, 'BUT2', floatval($rowData[29]), $rowData[30], 0);
-							insertMoyCompAnnee($db, intval($data['code_nip']), 5, 'BUT2', floatval($rowData[31]), $rowData[32], 0);
-							insertMoyCompAnnee($db, intval($data['code_nip']), 6, 'BUT2', floatval($rowData[33]), $rowData[34], 0);
-
-							insertMoyCompSem($db, intval($data['code_nip']), 'BIN31', '3', floatval($rowData[39]), $rowData[40]);
-							insertMoyCompSem($db, intval($data['code_nip']), 'BIN32', '3', floatval($rowData[41]), $rowData[42]);
-							insertMoyCompSem($db, intval($data['code_nip']), 'BIN33', '3', floatval($rowData[43]), $rowData[44]);
-							insertMoyCompSem($db, intval($data['code_nip']), 'BIN34', '3', floatval($rowData[45]), $rowData[46]);
-							insertMoyCompSem($db, intval($data['code_nip']), 'BIN35', '3', floatval($rowData[47]), $rowData[48]);
-							insertMoyCompSem($db, intval($data['code_nip']), 'BIN36', '3', floatval($rowData[49]), $rowData[50]);
-							break;
-						case "4":
-							//insert ou update
-							insertJuryAnnee($db, intval($data['code_nip']), 'BUT2', null, $data['RCUEs'], $data['Année'], null, "2022-2023", intval($data['Abs'] - $data['Just.']));
-
-							$db->insertIntoJurySem(intval($data['code_nip']), '4', floatval($data['Moy']), $data['UEs'], null, intval($data['Rg']));
-
-							//insert ou update
-							insertMoyCompAnnee($db, intval($data['code_nip']), 1, 'BUT2', floatval($rowData[23]), $rowData[24], 0);
-							insertMoyCompAnnee($db, intval($data['code_nip']), 2, 'BUT2', floatval($rowData[25]), $rowData[26], 0);
-							insertMoyCompAnnee($db, intval($data['code_nip']), 3, 'BUT2', floatval($rowData[27]), $rowData[28], 0);
-							insertMoyCompAnnee($db, intval($data['code_nip']), 4, 'BUT2', floatval($rowData[29]), $rowData[30], 0);
-							insertMoyCompAnnee($db, intval($data['code_nip']), 5, 'BUT2', floatval($rowData[31]), $rowData[32], 0);
-							insertMoyCompAnnee($db, intval($data['code_nip']), 6, 'BUT2', floatval($rowData[33]), $rowData[34], 0);
-
-							insertMoyCompSem($db, intval($data['code_nip']), 'BIN41', '4', floatval($rowData[39]), $rowData[40]);
-							insertMoyCompSem($db, intval($data['code_nip']), 'BIN42', '4', floatval($rowData[41]), $rowData[42]);
-							insertMoyCompSem($db, intval($data['code_nip']), 'BIN43', '4', floatval($rowData[43]), $rowData[44]);
-							insertMoyCompSem($db, intval($data['code_nip']), 'BIN44', '4', floatval($rowData[45]), $rowData[46]);
-							insertMoyCompSem($db, intval($data['code_nip']), 'BIN45', '4', floatval($rowData[47]), $rowData[48]);
-							insertMoyCompSem($db, intval($data['code_nip']), 'BIN46', '4', floatval($rowData[49]), $rowData[50]);
-							break;
-						case "5":
-							//insert ou update
-							insertJuryAnnee($db, intval($data['code_nip']), 'BUT3', null, $data['RCUEs'], $data['Année'], null, "2022-2023", intval($data['Abs'] - $data['Just.']));
-							
-							$db->insertIntoJurySem(intval($data['code_nip']), '5', floatval($data['Moy']), $data['UEs'], null, intval($data['Rg']));
-
-							//insert ou update
-							insertMoyCompAnnee($db, intval($data['code_nip']), 1, 'BUT3', floatval($rowData[23]), $rowData[24], 0);
-							insertMoyCompAnnee($db, intval($data['code_nip']), 2, 'BUT3', floatval($rowData[25]), $rowData[26], 0);
-							insertMoyCompAnnee($db, intval($data['code_nip']), 6, 'BUT3', floatval($rowData[33]), $rowData[34], 0);
-
-							insertMoyCompSem($db, intval($data['code_nip']), 'BIN51', '5', floatval($rowData[39]), $rowData[40]);
-							insertMoyCompSem($db, intval($data['code_nip']), 'BIN52', '5', floatval($rowData[41]), $rowData[42]);
-							insertMoyCompSem($db, intval($data['code_nip']), 'BIN56', '5', floatval($rowData[49]), $rowData[50]);
-							break;
-						case "6":
-							insertJuryAnnee($db, intval($data['code_nip']), 'BUT3', null, $data['RCUEs'], $data['Année'], null, "2022-2023", intval($data['Abs'] - $data['Just.']));
-
-							$db->insertIntoJurySem(intval($data['code_nip']), '6', floatval($data['Moy']), $data['UEs'], null, intval($data['Rg']));
-
-							//insert ou update
-							insertMoyCompAnnee($db, intval($data['code_nip']), 1, 'BUT3', floatval($rowData[23]), $rowData[24], 0);
-							insertMoyCompAnnee($db, intval($data['code_nip']), 2, 'BUT3', floatval($rowData[25]), $rowData[26], 0);
-							insertMoyCompAnnee($db, intval($data['code_nip']), 6, 'BUT3', floatval($rowData[33]), $rowData[34], 0);
-
-							insertMoyCompSem($db, intval($data['code_nip']), 'BIN61', '6', floatval($rowData[39]), $rowData[40]);
-							insertMoyCompSem($db, intval($data['code_nip']), 'BIN62', '6', floatval($rowData[41]), $rowData[42]);
-							insertMoyCompSem($db, intval($data['code_nip']), 'BIN66', '6', floatval($rowData[49]), $rowData[50]);
-							break;
-					}
 				}
 
 				// Créer un tableau associatif avec les libellés et les données de chaque ligne
@@ -297,17 +178,11 @@ else {
 	}
 } //fin du else connexion reussie
 
-<<<<<<< HEAD
-function insertJuryAnnee($db, $codenip, $annee, $nomannee, $moyannee, $rcue, $decision, $rang, $anneepromo, $abs) {
-	if($db->insertIntoJuryAnnee($codenip, $annee, $nomannee, $moyannee, $rcue, $decision, $rang, $anneepromo, $abs) === 1)
+function insertJuryAnnee($db, $codenip, $annee, $nomannee, $moyannee, $rcue, $decision, $rang, $abs) {
+	$val = $db->insertIntoJuryAnnee($codenip, $annee, $nomannee, $moyannee, $rcue, $decision, $rang, $abs);
+	if($val === 1)
 	{
-		$db->updateJuryAnnee($codenip, $annee, $nomannee, $moyannee, $rcue, $decision, $rang, $anneepromo, $abs);
-=======
-function insertJuryAnnee($db, $codenip, $anneepromo, $nomannee, $moyannee, $rcue, $decision, $rang, $abs) {
-	if($db->insertIntoJuryAnnee($codenip, $anneepromo, $nomannee, $moyannee, $rcue, $decision, $rang, $abs) === 1)
-	{
-		$db->updateJuryAnnee($codenip, $anneepromo, $nomannee, $moyannee, $rcue, $decision, $rang, $abs);
->>>>>>> d290535f2d3bfd53e02fad26c5746fde707ac253
+		$db->updateJuryAnnee($codenip, $annee, $nomannee, $moyannee, $rcue, $decision, $rang, $abs);
 	}
 }
 

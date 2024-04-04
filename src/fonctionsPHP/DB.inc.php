@@ -129,7 +129,7 @@ class DB {
 		try {
 			$res = $stmt->execute($tparam); //execution de l'ordre SQL
 			return 0;
-		} catch (PDOException $e) { return 1; }
+		} catch (PDOException $e) { return $e; }
 	}
 
 	  /*************************************************************************
@@ -276,21 +276,33 @@ class DB {
 		return $this->execMaj($requete, $tparam);
 	}
 
-	public function updateJuryAnnee($codeNip, $annee, $nomannee, $moyannee, $rcue, $decision, $rang, $absinjust) {
-		$requete = 'UPDATE JuryAnnee SET moyAnnee = ?, rcue = ?, decision = ?, rang = ?, anneePromo = ?, absInjust = ? WHERE codeNip = ? AND anneePromo = ? AND nomAnnee = ?';
-		$tparam = array($moyannee, $rcue, $decision, $rang, $absinjust, $codeNip, $annee, $nomannee);
+	public function updateMoyRess($codeNip, $annee, $idress, $moyress) {
+		$requete = 'UPDATE JuryAnnee SET moyRess = ? WHERE codeNip = ? AND anneePromo = ? AND idRess = ?';
+		$tparam = array($moyress, $codeNip, $annee, $idress);
 		return $this->execMaj($requete, $tparam);
 	}
 
-	public function updateMoyCompAnnee($codeNip, $annee, $idcomp, $nomannee, $moycompannee, $avis, $rang) {
-		$requete = 'UPDATE MoyCompAnnee SET moyCompAnnee = ?, avis = ?, rang = ? WHERE codeNip = ? AND anneePromo = ? AND numComp = ? AND nomAnnee = ?';
-		$tparam = array($moycompannee, $avis, $rang, $codeNip, $annee, $idcomp, $nomannee);
+	public function updateJurySem($codeNip, $annee, $idSem, $moySem, $UE, $bonus, $rang) {
+		$requete = 'UPDATE JurySem SET moySem = ?, ue = ?, bonus = ?, rang = ? WHERE codeNip = ? AND anneePromo = ? AND idSem = ?';
+		$tparam = array($moySem, $UE, $bonus, $rang, $codeNip, $annee, $idSem);
+		return $this->execMaj($requete, $tparam);
+	}
+
+	public function updateJuryAnnee($codeNip, $annee, $nomannee, $moyannee, $rcue, $decision, $rang, $absinjust) {
+		$requete = 'UPDATE JuryAnnee SET moyAnnee = ?, rcue = ?, decision = ?, rang = ?, anneePromo = ?, absInjust = ? WHERE codeNip = ? AND anneePromo = ? AND nomAnnee = ?';
+		$tparam = array($moyannee, $rcue, $decision, $rang, $absinjust, $codeNip, $annee, $nomannee);
 		return $this->execMaj($requete, $tparam);
 	}
 	
 	public function updateMoyCompSem($codenip, $annee, $idcomp, $idsem, $moycompsem, $avis) {
 		$requete = 'UPDATE MoyCompSem SET moyCompSem = ?, avis = ? WHERE codeNip = ? AND anneePromo = ? AND idComp = ? AND idSem = ?';
 		$tparam = array($moycompsem, $avis, $codenip, $annee, $idcomp, $idsem);
+		return $this->execMaj($requete, $tparam);
+	}
+
+	public function updateMoyCompAnnee($codeNip, $annee, $idcomp, $nomannee, $moycompannee, $avis, $rang) {
+		$requete = 'UPDATE MoyCompAnnee SET moyCompAnnee = ?, avis = ?, rang = ? WHERE codeNip = ? AND anneePromo = ? AND numComp = ? AND nomAnnee = ?';
+		$tparam = array($moycompannee, $avis, $rang, $codeNip, $annee, $idcomp, $nomannee);
 		return $this->execMaj($requete, $tparam);
 	}
 
@@ -350,31 +362,41 @@ class DB {
 	public function insertIntoMoyRess($codeNip, $annee, $idRess, $moyRess) {
 		$requete = 'INSERT INTO MoyRess VALUES (?, ?, ?, ?)';
 		$tparam = array($codeNip, $annee, $idRess, $moyRess);
-		return $this->execMaj($requete, $tparam);
+		$val = $this->execMaj($requete, $tparam);
+		if($val === 1) {return $this->updateMoyRess($codeNip, $annee, $idRess, $moyRess);}
+		return $val;
 	}
 	
 	public function insertIntoJurySem($codeNip, $annee, $idSem, $moySem, $UE, $rang, $bonus) {
 		$requete = 'INSERT INTO JurySem VALUES (?, ?, ?, ?, ?, ?, ?)';
 		$tparam = array($codeNip, $annee, $idSem, $moySem, $UE, $rang, $bonus);
-		return $this->execMaj($requete, $tparam);
+		$val = $this->execMaj($requete, $tparam);
+		if($val === 1) {return $this->updateJurySem($codeNip, $annee, $idSem, $moySem, $UE, $rang, $bonus);}
+		return $val;
 	}
 	
-	public function insertIntoJuryAnnee($codeNip, $annee, $idAnnee, $moyAnnee, $RCUE, $decision, $rang, $anneepromo, $absInjust) {
-		$requete = 'INSERT INTO JuryAnnee VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
-		$tparam = array($codeNip, $annee, $idAnnee, $moyAnnee, $RCUE, $decision, $rang, $anneepromo, $absInjust);
-		return $this->execMaj($requete, $tparam);
+	public function insertIntoJuryAnnee($codeNip, $annee, $nomAnnee, $moyAnnee, $RCUE, $decision, $rang, $absInjust) {
+		$requete = 'INSERT INTO JuryAnnee VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
+		$tparam = array($codeNip, $annee, $nomAnnee, $moyAnnee, $RCUE, $decision, $rang, $absInjust);
+		$val = $this->execMaj($requete, $tparam);
+		if($val === 1) {return $this->updateJuryAnnee($codeNip, $annee, $nomAnnee, $moyAnnee, $RCUE, $decision, $rang, $absInjust);}
+		return $val;
 	}
 	
 	public function insertIntoMoyCompSem($codeNip, $annee, $idComp, $idSem, $moyCompSem, $avis) {
 		$requete = 'INSERT INTO MoyCompSem VALUES (?, ?, ?, ?, ?, ?)';
 		$tparam = array($codeNip, $annee, $idComp, $idSem, $moyCompSem, $avis);
-		return $this->execMaj($requete, $tparam);
+		$val = $this->execMaj($requete, $tparam);
+		if($val === 1) {return $this->updateMoyCompSem($codeNip, $annee, $idComp, $idSem, $moyCompSem, $avis);}
+		return $val;
 	}
 	
 	public function insertIntoMoyCompAnnee($codeNip, $annee, $numComp, $idAnnee, $moyCompAnnee, $avis, $rang) {
 		$requete = 'INSERT INTO MoyCompAnnee VALUES (?, ?, ?, ?, ?, ?, ?)';
 		$tparam = array($codeNip, $annee, $numComp, $idAnnee, $moyCompAnnee, $avis, $rang);
-		return $this->execMaj($requete, $tparam);
+		$val = $this->execMaj($requete, $tparam);
+		if($val === 1) {return $this->updateMoyCompAnnee($codeNip, $annee, $numComp, $idAnnee, $moyCompAnnee, $avis, $rang);}
+		return $val;
 	}
 } //fin classe DB
 
