@@ -35,29 +35,9 @@ if ($db == null) {
 	$sheet->setCellValue('E1', "SEMESTRE " . $semestre . " - BUT INFO")
 		->setCellValue('E2', $annee);
 
-	//determiner l'annee de but
-	$anneebut = 'BUT0';
-	switch ($semestre) {
-		case '1':
-		case '2':
-			$anneebut = 'BUT1';
-			break;
-		case '3':
-		case '4':
-			$anneebut = 'BUT2';
-			break;
-		case '5':
-		case '6':
-			$anneebut = 'BUT3';
-			break;
-		default:
-			$anneebut = 'BUT0';
-			break;
-	}
 
 	$libelles = [];
 	$rowData = [];
-	$dbtfinseq = [];
 
 	foreach ($sheet->getRowIterator() as $row) {
 		// Ignorer la première ligne (en-tête)
@@ -73,6 +53,8 @@ if ($db == null) {
 	// Ajout de la dernière valeur pour $dbtfinseq après la boucle
 	$dbtfinseq[] = count($libelles);
 
+	$db->MettreAJourRangsSemestre($semestre, $annee);
+
 	$nbEtu = [];
 	$nbEtu = $db->getJurySemByAnneeSem($annee, $semestre);
 
@@ -83,7 +65,6 @@ if ($db == null) {
 
 	foreach($nbEtu as $etu) {
 		if ( $etu !== null ) {
-			$db->MettreAJourRangsSemestre($semestre, $annee);
 			$moySem = $db->getJurySemByEtudAnneeSemByCodeAnneeIdSem($etu->getCode(), $annee, $semestre);
 
 			$ligne = $etu->getRang();
