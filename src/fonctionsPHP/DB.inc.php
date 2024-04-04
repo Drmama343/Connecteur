@@ -294,11 +294,6 @@ class DB {
 		return $this->execQuery($requete,null,'JurySem');
 	}
 
-	public function getJurySemByEtudSemTest($codenip, $idsem) {
-		$requete = "SELECT * FROM JurySem WHERE codenip = $codenip AND idsem = $idsem LIMIT 1";
-		return $this->execQuery($requete, null, 'JurySem');
-	}
-
 	//fonction de frizoks
 	public function getEtudiantsS5($annee) {
 		$requete = "SELECT e.* from Etudiant e Join JuryAnnee ja ON e.codenip = ja.codenip WHERE nomAnnee = 'BUT3' AND anneePromo = '$annee'";
@@ -323,13 +318,8 @@ class DB {
 	}
 	
 	public function getAvisSem($codenip, $idComp, $idSem) {
-		$requete = "SELECT * FROM MoyCompSem mcs JOIN Etudiant e ON mcs.codenip = e.codenip WHERE idComp = '$idComp' AND idSem = '$idSem'";
-		return $this->execQuery($requete,null,'Etudiant');
-	}
-
-	public function getAvisParComp($codenip, $idComp) {
-		$requete = "SELECT avis FROM MoyCompSem mcs JOIN Etudiant e ON mcs.codenip = e.codenip WHERE idComp = '$idComp'";
-		return $this->execQuery($requete,null,null);
+		$requete = "SELECT * FROM MoyCompSem mcs JOIN Etudiant e ON mcs.codenip = e.codenip WHERE idComp = '$idComp' AND idSem = '$idSem' AND mcs.codenip = $codenip";
+		return $this->execQuery($requete,null,'MoyCompSem');
 	}
 
 	public function getPromotions() {

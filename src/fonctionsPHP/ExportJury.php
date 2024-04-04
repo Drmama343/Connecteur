@@ -69,57 +69,39 @@ else {
 		$etudiant = [];
 
 		$nbEtu = [];
-		$nbEtu = $db->getJuryAnneeByAnnees($anneebut, $annee);
+		$nbEtu = $db->getJurySemByAnneeSem ($annee, $semestre);
 
 		$nbComp = [];
 		$nbComp = $db->getCompBySem($semestre);
 
-		
-
-		$ligneDebut = 9;
+		$avisComp = [];
+		$cpt = 0;
 
 		foreach ($nbEtu as $etu) {
-			$avisSem = $db->getAvisSem($etu->getCode(), $comp, $semestre);
-		
-			if (!empty($avisSem)) {
-				$avis = $avisSem[0];
-				$etudiants = $db->getEtudiantsByCode($avis->getCode());
-				
-		
-				foreach ($etudiants as $etudiant) {
-					$codenip = $etudiant->getCode();
-					$sheet->setCellValue('B'.$ligneDebut, $ligneDebut - 8) //rang
-						  ->setCellValue('C'.$ligneDebut, $etudiant->getNom())
-						  ->setCellValue('D'.$ligneDebut, $etudiant->getPrenom())
-						  ->setCellValue('E'.$ligneDebut, $etudiant->getParcours())
-						  ->setCellValue('F'.$ligneDebut, $etudiant->getCursus());
-		
-					$lettre = 'G';
-					foreach ($nbComp as $competence) {
-						$avis = $db->getAvisParComp($codenip, $competence);
-						if (!empty($avis)) {
-							$sheet->setCellValue($lettre.$ligneDebut, $avis);
-						} else {
-							$sheet->setCellValue($lettre.$ligneDebut, '');
-						}
-						$lettre++;
-					}
-		
-					$jurySem = $db->getJurySemByEtudSemTest($codenip, $semestre);
-		
-					if (!empty($jurySem)) {
-						foreach ($jurySem as $jury) {
-							$sheet->setCellValue('M'.$ligneDebut, $jury->getUE())
-								  ->setCellValue('N'.$ligneDebut, $jury->getMoySem());
-							$ligneDebut++;
-						}
-					} else {
-						$sheet->setCellValue('M'.$ligneDebut, '')
-							  ->setCellValue('N'.$ligneDebut, '');
-						$ligneDebut++;
-					}
-				}
+			$val = $db->getEtudiantsByCode($etu->getCode());
+			$etudiant = $val[0];
+			$codenip = $etudiant->getCode();
+			$avisSem = $db->getAvisSem($codenip, $comp, $semestre);
+			$avis = $avisSem[0];
+			$ligneDebut = $etu->getRang()+8;
+			$sheet->setCellValue('B'.$ligneDebut, $ligneDebut - 8) //rang
+					->setCellValue('C'.$ligneDebut, $etudiant->getNom())
+					->setCellValue('D'.$ligneDebut, $etudiant->getPrenom())
+					->setCellValue('E'.$ligneDebut, $etudiant->getParcours())
+					->setCellValue('F'.$ligneDebut, $etudiant->getCursus());
+
+			$lettre = 'G';
+			for ($cpt = 0; $cpt < count($nbComp); $cpt++) {
+				$avisComp = $db->getAvisSem($codenip, $nbComp[$cpt]->getIdComp(), $semestre);
+				$sheet->setCellValue($lettre.$ligneDebut, $avisComp[0]->getAvis());
+				$lettre++;
 			}
+
+			$jurySem = $db->getJurySemByEtudSem($codenip, $semestre);
+			$sheet->setCellValue('M'.$ligneDebut, $jurySem[0]->getUE())
+				->setCellValue('N'.$ligneDebut, $jurySem[0]->getMoySem());
+
+			
 		}
 
 		// Définir les en-têtes HTTP pour le téléchargement du fichier
