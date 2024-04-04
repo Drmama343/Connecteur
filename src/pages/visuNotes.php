@@ -29,7 +29,7 @@
 		} //fin du else connexion reussie
 
 		echo "<header>";
-		echo "<h1>Visualisation</h1>";
+		echo "<h1>Visualisation des etudiants</h1>";
 		echo "</header>";
 
 		echo "		<section>
@@ -79,7 +79,7 @@
 		}
 		else {
 			try {
-				$t = $db->getEtudiants();
+				$t = $db->getAllMoyRess();
 			}
 			catch (Exception $e) {
 				echo $e->getMessage();
@@ -96,32 +96,17 @@
 		echo "	<thead id=\"tableHeader\">\n";
 		echo "		<tr>\n";
 		echo "			<th>Code NIP</th>\n";
-		echo "			<th>Nom</th>\n";
-		echo "			<th>Prénom</th>\n";
-		echo "			<th>Cursus</th>\n";
-		echo "			<th>Parcours</th>\n";
-		echo "			<th>Apprentissage</th>\n";
-		echo "			<th>Avis Ingénieur</th>\n";
-		echo "			<th>Avis Master</th>\n";
-		echo "			<th>Commentaire</th>\n";
-		echo "			<th>Mobilité étrangère</th>\n";
+	
+		foreach ($t as &$v) {
+			echo "		<th>" . $v->getIdRess() . "</th>\n";
+		}
+	
 		echo "		</tr>\n";
 		echo "	</thead>\n";
 		echo "	<tbody id=\"tableBody\">\n";
 
 		foreach ($t as &$v) {
 			echo "		<tr>\n";
-			echo "			<td>" . $v->getCode() . "</td>\n";
-			echo "			<td>" . $v->getNom() . "</td>\n";
-			echo "			<td>" . $v->getPrenom() . "</td>\n";
-			echo "			<td>" . $v->getCursus() . "</td>\n";
-			echo "			<td>" . $v->getParcours() . "</td>\n";
-			echo "			<td>" . $v->getApprentissage() . "</td>\n";
-			echo "			<td>" . $v->getAvisInge() . "</td>\n";
-			echo "			<td>" . $v->getAvisMaster() . "</td>\n";
-			echo "			<td>" . $v->getCommentaire() . "</td>\n";
-			echo "			<td>" . $v->getMobEtrang() . "</td>\n";
-			echo "			<td class=\"colonneBtn\"><button type='button' class='edit-button' onclick='toggleEditMode(this)'>Modifier</button><button type='button' class='cancel-button' style='display:none;' onclick='reloadPage()'>Annuler</button></td>\n"; // Bouton pour activer le mode édition
 			echo "		</tr>\n";
 		}
 
@@ -131,7 +116,5 @@
 		echo "<footer>\n";
 		echo "	<input type=\"text\" id=\"searchInput\" placeholder=\"Rechercher...\">\n";
 		echo "</footer>\n";
-
-		echo '<script src="../JS/fonction.js"></script>' . "\n";
 	}
 ?>

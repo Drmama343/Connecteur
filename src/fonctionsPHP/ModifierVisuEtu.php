@@ -32,13 +32,13 @@
 				}  
 				$db->close();
 			}
-			header("Location: ../pages/visualisation.php");
+			header("Location: ../pages/visuEtudiant.php");
 			exit;
 		} else {
-			header("Location: ../pages/visualisation.php");
+			header("Location: ../pages/visuEtudiant.php");
 		}
 	} else {
-		header("Location: ../pages/visualisation.php");
+		header("Location: ../pages/visuEtudiant.php");
 		exit;
 	}
 ?>

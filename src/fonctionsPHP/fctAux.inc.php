@@ -40,8 +40,8 @@
 				<div class=\"sous-menu-wrapper\" onmouseover=\"afficherSousMenu('sousMenuUser')\" onmouseout=\"masquerSousMenu('sousMenuUser')\">
 					<p>Visualisation</p>
 					<div id=\"sousMenuUser\" style=\"display: none;\">
-						<a href=\"./visualisation.php\">Par Etudiant</a>
-						<a href=\"#\">Par Notes</a>
+						<a href=\"./visuEtudiant.php\">Par Etudiant</a>
+						<a href=\"./visuNotes.php\">Par Notes</a>
 					</div>
 				</div>
 				<hr class=\"hrmenu\">

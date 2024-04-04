@@ -188,6 +188,11 @@ class DB {
 		return $this->execQuery($requete,null,'Etudiant');
 	}
 
+	public function getRessources() {
+		$requete = 'SELECT * from Ressource';
+		return $this->execQuery($requete,null,'Ressource');
+	}
+
 	public function getEtudiantsByCode($code) {
 		$requete = "SELECT * from Etudiant where codenip = '$code'";
 		return $this->execQuery($requete,null,'Etudiant');
@@ -210,6 +215,16 @@ class DB {
 		return $this->execQuery($requete,null,'MoyRess');
 	}
 
+	public function getAllMoyRess() {
+		$requete = "SELECT * from MoyRess";
+		return $this->execQuery($requete,null,'MoyRess');
+	}
+
+	public function getMoyCompSem($code, $competence, $semestre) {
+		$requete = "SELECT * from MoyCompSem WHERE codenip = '$code' AND idcomp = '$competence' AND idsem = '$semestre'";
+		return $this->execQuery($requete,null,'MoyCompSem');
+	}
+	
 	public function getMoyCompSemByCodeAnneeCompSem($code, $anneepromo, $competence, $semestre) {
 		$requete = "SELECT * from MoyCompSem WHERE codenip = '$code' and anneepromo = '$anneepromo' AND idcomp = '$competence' AND idsem = '$semestre'";
 		return $this->execQuery($requete,null,'MoyCompSem');
