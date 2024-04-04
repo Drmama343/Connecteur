@@ -379,8 +379,8 @@ class DB {
 		$requete = 'INSERT INTO JuryAnnee VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
 		$tparam = array($codeNip, $annee, $nomAnnee, $moyAnnee, $RCUE, $decision, $rang, $absInjust);
 		$val = $this->execMaj($requete, $tparam);
-		if($val !== 0) {return $this->updateJuryAnnee($codeNip, $annee, $nomAnnee, $moyAnnee, $RCUE, $decision, $rang, $absInjust);}
-		return $val;
+		if($val === 0) { return $val; }
+		return $this->updateJuryAnnee($codeNip, $annee, $nomAnnee, $moyAnnee, $RCUE, $decision, $rang, $absInjust);
 	}
 	
 	public function insertIntoMoyCompSem($codeNip, $annee, $idComp, $idSem, $moyCompSem, $avis) {

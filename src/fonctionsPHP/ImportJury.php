@@ -56,7 +56,7 @@ else {
 				$semestre = substr($fileName, 1, 2);
 				switch ($semestre) {
 					case "1":
-						$db->insertIntoJuryAnnee(intval($data['code_nip']), $annee, 'BUT1', null, $data['RCUEs'], $data['Année'], null, "2022-2023", intval($data['Abs'] - $data['Just.']));
+						$db->insertIntoJuryAnnee(intval($data['code_nip']), $annee, 'BUT1', null, $data['RCUEs'], $data['Année'], null, intval($data['Abs'] - $data['Just.']));
 
 						$db->insertIntoJurySem(intval($data['code_nip']), $annee, '1', floatval($data['Moy']), $data['UEs'], null, intval($data['Rg']));
 
@@ -75,13 +75,7 @@ else {
 						$db->insertIntoMoyCompSem(intval($data['code_nip']), $annee, 'BIN16', '1', floatval($rowData[49]), $rowData[50]);
 						break;
 					case "2":
-						$val = $db->insertIntoJuryAnnee(intval($data['code_nip']), $annee, 'BUT1', null, $data['RCUEs'], $data['Année'],null, "2022-2023", intval($data['Abs'] - $data['Just.']));
-						if($val !== 0)
-						{
-							$_SESSION['info_import_moyennes'] = $val;
-							header("Location: ../pages/import.php");
-							exit();
-						}
+						$db->insertIntoJuryAnnee(intval($data['code_nip']), $annee, 'BUT1', null, $data['RCUEs'], $data['Année'],null, intval($data['Abs'] - $data['Just.']));
 
 						$db->insertIntoJurySem(intval($data['code_nip']), $annee, '2', floatval($data['Moy']), $data['UEs'], null, intval($data['Rg']));
 
@@ -100,7 +94,7 @@ else {
 						$db->insertIntoMoyCompSem(intval($data['code_nip']), $annee, 'BIN26', '2', floatval($rowData[49]), $rowData[50]);
 						break;
 					case "3":
-						$db->insertIntoJuryAnnee(intval($data['code_nip']), $annee, 'BUT2', null, $data['RCUEs'], $data['Année'], null, "2022-2023", intval($data['Abs'] - $data['Just.']));
+						$db->insertIntoJuryAnnee(intval($data['code_nip']), $annee, 'BUT2', null, $data['RCUEs'], $data['Année'], null, intval($data['Abs'] - $data['Just.']));
 
 						$db->insertIntoJurySem(intval($data['code_nip']), $annee, '3', floatval($data['Moy']), $data['UEs'], null, intval($data['Rg']));
 
@@ -119,7 +113,7 @@ else {
 						$db->insertIntoMoyCompSem(intval($data['code_nip']), $annee, 'BIN36', '3', floatval($rowData[49]), $rowData[50]);
 						break;
 					case "4":
-						$db->insertIntoJuryAnnee(intval($data['code_nip']), $annee, 'BUT2', null, $data['RCUEs'], $data['Année'], null, "2022-2023", intval($data['Abs'] - $data['Just.']));
+						$db->insertIntoJuryAnnee(intval($data['code_nip']), $annee, 'BUT2', null, $data['RCUEs'], $data['Année'], null, intval($data['Abs'] - $data['Just.']));
 
 						$db->insertIntoJurySem(intval($data['code_nip']), $annee, '4', floatval($data['Moy']), $data['UEs'], null, intval($data['Rg']));
 
@@ -138,7 +132,7 @@ else {
 						$db->insertIntoMoyCompSem(intval($data['code_nip']), $annee, 'BIN46', '4', floatval($rowData[49]), $rowData[50]);
 						break;
 					case "5":
-						$db->insertIntoJuryAnnee(intval($data['code_nip']), $annee, 'BUT3', null, $data['RCUEs'], $data['Année'], null, "2022-2023", intval($data['Abs'] - $data['Just.']));
+						$db->insertIntoJuryAnnee(intval($data['code_nip']), $annee, 'BUT3', null, $data['RCUEs'], $data['Année'], null, intval($data['Abs'] - $data['Just.']));
 						
 						$db->insertIntoJurySem(intval($data['code_nip']), $annee, '5', floatval($data['Moy']), $data['UEs'], null, intval($data['Rg']));
 
@@ -151,7 +145,7 @@ else {
 						$db->insertIntoMoyCompSem(intval($data['code_nip']), $annee, 'BIN56', '5', floatval($rowData[38]), $rowData[39]);
 						break;
 					case "6":
-						$db->insertIntoJuryAnnee(intval($data['code_nip']), $annee, 'BUT3', null, $data['RCUEs'], $data['Année'], null, "2022-2023", intval($data['Abs'] - $data['Just.']));
+						$db->insertIntoJuryAnnee(intval($data['code_nip']), $annee, 'BUT3', null, $data['RCUEs'], $data['Année'], null, intval($data['Abs'] - $data['Just.']));
 
 						$db->insertIntoJurySem(intval($data['code_nip']), $annee, '6', floatval($data['Moy']), $data['UEs'], null, intval($data['Rg']));
 
