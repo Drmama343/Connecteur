@@ -83,6 +83,7 @@ if ($db == null) {
 
 	foreach($nbEtu as $etu) {
 		if ( $etu !== null ) {
+			$db->MettreAJourRangsSemestre($semestre, $annee);
 			$moySem = $db->getJurySemByEtudAnneeSemByCodeAnneeIdSem($etu->getCode(), $annee, $semestre);
 
 			$ligne = $etu->getRang();
