@@ -200,6 +200,11 @@ class DB {
 		return $this->execQuery($requete,null,'JuryAnnee');
 	}
 
+	public function getJurySemByAnneeSem ($anneepromo, $idsem){
+		$requete = "SELECT * from JurySem WHERE anneepromo = '$anneepromo' and idsem = $idsem";
+		return $this->execQuery($requete,null,'JurySem');
+	}
+
 	public function getMoyRessByCodeAnneeIdRess($code, $anneepromo, $idress) {
 		$requete = "SELECT * from MoyRess WHERE codenip = '$code' and anneepromo = '$anneepromo' AND idress = '$idress'";
 		return $this->execQuery($requete,null,'MoyRess');

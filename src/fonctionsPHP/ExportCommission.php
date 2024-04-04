@@ -86,14 +86,13 @@ if ($db == null) {
 	$dbtfinseq[] = count($libelles);
 
 	$nbEtu = [];
-	$nbEtu = $db->getJuryAnneeByAnnees($anneebut, $annee);
-	$i=0; //tant que les rang ne sont pas rentrer ça marche comme ça
+	$nbEtu = $db->getJurySemByAnneeSem($annee, $semestre);
 
 	foreach($nbEtu as $etu) {
 		if ( $etu !== null ) {
 			$moySem = $db->getJurySemByEtudAnneeSemByCodeAnneeIdSem($etu->getCode(), $annee, $semestre);
 			$ligne = $etu->getRang();
-			$ligne += 8 + $i;
+			$ligne += 7;
 			
 			try {
 				$etudiant = $db->getEtudiantsByCode($moySem[0]->getCode());
@@ -104,7 +103,7 @@ if ($db == null) {
 			$bonus = $moySem[0]->getBonus() !== null ? $moySem[0]->getBonus() : 0;
 
 			//infos etudiant
-			$sheet->setCellValue('A'.$ligne, ''.$ligne-8) //rang
+			$sheet->setCellValue('A'.$ligne, ''.$ligne-7) //rang
 				->setCellValue('B'.$ligne, $etudiant[0]->getNom())
 				->setCellValue('C'.$ligne, $etudiant[0]->getPrenom())
 				->setCellValue('D'.$ligne, $etudiant[0]->getParcours())
@@ -124,11 +123,17 @@ if ($db == null) {
 					$moySemComp = $db->getMoyCompSemByCodeAnneeCompSem($etudiant[0]->getCode(), $annee, $libelles[7], $semestre);
 					$sheet->setCellValue($rowData[$ii].$ligne, $moySemComp[0]->getMoyCompSem());
 					$sheet->setCellValue($rowData[($ii)+1].$ligne, $bonus);
-					$ii++; //afin qu'il n'y ai pas d'erreur car on ne peut pas rechecher la moyenne d'un bonus
+					$ii++;
 				}
 				else {
 					if ($ress !== ""){
-						$sheet->setCellValue($rowData[$ii].$ligne, $db->getMoyRessByCodeAnneeIdRess($etudiant[0]->getCode(), $annee, $libelles[$ii])[0]->getMoyRess());
+						try {
+							$sheet->setCellValue($rowData[$ii].$ligne, $db->getMoyRessByCodeAnneeIdRess($etudiant[0]->getCode(), $annee, $libelles[$ii])[0]->getMoyRess());
+						} catch (\Throwable $th) {
+							$_SESSION['info_commission'] = "Il manque des données, veuillez insérez des fichiers moyenne à ce semestre";
+							header("Location: ../pages/export.php");
+						}
+						
 					}
 				}
 			}
@@ -144,7 +149,6 @@ if ($db == null) {
 				completerMoyCompSem($db, $sheet, $ligne, $etu, $semestre, $libelles[$dbtfinseq[$ii]], $moySem[0]->getBonus(), $libelles, $rowData, $dbtfinseq[$ii], $dbtfinseq[$ii+1]);
 				continue;
 			}*/
-			$i++;
 		}
 	}
 
