@@ -35,6 +35,7 @@ if ($db == null) {
 	$sheet->setCellValue('E1', "SEMESTRE " . $semestre . " - BUT INFO")
 		->setCellValue('E2', $annee);
 
+	//determiner l'annee de but
 	$anneebut = 'BUT0';
 	switch ($semestre) {
 		case '1':
@@ -90,7 +91,7 @@ if ($db == null) {
 
 	foreach($nbEtu as $etu) {
 		if ( $etu !== null ) {
-			$moySem = $db->getJurySemByEtudSem($etu->getCode(), $semestre);
+			$moySem = $db->getJurySemByEtudAnneeSemByCodeAnneeIdSem($etu->getCode(), $annee, $semestre);
 			$ligne = $etu->getRang();
 			$ligne += 8 + $i;
 			
@@ -99,8 +100,6 @@ if ($db == null) {
 			} catch (\Throwable $th) {
 				var_dump('bitr');
 			}
-			//var_dump($etudiant);
-			
 
 			$bonus = $moySem[0]->getBonus() !== null ? $moySem[0]->getBonus() : 0;
 
@@ -122,14 +121,14 @@ if ($db == null) {
 			for ($ii=0; $ii < count($libelles)-15; $ii++) {
 				if (preg_match('/^BIN\d{2}$/', $libelles[$ii])) {
 					$ress = $libelles[$ii];
-					$moySemComp = $db->getMoyCompSem($etudiant[0]->getCode(), $libelles[7], $semestre);
+					$moySemComp = $db->getMoyCompSemByCodeAnneeCompSem($etudiant[0]->getCode(), $annee, $libelles[7], $semestre);
 					$sheet->setCellValue($rowData[$ii].$ligne, $moySemComp[0]->getMoyCompSem());
 					$sheet->setCellValue($rowData[($ii)+1].$ligne, $bonus);
 					$ii++; //afin qu'il n'y ai pas d'erreur car on ne peut pas rechecher la moyenne d'un bonus
 				}
 				else {
 					if ($ress !== ""){
-						$sheet->setCellValue($rowData[$ii].$ligne, $db->getMoyRess($etudiant[0]->getCode(), $libelles[$ii])[0]->getMoyRess());
+						$sheet->setCellValue($rowData[$ii].$ligne, $db->getMoyRessByCodeAnneeIdRess($etudiant[0]->getCode(), $annee, $libelles[$ii])[0]->getMoyRess());
 					}
 				}
 			}

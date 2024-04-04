@@ -200,16 +200,20 @@ class DB {
 		return $this->execQuery($requete,null,'JuryAnnee');
 	}
 
-	public function getMoyRess($code, $idress) {
-		$requete = "SELECT * from MoyRess WHERE codenip = '$code' AND idress = '$idress'";
+	public function getMoyRessByCodeAnneeIdRess($code, $anneepromo, $idress) {
+		$requete = "SELECT * from MoyRess WHERE codenip = '$code' and anneepromo = '$anneepromo' AND idress = '$idress'";
 		return $this->execQuery($requete,null,'MoyRess');
 	}
 
-	public function getMoyCompSem($code, $competence, $semestre) {
-		$requete = "SELECT * from MoyCompSem WHERE codenip = '$code' AND idcomp = '$competence' AND idsem = '$semestre'";
+	public function getMoyCompSemByCodeAnneeCompSem($code, $anneepromo, $competence, $semestre) {
+		$requete = "SELECT * from MoyCompSem WHERE codenip = '$code' and anneepromo = '$anneepromo' AND idcomp = '$competence' AND idsem = '$semestre'";
 		return $this->execQuery($requete,null,'MoyCompSem');
 	}
 	
+	public function getJurySemByEtudAnneeSemByCodeAnneeIdSem ($codenip, $anneepromo, $idsem){
+		$requete = "SELECT * from JurySem WHERE codenip = $codenip and anneepromo = '$anneepromo' and idsem = $idsem";
+		return $this->execQuery($requete,null,'JurySem');
+	}
 
 	//fonction de frizoks
 	public function getJuryAnnee($codenip, $nomannee) {
