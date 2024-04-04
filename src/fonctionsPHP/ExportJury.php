@@ -68,8 +68,10 @@ else {
 		$avisSem = [];
 		$etudiant = [];
 		$mcs = [];
+		$mca = [];
 		$juryAnnee = [];
 		$cpt = 0;
+		$lettreFinComps = ' ';
 
 		$nbEtu = [];
 		$nbEtu = $db->getJurySemByAnneeSem ($annee, $semestre);
@@ -79,7 +81,7 @@ else {
 
 		
 
-		if ($semestre % 2 != 0)
+		if ($semestre == 1)
 		foreach ($nbEtu as $etu) {
 			$val = $db->getEtudiantsByCode($etu->getCode());
 			$etudiant = $val[0];
@@ -102,13 +104,13 @@ else {
 			}
 
 			$jurySem = $db->getJurySemByEtudSem($codenip, $semestre);
-			$sheet->setCellValue('M'.$ligneDebut, $jurySem[0]->getUE())
-				->setCellValue('N'.$ligneDebut, $jurySem[0]->getMoySem());
+			$sheet	->setCellValue('M'.$ligneDebut, $jurySem[0]->getUE())
+					->setCellValue('N'.$ligneDebut, $jurySem[0]->getMoySem());
 
-			moyennesComp('O', $ligneDebut, $mcs, $nbComp, $codenip, $semestre, $db, $sheet);
-
+			moyennesComps('O', $ligneDebut, $mcs, $nbComp, $codenip, $semestre, $db, $sheet);
 		}
-		if ($semestre % 2 == 0) {
+
+		if ($semestre >= 2) {
 			foreach ($nbEtu as $etu) {
 				$val = $db->getEtudiantsByCode($etu->getCode());
 				$etudiant = $val[0];
@@ -117,7 +119,9 @@ else {
 				$avis = $avisSem[0];
 				$ligneDebut = $etu->getRang()+8;
 
-				$juryAnnee = $db->getJuryAnnee($codenip, $nomannee);
+				$mca = $db->getMoyCompAnneeByComp($codenip, $nomannee, $annee, 1);
+
+				$juryAnnee = $db->getJuryAnnee($codenip, $nomannee, $annee);
 
 
 				$sheet	->setCellValue('A'.$ligneDebut, $codenip)
@@ -125,23 +129,34 @@ else {
 						->setCellValue('C'.$ligneDebut, $etudiant->getNom())
 						->setCellValue('D'.$ligneDebut, $etudiant->getPrenom())
 						->setCellValue('E'.$ligneDebut, $etudiant->getParcours())
-						->setCellValue('F'.$ligneDebut, $etudiant->getCursus())
-						/*RCUEs*/;
-
-				moyennesComp('H', $ligneDebut, $mcs, $nbComp, $codenip, $semestre, $db, $sheet);
+						->setCellValue('F'.$ligneDebut, $etudiant->getCursus());
+				$lettre = 'G';
+				if ($semestre %2 == 0) {
+					$sheet->setCellValue('G'.$ligneDebut, $juryAnnee[0]->getRCUE());
+					$lettre++;
+				}
+				avisCompAnnee($lettre, $ligneDebut, $mcs, $nbComp, $codenip, 2,         $db, $sheet);
+				$lettre = chr (ord($lettre) + 6);
 			}
 
 
 			//compétences BUT
-			switch ($semestre) {
-				case 4 :
-					moyennesComp('N', $ligneDebut, $mcs, $nbComp, $codenip, $semestre, $db, $sheet);
-					break;
-					
-				case 6 :
-					moyennesComp('N', $ligneDebut, $mcs, $nbComp, $codenip, 4,         $db, $sheet);
-					moyennesComp('T', $ligneDebut, $mcs, $nbComp, $codenip, $semestre, $db, $sheet);
-					break;
+			
+			if ($semestre == 3 ) {
+				$jurySem = $db->getJurySemByEtudSem($codenip, $semestre);
+				$sheet	->setCellValue('M'.$ligneDebut, $jurySem[0]->getUE())
+						->setCellValue('N'.$ligneDebut, $jurySem[0]->getMoySem());
+				moyennesComps('O', $ligneDebut, $mcs, $nbComp, $codenip, $semestre, $db, $sheet);
+			}
+
+			if ( $semestre == 4 ) {
+				avisCompAnnee($lettre, $ligneDebut, $mcs, $nbComp, $codenip, $semestre, $db, $sheet);
+				$lettre = chr (ord($lettre) + 6);
+			}
+
+			if ($semestre == 5 ) {
+				avisCompAnnee($lettre, $ligneDebut, $mcs, $nbComp, $codenip, 4,         $db, $sheet);
+				$lettre = chr (ord($lettre) + 6);
 			}
 
 			// UE ANNEE
@@ -158,11 +173,25 @@ else {
 	}
 }
 
-function moyennesComp ($lettre, $ligne, $mcs, $nbComp, $codenip, $semestre, $db, $sheet) {
+function moyenneCompSem ($lettre, $ligne, $mcs, $nbComp, $codenip, $semestre, $db, $sheet) {
 	$cpt = 0;
 	for ($cpt = 0; $cpt < count($nbComp); $cpt++) {
 		$mcs = $db->getAvisSem($codenip, $nbComp[$cpt]->getIdComp(), $semestre);
 		$sheet->setCellValue($lettre.$ligne, $mcs[0]->getMoyCompSem());
+		$lettre++;
+	}
+}
+
+
+function avisCompAnnee ($lettre, $ligne, $mca, $nbComp, $codenip, $semestre, $db, $sheet) {
+	$cpt = 1;
+	for ($cpt = 1; $cpt <= count($nbComp); $cpt++) {
+		if ($semestre >= 5 && $cpt == 2 ) {
+			$cpt = 6;
+			$mca = $db->getMoyCompAnneeByComp($codenip, $nomannee, $annee, $cpt);
+		}
+		$mca = $db->getMoyCompAnneeByComp($codenip, $nomannee, $annee, $cpt);
+		$sheet->setCellValue($lettre.$ligne, $mca[0]->getAvis());
 		$lettre++;
 	}
 }

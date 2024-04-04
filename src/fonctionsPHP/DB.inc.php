@@ -322,6 +322,11 @@ class DB {
 		return $this->execQuery($requete,null,'MoyCompSem');
 	}
 
+	public function getMoyCompAnneeByComp($codenip, $nomannee, $annee, $idComp) {
+		$requete = "SELECT * from MoyCompAnnee WHERE nomAnnee = '$nomannee' AND codenip = $codenip AND anneePromo = '$annee' AND idComp = '$idComp'";
+		return $this->execQuery($requete,null,'MoyCompAnnee');
+	}
+
 	public function getPromotions() {
 		$requete = "SELECT * FROM Promotion";
 		return $this->execQuery($requete,null,'Promotion');
