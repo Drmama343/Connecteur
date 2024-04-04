@@ -355,7 +355,7 @@ class DB {
 	}
 
 	public function getMoyCompAnneeByComp($codenip, $nomannee, $annee, $idComp) {
-		$requete = "SELECT * from MoyCompAnnee WHERE nomAnnee = '$nomannee' AND codenip = $codenip AND anneePromo = '$annee' AND idComp = '$idComp'";
+		$requete = "SELECT * from MoyCompAnnee WHERE nomAnnee = '$nomannee' AND codenip = $codenip AND anneePromo = '$annee' AND numComp = '$idComp'";
 		return $this->execQuery($requete,null,'MoyCompAnnee');
 	}
 
