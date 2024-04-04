@@ -86,7 +86,7 @@ if ($db == null) {
 
 	$nbEtu = [];
 	$nbEtu = $db->getJuryAnneeByAnnees($anneebut, $annee);
-	$i=0;
+	$i=0; //tant que les rang ne sont pas rentrer ça marche comme ça
 
 	foreach($nbEtu as $etu) {
 		if ( $etu !== null ) {
@@ -116,6 +116,7 @@ if ($db == null) {
 				->setCellValue('G'.$ligne, $moySem[0]->getMoySem());
 
 
+			//si on trouve le lib de la colonne comme une comp, on rempli la moy de la comp et le bonus sinon c'est que c'est une ressource et on cherche la moyenne de la ressource
 			$ress = "";
 			$moySemComp = null;
 			for ($ii=0; $ii < count($libelles)-15; $ii++) {
@@ -124,7 +125,7 @@ if ($db == null) {
 					$moySemComp = $db->getMoyCompSem($etudiant[0]->getCode(), $libelles[7], $semestre);
 					$sheet->setCellValue($rowData[$ii].$ligne, $moySemComp[0]->getMoyCompSem());
 					$sheet->setCellValue($rowData[($ii)+1].$ligne, $bonus);
-					$ii++;
+					$ii++; //afin qu'il n'y ai pas d'erreur car on ne peut pas rechecher la moyenne d'un bonus
 				}
 				else {
 					if ($ress !== ""){
