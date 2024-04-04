@@ -56,7 +56,7 @@ else {
 
 				$val = $db->insertIntoEtudiant(intval($data['code_nip']), $rowData[5], $data['Prénom'], $data['Cursus'], array_key_exists('Parcours', $data) 	? $data['Parcours'] : "", (strpos($fileName, "FAP") ? substr($fileName, 0, 2) : ""), "", "", "", "");
 				// Utiliser les libellés pour insérer les données dans la base de données
-				if ($val != 0) {
+				if ($val !== 0) {
 					if (isset($_POST['submit'])) {
 						$db->updateEtudiant(intval($data['code_nip']), $rowData[5], $data['Prénom'], $data['Cursus'], array_key_exists('Parcours', $data) 	? $data['Parcours'] : "", (strpos($fileName, "FAP") ? substr($fileName, 0, 2) : ""), "", "", "", "");
 					} else {
