@@ -155,9 +155,9 @@ class DB {
 		$stmt_rang = $this->connect->prepare("SELECT RangMaths(:nip_param, :nomannee_param, :annee_param)");
 
 		// Remplacement des paramètres de la fonction de rang
-		$stmt_moyenne->bindParam(':nip_param', $codenip, PDO::PARAM_INT);
-		$stmt_moyenne->bindParam(':nomannee_param', $nomannee, PDO::PARAM_STR);
-		$stmt_moyenne->bindParam(':annee_param', $annee, PDO::PARAM_STR);
+		$stmt_rang->bindParam(':nip_param', $codenip, PDO::PARAM_INT);
+		$stmt_rang->bindParam(':nomannee_param', $nomannee, PDO::PARAM_STR);
+		$stmt_rang->bindParam(':annee_param', $annee, PDO::PARAM_STR);
 
 		// Exécution de la requête de rang
 		$stmt_rang->execute();
@@ -187,9 +187,9 @@ class DB {
 		$stmt_rang = $this->connect->prepare("SELECT RangAnglais(:nip_param, :nomannee_param, :annee_param)");
 
 		// Remplacement des paramètres de la fonction de rang
-		$stmt_moyenne->bindParam(':nip_param', $codenip, PDO::PARAM_INT);
-		$stmt_moyenne->bindParam(':nomannee_param', $nomannee, PDO::PARAM_STR);
-		$stmt_moyenne->bindParam(':annee_param', $annee, PDO::PARAM_STR);
+		$stmt_rang->bindParam(':nip_param', $codenip, PDO::PARAM_INT);
+		$stmt_rang->bindParam(':nomannee_param', $nomannee, PDO::PARAM_STR);
+		$stmt_rang->bindParam(':annee_param', $annee, PDO::PARAM_STR);
 
 		// Exécution de la requête de rang
 		$stmt_rang->execute();
@@ -332,6 +332,27 @@ class DB {
 		return $this->execQuery($requete,null,'Promotion');
 	}
 
+	public function getMoyennesRessourcesParAnnee($annee) {
+        $moyennes = array(); // Initialiser le tableau des moyennes
+        
+        // Requête SQL pour récupérer les moyennes des ressources pour une année spécifique
+        $sql = "SELECT codeNip, idRess, moyRess FROM MoyRess WHERE anneePromo = :annee";
+
+        // Préparation de la requête
+        $stmt = $this->connect->prepare($sql);
+        $stmt->bindParam(':annee', $annee, PDO::PARAM_STR);
+        
+        // Exécution de la requête
+        if ($stmt->execute()) {
+            // Parcourir les résultats de la requête
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                // Stocker la moyenne dans le tableau multidimensionnel
+                $moyennes[$row['codenip']][$row['idress']] = $row['moyress'];
+            }
+        }
+
+        return $moyennes;
+    }
 
 	  // public function deleteAchat($idcli,$np) {
 	  //       $requete = 'delete from achat where ncli = ? and np = ?';
