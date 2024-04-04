@@ -20,43 +20,81 @@
 				$tRes = $db->getRessources();
 				$tEtu = $db->getEtudiants();
 
-				echo "<header>\n";
-				echo "	<h1>Visualisation</h1>\n";
-				echo "</header>\n";
-
-				echo "<section>\n";
-				echo "	<table id=\"etudiantsTable\">\n";
-				echo "	<thead id=\"tableHeader\">\n";
-				echo "		<tr>\n";
-				echo "			<th>Code NIP</th>\n";
-			
-				foreach ($tRes as &$v) {
-					echo "		<th>" . $v->getIdRess() . "</th>\n";
-				}
-			
-				echo "		</tr>\n";
-				echo "	</thead>\n";
-				echo "	<tbody id=\"tableBody\">\n";
-
 				// Vérifie si une année a été sélectionnée dans le formulaire
 				if (isset($_GET['annee']) && !empty($_GET['annee'])) {
 					$annee = $_GET['annee'];
 
-					foreach ($tEtu as &$e) {
-						echo "		<tr>\n";
-						echo "			<td>" . $e->getCode() . "</td>\n";
-						foreach ($tRes as &$r) {
-							$tmoy = $db->getMoyRessByEtu($e->getCode(),$r->getIdRess(),$annee);
-							foreach ($tmoy as &$moy) {
-								echo "			<td>" . $moy->getMoyRess() . "</td>\n";
+					echo "<header>\n";
+					echo "	<h1>Visualisation de l'annee : " . $annee . "</h1>\n";
+					echo "</header>\n";
+
+					echo "<section>\n";
+
+					// Récupérer toutes les moyennes des ressources pour une année spécifique
+					$moyennes = $db->getMoyennesRessourcesParAnnee($annee);
+
+					// Tableau pour stocker les ressources qui ont des notes pour cette année
+					$ressourcesAvecNotes = array();
+
+					// Vérifier pour chaque ressource si au moins un étudiant a une note pour cette année
+					foreach ($tRes as $r) {
+						foreach ($tEtu as $e) {
+							if (isset($moyennes[$e->getCode()][$r->getIdRess()])) {
+								$ressourcesAvecNotes[$r->getIdRess()] = true;
+								break;
 							}
 						}
-						echo "		</tr>\n";
 					}
-				}
 
-				echo "	</tbody>\n";
-				echo "	</table>\n";
+					// Afficher le tableau HTML avec les ressources qui ont des notes pour cette année
+					echo "    <table id=\"etudiantsTable\">\n";
+					echo "    <thead id=\"tableHeader\">\n";
+					echo "        <tr>\n";
+					echo "            <th>Code NIP</th>\n";
+					
+					foreach ($tRes as $r) {
+						if (isset($ressourcesAvecNotes[$r->getIdRess()])) {
+							echo "        <th>" . $r->getIdRess() . "</th>\n";
+						}
+					}
+					
+					echo "        </tr>\n";
+					echo "    </thead>\n";
+					echo "    <tbody id=\"tableBody\">\n";
+
+					// Afficher les étudiants avec leurs notes pour les ressources ayant des notes pour cette année
+					foreach ($tEtu as $e) {
+						// Vérifier si l'étudiant a des notes pour cette année
+						$notesExist = false;
+						foreach ($tRes as $r) {
+							if (isset($moyennes[$e->getCode()][$r->getIdRess()])) {
+								$notesExist = true;
+								break;
+							}
+						}
+
+						// Si l'étudiant a des notes pour cette année, l'afficher dans le tableau
+						if ($notesExist) {
+							echo "    <tr>\n";
+							echo "        <td>" . $e->getCode() . "</td>\n";
+							
+							foreach ($tRes as $r) {
+								if (isset($ressourcesAvecNotes[$r->getIdRess()])) {
+									// Récupérer la moyenne pour cet étudiant et cette ressource
+									$moyenne = $moyennes[$e->getCode()][$r->getIdRess()] ?? ''; // Utilisation de ?? pour gérer les cas où aucune moyenne n'est disponible
+									
+									echo "        <td>$moyenne</td>\n";
+								}
+							}
+
+							echo "    </tr>\n";
+						}
+					}
+
+					echo "    </tbody>\n";
+					echo "    </table>\n";
+				}
+				
 				echo "</section>\n";
 
 				echo "<footer>\n";

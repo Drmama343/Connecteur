@@ -67,6 +67,9 @@ else {
 
 		$avisSem = [];
 		$etudiant = [];
+		$mcs = [];
+		$juryAnnee = [];
+		$cpt = 0;
 
 		$nbEtu = [];
 		$nbEtu = $db->getJurySemByAnneeSem ($annee, $semestre);
@@ -74,9 +77,9 @@ else {
 		$nbComp = [];
 		$nbComp = $db->getCompBySem($semestre);
 
-		$avisComp = [];
-		$cpt = 0;
+		
 
+		if ($semestre % 2 != 0)
 		foreach ($nbEtu as $etu) {
 			$val = $db->getEtudiantsByCode($etu->getCode());
 			$etudiant = $val[0];
@@ -84,7 +87,8 @@ else {
 			$avisSem = $db->getAvisSem($codenip, $comp, $semestre);
 			$avis = $avisSem[0];
 			$ligneDebut = $etu->getRang()+8;
-			$sheet->setCellValue('B'.$ligneDebut, $ligneDebut - 8) //rang
+			$sheet	->setCellValue('A'.$ligneDebut, $codenip)
+					->setCellValue('B'.$ligneDebut, $ligneDebut - 8) //rang
 					->setCellValue('C'.$ligneDebut, $etudiant->getNom())
 					->setCellValue('D'.$ligneDebut, $etudiant->getPrenom())
 					->setCellValue('E'.$ligneDebut, $etudiant->getParcours())
@@ -92,8 +96,8 @@ else {
 
 			$lettre = 'G';
 			for ($cpt = 0; $cpt < count($nbComp); $cpt++) {
-				$avisComp = $db->getAvisSem($codenip, $nbComp[$cpt]->getIdComp(), $semestre);
-				$sheet->setCellValue($lettre.$ligneDebut, $avisComp[0]->getAvis());
+				$mcs = $db->getAvisSem($codenip, $nbComp[$cpt]->getIdComp(), $semestre);
+				$sheet->setCellValue($lettre.$ligneDebut, $mcs[0]->getAvis());
 				$lettre++;
 			}
 
@@ -101,7 +105,47 @@ else {
 			$sheet->setCellValue('M'.$ligneDebut, $jurySem[0]->getUE())
 				->setCellValue('N'.$ligneDebut, $jurySem[0]->getMoySem());
 
-			
+			moyennesComp('O', $ligneDebut, $mcs, $nbComp, $codenip, $semestre, $db, $sheet);
+
+		}
+		if ($semestre % 2 == 0) {
+			foreach ($nbEtu as $etu) {
+				$val = $db->getEtudiantsByCode($etu->getCode());
+				$etudiant = $val[0];
+				$codenip = $etudiant->getCode();
+				$avisSem = $db->getAvisSem($codenip, $comp, $semestre);
+				$avis = $avisSem[0];
+				$ligneDebut = $etu->getRang()+8;
+
+				$juryAnnee = $db->getJuryAnnee($codenip, $nomannee);
+
+
+				$sheet	->setCellValue('A'.$ligneDebut, $codenip)
+						->setCellValue('B'.$ligneDebut, $ligneDebut - 8) //rang
+						->setCellValue('C'.$ligneDebut, $etudiant->getNom())
+						->setCellValue('D'.$ligneDebut, $etudiant->getPrenom())
+						->setCellValue('E'.$ligneDebut, $etudiant->getParcours())
+						->setCellValue('F'.$ligneDebut, $etudiant->getCursus())
+						/*RCUEs*/;
+
+				moyennesComp('H', $ligneDebut, $mcs, $nbComp, $codenip, $semestre, $db, $sheet);
+			}
+
+
+			//compétences BUT
+			switch ($semestre) {
+				case 4 :
+					moyennesComp('N', $ligneDebut, $mcs, $nbComp, $codenip, $semestre, $db, $sheet);
+					break;
+					
+				case 6 :
+					moyennesComp('N', $ligneDebut, $mcs, $nbComp, $codenip, 4,         $db, $sheet);
+					moyennesComp('T', $ligneDebut, $mcs, $nbComp, $codenip, $semestre, $db, $sheet);
+					break;
+			}
+
+			// UE ANNEE
+			// DECISION ANNEE
 		}
 
 		// Définir les en-têtes HTTP pour le téléchargement du fichier
@@ -111,6 +155,15 @@ else {
 
 		// Envoyer le fichier Excel au navigateur
 		$writer->save('php://output');
+	}
+}
+
+function moyennesComp ($lettre, $ligne, $mcs, $nbComp, $codenip, $semestre, $db, $sheet) {
+	$cpt = 0;
+	for ($cpt = 0; $cpt < count($nbComp); $cpt++) {
+		$mcs = $db->getAvisSem($codenip, $nbComp[$cpt]->getIdComp(), $semestre);
+		$sheet->setCellValue($lettre.$ligne, $mcs[0]->getMoyCompSem());
+		$lettre++;
 	}
 }
 ?>
