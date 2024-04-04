@@ -29,7 +29,7 @@ else {
 		$filename = 'PV Jury S' . $semestre . ' ' . $annee . '.xlsx';
 
 		$sheet = $spreadsheet->getActiveSheet();
-
+		$incr = 0;
 		switch ($semestre) {
 			case '1' :
 				$comp = 'BIN11';
@@ -42,30 +42,36 @@ else {
 			case '3' :
 				$comp = 'BIN31';
 				$anneebut = 'BUT2';
+				$incr = 1;
 				break;
 			case '4' :
 				$comp = 'BIN41';
 				$anneebut = 'BUT2';
+				$incr = 1;
 				break;
 			case '5' :
 				$comp = 'BIN51';
 				$anneebut = 'BUT3';
+				$incr = 2;
 				break;
 			case '6' :
 				$comp = 'BIN61';
 				$anneebut = 'BUT3';
+				$incr = 2;
 				break;
 			
 			default:
 				$comp = 'BIN0';
 				$anneebut = 'BUT0';
+				$incr = 0;
 				break;
 		}
 
 		// Créer un objet Writer pour exporter le fichier Excel
 		$writer = new Xlsx($spreadsheet);
-
-		$db->MettreAJourRangsSemestre($semestre, $annee);
+		$db->MettreAJourMoyenneAnnee($anneebut, $annee);
+		//$db->MettreAJourRangsSemestre($semestre, $annee);
+		$db->MettreAJourRangsAnnee($anneebut, $annee);
 
 		$avisSem = [];
 		$etudiant = [];
@@ -76,7 +82,7 @@ else {
 		$lettreFinComps = ' ';
 
 		$nbEtu = [];
-		$nbEtu = $db->getJurySemByAnneeSem ($annee, $semestre);	
+		$nbEtu = $db->getJuryAnneeByAnnees ($anneebut, $annee);	// getJurySemByAnneeSem
 
 		$nbComp = [];
 		$nbComp = $db->getCompBySem($semestre);
@@ -137,17 +143,16 @@ else {
 					$sheet->setCellValue('G'.$ligneDebut, $juryAnnee[0]->getRCUE());
 					$lettre++;
 				}
-				avisCompAnnee($lettre, $ligneDebut, $mcs, $nbComp, $codenip, 2,         $db, $sheet, $annee, $anneebut);
+				avisCompAnnee($lettre, $ligneDebut, $mca, $nbComp, $codenip, 2,         $db, $sheet, anneeMoins($annee, $incr), $anneebut);
 				$lettre = chr (ord($lettre) + 6);
 			
 
 
 				if ( $semestre == 2 ) {
-					$lettre = chr (ord($lettre) + 1);
-					// !TDO : MOYENNE ANNEE A FAIRE
+					$juryAnnee = $db->getJuryAnnee($codenip, $anneebut, $annee);
+					$sheet	->setCellValue($lettre++.$ligneDebut, $juryAnnee[0]->getMoyAnnee());
 					moyenneCompAnnee ($lettre, $ligneDebut, $mca, $nbComp, $codenip, $semestre, $db, $sheet, $annee, $anneebut );
 					$lettre = chr (ord($lettre) + 6);
-					$juryAnnee = $db->getJuryAnnee($codenip, $anneebut, $annee);
 					$sheet	->setCellValue($lettre.$ligneDebut, $juryAnnee[0]->getDecision());
 				}
 				
@@ -159,17 +164,18 @@ else {
 				}
 
 				if ( $semestre == 4 ) {
+					$juryAnnee = $db->getJuryAnnee($codenip, $anneebut, $annee);
 					avisCompAnnee($lettre, $ligneDebut, $mca, $nbComp, $codenip, $semestre, $db, $sheet, $annee, $anneebut);
-					$lettre = chr (ord($lettre) + 7); // !TDO : MOYENNE ANNEE A FAIRE
+					$lettre = chr (ord($lettre) + 6);
+					$sheet	->setCellValue($lettre++.$ligneDebut, $juryAnnee[0]->getMoyAnnee());
 					moyenneCompAnnee ($lettre, $ligneDebut, $mca, $nbComp, $codenip, $semestre, $db, $sheet, $annee, $anneebut );
 					$lettre = chr (ord($lettre) + 6);
-					$juryAnnee = $db->getJuryAnnee($codenip, $anneebut, $annee);
 					$sheet	->setCellValue('AA'.$ligneDebut, $juryAnnee[0]->getDecision());
 				}
 
 				if ( $semestre == 5 ) {
 					$jurySem = $db->getJurySemByEtudSem($codenip, $semestre);
-					avisCompAnnee($lettre, $ligneDebut, $mcs, $nbComp, $codenip, 4,         $db, $sheet, anneeMoins($annee, 1), $anneebut);
+					avisCompAnnee($lettre, $ligneDebut, $mca, $nbComp, $codenip, 4,         $db, $sheet, anneeMoins($annee, 1), $anneebut);
 					$lettre = chr (ord($lettre) + 6);
 					$juryAnnee = $db->getJuryAnnee($codenip, $anneebut, $annee);
 					$sheet	->setCellValue('AA'.$ligneDebut, $juryAnnee[0]->getDecision());
