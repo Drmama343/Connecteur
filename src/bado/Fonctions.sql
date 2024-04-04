@@ -136,6 +136,20 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-
-
-
+CREATE OR REPLACE FUNCTION MettreAJourRangsAnnee(nomannee_param VARCHAR, annee_param VARCHAR)
+RETURNS VOID AS $$
+BEGIN
+	UPDATE JuryAnnee AS j
+	SET rang = Classement.rang
+	FROM (
+		SELECT codeNip, anneePromo, nomAnnee,
+			   ROW_NUMBER() OVER (PARTITION BY nomAnnee ORDER BY moyAnnee DESC) AS rang
+		FROM JuryAnnee
+		WHERE anneePromo = annee_param
+		AND nomAnnee = nomannee_param
+	) AS Classement
+	WHERE j.codeNip = Classement.codeNip
+	AND j.anneePromo = Classement.anneePromo
+	AND j.nomAnnee = Classement.nomAnnee;
+END;
+$$ LANGUAGE plpgsql;
