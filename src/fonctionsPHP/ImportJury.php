@@ -75,7 +75,13 @@ else {
 						$db->insertIntoMoyCompSem(intval($data['code_nip']), $annee, 'BIN16', '1', floatval($rowData[49]), $rowData[50]);
 						break;
 					case "2":
-						$db->insertIntoJuryAnnee(intval($data['code_nip']), $annee, 'BUT1', null, $data['RCUEs'], $data['Année'],null, "2022-2023", intval($data['Abs'] - $data['Just.']));
+						$val = $db->insertIntoJuryAnnee(intval($data['code_nip']), $annee, 'BUT1', null, $data['RCUEs'], $data['Année'],null, "2022-2023", intval($data['Abs'] - $data['Just.']));
+						if($val !== 0)
+						{
+							$_SESSION['info_import_moyennes'] = $val;
+							header("Location: ../pages/import.php");
+							exit();
+						}
 
 						$db->insertIntoJurySem(intval($data['code_nip']), $annee, '2', floatval($data['Moy']), $data['UEs'], null, intval($data['Rg']));
 
