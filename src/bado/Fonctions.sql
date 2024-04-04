@@ -106,7 +106,7 @@ BEGIN
 	SET rang = Classement.rang
 	FROM (
 		SELECT codeNip, anneePromo, idSem,
-			   RANK() OVER (PARTITION BY codeNip, anneePromo, idSem ORDER BY moySem DESC) AS rang
+			   RANK() OVER (PARTITION BY idSem ORDER BY moySem DESC) AS rang
 		FROM JurySem
 		WHERE anneePromo = annee_param
 		AND idSem = semestre_param
