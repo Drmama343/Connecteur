@@ -38,6 +38,45 @@ else {
 			exit();
 		}
 
+		$nbAvisInge = [0, 0, 0, 0, 0];
+		$nbAvisMaster = [0, 0, 0, 0, 0];
+		foreach($etus as &$etudiant) {
+			switch ($etudiant->getAvisInge()) {
+				case 'Tres Favorable':
+					$nbAvisInge[0]++;
+					break;
+				case 'Favorable':
+					$nbAvisInge[1]++;
+					break;
+				case 'Assez Favorable':
+					$nbAvisInge[2]++;
+					break;
+				case 'Sans Avis':
+					$nbAvisInge[3]++;
+					break;
+				case 'Reserve':
+					$nbAvisInge[4]++;
+					break;
+			}
+			switch ($etudiant->getAvisMaster()) {
+				case 'Tres Favorable':
+					$nbAvisMaster[0]++;
+					break;
+				case 'Favorable':
+					$nbAvisMaster[1]++;
+					break;
+				case 'Assez Favorable':
+					$nbAvisMaster[2]++;
+					break;
+				case 'Sans Avis':
+					$nbAvisMaster[3]++;
+					break;
+				case 'Reserve':
+					$nbAvisMaster[4]++;
+					break;
+			}
+		}
+
 		// Créer un objet FPDI
 		$pdf = new Fpdi();
 
@@ -57,25 +96,23 @@ else {
 			$pdf->useTemplate($templateId);
 
 			try {
-				$db->MettreAJourRangsCompetencesParAnnee('BUT1');
-				$db->MettreAJourRangsCompetencesParAnnee('BUT2');
-				$db->MettreAJourRangsCompetencesParAnnee('BUT3');
-				$nbEtud1 = $db->getNbEtudAnneeAnnee($annee, 'BUT1');
-				$nbEtud2 = $db->getNbEtudAnneeAnnee($annee, 'BUT2');
-				$note1 = $db->getMoyCompAnnee($etudiant->getCode(), 'BUT1');
-				$note2 = $db->getMoyCompAnnee($etudiant->getCode(), 'BUT2');
-				$note3 = $db->getMoyCompAnnee($etudiant->getCode(), 'BUT3');
-				$jury1 = $db->getJuryAnnee($etudiant->getCode(), 'BUT1');
-				$jury2 = $db->getJuryAnnee($etudiant->getCode(), 'BUT2');
-				$jury3 = $db->getJuryAnnee($etudiant->getCode(), 'BUT3');
-				$maths1 = $db->MoyenneEtRangMathsParAnnee($etudiant->getCode(), 'BUT1');
-				$maths2 = $db->MoyenneEtRangMathsParAnnee($etudiant->getCode(), 'BUT2');
-				$maths3 = $db->MoyenneEtRangMathsParAnnee($etudiant->getCode(), 'BUT3');
-				$anglais1 = $db->MoyenneEtRangAnglaisParAnnee($etudiant->getCode(), 'BUT1');
-				$anglais2 = $db->MoyenneEtRangAnglaisParAnnee($etudiant->getCode(), 'BUT2');
-				/*$avisInge = ;
-				$avisMaster = ;*/
-			} //fin try
+				$db->MettreAJourRangsCompetencesParAnnee('BUT1', anneeMoins($annee, 2));
+				$db->MettreAJourRangsCompetencesParAnnee('BUT2', anneeMoins($annee, 1));
+				$db->MettreAJourRangsCompetencesParAnnee('BUT3', $annee);
+				$nbEtud1 = $db->getNbEtudAnneeAnnee(anneeMoins($annee, 2), 'BUT1');
+				$nbEtud2 = $db->getNbEtudAnneeAnnee(anneeMoins($annee, 1), 'BUT2');
+				$note1 = $db->getMoyCompAnnee($etudiant->getCode(), 'BUT1', anneeMoins($annee, 2));
+				$note2 = $db->getMoyCompAnnee($etudiant->getCode(), 'BUT2', anneeMoins($annee, 1));
+				$note3 = $db->getMoyCompAnnee($etudiant->getCode(), 'BUT3', $annee);
+				$jury1 = $db->getJuryAnnee($etudiant->getCode(), 'BUT1', anneeMoins($annee, 2));
+				$jury2 = $db->getJuryAnnee($etudiant->getCode(), 'BUT2', anneeMoins($annee, 1));
+				$jury3 = $db->getJuryAnnee($etudiant->getCode(), 'BUT3', $annee);
+				$maths1 = $db->MoyenneEtRangMathsParAnnee($etudiant->getCode(), 'BUT1', anneeMoins($annee, 2));
+				$maths2 = $db->MoyenneEtRangMathsParAnnee($etudiant->getCode(), 'BUT2', anneeMoins($annee, 1));
+				$maths3 = $db->MoyenneEtRangMathsParAnnee($etudiant->getCode(), 'BUT3', $annee);
+				$anglais1 = $db->MoyenneEtRangAnglaisParAnnee($etudiant->getCode(), 'BUT1', anneeMoins($annee, 2));
+				$anglais2 = $db->MoyenneEtRangAnglaisParAnnee($etudiant->getCode(), 'BUT2', anneeMoins($annee, 1));
+			}
 			catch (Exception $e) {
 				$_SESSION['info_poursuite'] = $e->getMessage();
 				header("Location: ../pages/export.php");
@@ -287,27 +324,27 @@ else {
 
 			//Nb avis (ingé)
 			$pdf->SetXY(70, 230.2);
-			$pdf->Cell(26, 10, '~', 0, 0, 'C');
+			$pdf->Cell(26, 10, $nbAvisInge[0], 0, 0, 'C');
 			$pdf->SetXY(102.8, 230.2);
-			$pdf->Cell(10, 10, '~', 0, 0, 'C');
+			$pdf->Cell(10, 10, $nbAvisInge[1], 0, 0, 'C');
 			$pdf->SetXY(126.6, 230.2);
-			$pdf->Cell(10, 10, '~', 0, 0, 'C');
+			$pdf->Cell(10, 10, $nbAvisInge[2], 0, 0, 'C');
 			$pdf->SetXY(150.5, 230.2);
-			$pdf->Cell(10, 10, '~', 0, 0, 'C');
+			$pdf->Cell(10, 10, $nbAvisInge[3], 0, 0, 'C');
 			$pdf->SetXY(178, 230.2);
-			$pdf->Cell(10, 10, '~', 0, 0, 'C');
+			$pdf->Cell(10, 10, $nbAvisInge[4], 0, 0, 'C');
 
 			//Nb avis (master)
 			$pdf->SetXY(70, 238.3);
-			$pdf->Cell(26, 10, '~', 0, 0, 'C');
+			$pdf->Cell(26, 10, $nbAvisMaster[0], 0, 0, 'C');
 			$pdf->SetXY(102.8, 238.3);
-			$pdf->Cell(10, 10, '~', 0, 0, 'C');
+			$pdf->Cell(10, 10, $nbAvisMaster[1], 0, 0, 'C');
 			$pdf->SetXY(126.6, 238.3);
-			$pdf->Cell(10, 10, '~', 0, 0, 'C');
+			$pdf->Cell(10, 10, $nbAvisMaster[2], 0, 0, 'C');
 			$pdf->SetXY(150.5, 238.3);
-			$pdf->Cell(10, 10, '~', 0, 0, 'C');
+			$pdf->Cell(10, 10, $nbAvisMaster[3], 0, 0, 'C');
 			$pdf->SetXY(178, 238.3);
-			$pdf->Cell(10, 10, '~', 0, 0, 'C');
+			$pdf->Cell(10, 10, $nbAvisMaster[4], 0, 0, 'C');
 
 			//Commentaire
 			$pdf->SetXY(41, 247);
@@ -320,5 +357,10 @@ else {
 		// Enregistrer le nouveau PDF
 		$pdf->Output($newPdfFile, 'D');
 	}
+}
+
+function anneeMoins($annee, $decr) {
+	$annee1 = intval(explode("-", $annee)[0]) - $decr;
+	return $annee1 . "-" . ($annee1 + 1);
 }
 ?>
