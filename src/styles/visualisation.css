@@ -38,4 +38,5 @@ button {
 
 input[type=text] {
     width: 95px; /* Vous pouvez ajuster cette valeur selon vos préférences */
+	float: left;
 }

@@ -29,7 +29,7 @@
 		} //fin du else connexion reussie
 
 		echo "<header>";
-		echo "<h1>Visualisation</h1>";
+		echo "<h1>Visualisation des etudiants</h1>";
 		echo "</header>";
 
 		echo "		<section>
@@ -132,6 +132,6 @@
 		echo "	<input type=\"text\" id=\"searchInput\" placeholder=\"Rechercher...\">\n";
 		echo "</footer>\n";
 
-		echo '<script src="../JS/fonction.js"></script>' . "\n";
+		echo '<script src="../JS/ModifEtu.js"></script>' . "\n";
 	}
 ?>
