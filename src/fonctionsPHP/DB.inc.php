@@ -213,6 +213,22 @@ class DB {
 		$result = $stmt->fetch(PDO::FETCH_ASSOC);
 		return $result;
 	}
+
+	public function MettreAJourRangsSemestre($nomannee, $annee) {
+		// Préparation de la requête pour appeler la fonction
+		$stmt = $this->connect->prepare("SELECT MettreAJourRangsSemestre(:nomannee_param, :annee_param)");
+
+		// Remplacement des paramètres de la fonction de rang
+		$stmt->bindParam(':nomannee_param', $nomannee, PDO::PARAM_STR);
+		$stmt->bindParam(':annee_param', $annee, PDO::PARAM_STR);
+
+		// Exécution de la requête
+		$stmt->execute();
+		
+		// Récupération du résultat
+		$result = $stmt->fetch(PDO::FETCH_ASSOC);
+		return $result;
+	}
 	
 	public function getEtudiants() {
 		$requete = 'SELECT * from Etudiant';
@@ -320,6 +336,11 @@ class DB {
 	public function getAvisSem($codenip, $idComp, $idSem) {
 		$requete = "SELECT * FROM MoyCompSem mcs JOIN Etudiant e ON mcs.codenip = e.codenip WHERE idComp = '$idComp' AND idSem = '$idSem' AND mcs.codenip = $codenip";
 		return $this->execQuery($requete,null,'MoyCompSem');
+	}
+
+	public function getMoyCompAnneeByComp($codenip, $nomannee, $annee, $idComp) {
+		$requete = "SELECT * from MoyCompAnnee WHERE nomAnnee = '$nomannee' AND codenip = $codenip AND anneePromo = '$annee' AND idComp = '$idComp'";
+		return $this->execQuery($requete,null,'MoyCompAnnee');
 	}
 
 	public function getPromotions() {

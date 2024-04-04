@@ -91,8 +91,28 @@ BEGIN
 			   RANK() OVER (PARTITION BY numcomp ORDER BY moycompannee DESC) AS rang
 		FROM moycompannee
 		WHERE nomannee = nomannee_param
+		AND anneePromo = annee_param
 	) AS Classement
 	WHERE m.numcomp = Classement.numcomp
-	AND m.codenip = Classement.codenip;
+	AND m.codenip = Classement.codenip
+	AND m.anneePromo = Classement.anneePromo;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION MettreAJourRangsSemestre(semestre_param INT, annee_param VARCHAR)
+RETURNS VOID AS $$
+BEGIN
+	UPDATE JurySem AS j
+	SET rang = Classement.rang
+	FROM (
+		SELECT codeNip, anneePromo, idSem,
+			   RANK() OVER (PARTITION BY codeNip, anneePromo, idSem ORDER BY moySem DESC) AS rang
+		FROM JurySem
+		WHERE anneePromo = annee_param
+		AND idSem = semestre_param
+	) AS Classement
+	WHERE j.codeNip = Classement.codeNip
+	AND j.anneePromo = Classement.anneePromo
+	AND j.idSem = Classement.idSem;
 END;
 $$ LANGUAGE plpgsql;
