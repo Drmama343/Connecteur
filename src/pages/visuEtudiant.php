@@ -88,7 +88,7 @@
 		}
 	
 		echo "<header>\n";
-		echo "	<h1>Visualisation</h1>\n";
+		echo "	<h1>Visualisation des etudiants</h1>\n";
 		echo "</header>\n";
 
 		echo "<section>\n";
