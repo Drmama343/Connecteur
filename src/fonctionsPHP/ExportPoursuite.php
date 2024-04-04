@@ -119,6 +119,8 @@ else {
 				exit();
 			}
 
+			//var_dump($anglais1);
+
 			$pdf->SetFont('Arial', '', 10);
 			$pdf->SetTextColor(0, 0, 0);
 

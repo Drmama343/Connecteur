@@ -124,7 +124,7 @@ else {
 				$etudiant = $val[0];
 				$codenip = $etudiant->getCode();
 				$avisSem = $db->getAvisSem($codenip, $comp, $semestre);
-				$avis = $avisSem[0];
+				foreach($avisSem as $a) {$avis = $a;break;}
 				$ligneDebut = $etu->getRang()+8;
 
 				$mca = $db->getMoyCompAnneeByComp($codenip, $anneebut, $annee, 1);

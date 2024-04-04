@@ -196,6 +196,8 @@ class DB {
 
 		// Récupération du rang
 		$result['rang'] = $stmt_rang->fetchColumn();
+
+		return $result;
 	}
 
 	public function MettreAJourRangsCompetencesParAnnee($nomannee, $annee) {

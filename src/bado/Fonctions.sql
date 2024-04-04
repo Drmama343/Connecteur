@@ -87,7 +87,7 @@ BEGIN
 	UPDATE moycompannee AS m
 	SET rang = Classement.rang
 	FROM (
-		SELECT numcomp, codenip,
+		SELECT numcomp, codenip, anneePromo,
 			   RANK() OVER (PARTITION BY numcomp ORDER BY moycompannee DESC) AS rang
 		FROM moycompannee
 		WHERE nomannee = nomannee_param
