@@ -35,6 +35,7 @@ if ($db == null) {
 	$sheet->setCellValue('E1', "SEMESTRE " . $semestre . " - BUT INFO")
 		->setCellValue('E2', $annee);
 
+	//determiner l'annee de but
 	$anneebut = 'BUT0';
 	switch ($semestre) {
 		case '1':
@@ -85,27 +86,24 @@ if ($db == null) {
 	$dbtfinseq[] = count($libelles);
 
 	$nbEtu = [];
-	$nbEtu = $db->getJuryAnneeByAnnees($anneebut, $annee);
-	$i=0;
+	$nbEtu = $db->getJurySemByAnneeSem($annee, $semestre);
 
 	foreach($nbEtu as $etu) {
 		if ( $etu !== null ) {
-			$moySem = $db->getJurySemByEtudSem($etu->getCode(), $semestre);
+			$moySem = $db->getJurySemByEtudAnneeSemByCodeAnneeIdSem($etu->getCode(), $annee, $semestre);
 			$ligne = $etu->getRang();
-			$ligne += 8 + $i;
+			$ligne += 7;
 			
 			try {
 				$etudiant = $db->getEtudiantsByCode($moySem[0]->getCode());
 			} catch (\Throwable $th) {
 				var_dump('bitr');
 			}
-			//var_dump($etudiant);
-			
 
 			$bonus = $moySem[0]->getBonus() !== null ? $moySem[0]->getBonus() : 0;
 
 			//infos etudiant
-			$sheet->setCellValue('A'.$ligne, ''.$ligne-8) //rang
+			$sheet->setCellValue('A'.$ligne, ''.$ligne-7) //rang
 				->setCellValue('B'.$ligne, $etudiant[0]->getNom())
 				->setCellValue('C'.$ligne, $etudiant[0]->getPrenom())
 				->setCellValue('D'.$ligne, $etudiant[0]->getParcours())
@@ -116,19 +114,26 @@ if ($db == null) {
 				->setCellValue('G'.$ligne, $moySem[0]->getMoySem());
 
 
+			//si on trouve le lib de la colonne comme une comp, on rempli la moy de la comp et le bonus sinon c'est que c'est une ressource et on cherche la moyenne de la ressource
 			$ress = "";
 			$moySemComp = null;
 			for ($ii=0; $ii < count($libelles)-15; $ii++) {
 				if (preg_match('/^BIN\d{2}$/', $libelles[$ii])) {
 					$ress = $libelles[$ii];
-					$moySemComp = $db->getMoyCompSem($etudiant[0]->getCode(), $libelles[7], $semestre);
+					$moySemComp = $db->getMoyCompSemByCodeAnneeCompSem($etudiant[0]->getCode(), $annee, $libelles[7], $semestre);
 					$sheet->setCellValue($rowData[$ii].$ligne, $moySemComp[0]->getMoyCompSem());
 					$sheet->setCellValue($rowData[($ii)+1].$ligne, $bonus);
 					$ii++;
 				}
 				else {
 					if ($ress !== ""){
-						$sheet->setCellValue($rowData[$ii].$ligne, $db->getMoyRess($etudiant[0]->getCode(), $libelles[$ii])[0]->getMoyRess());
+						try {
+							$sheet->setCellValue($rowData[$ii].$ligne, $db->getMoyRessByCodeAnneeIdRess($etudiant[0]->getCode(), $annee, $libelles[$ii])[0]->getMoyRess());
+						} catch (\Throwable $th) {
+							$_SESSION['info_commission'] = "Il manque des données, veuillez insérez des fichiers moyenne à ce semestre";
+							header("Location: ../pages/export.php");
+						}
+						
 					}
 				}
 			}
@@ -144,7 +149,6 @@ if ($db == null) {
 				completerMoyCompSem($db, $sheet, $ligne, $etu, $semestre, $libelles[$dbtfinseq[$ii]], $moySem[0]->getBonus(), $libelles, $rowData, $dbtfinseq[$ii], $dbtfinseq[$ii+1]);
 				continue;
 			}*/
-			$i++;
 		}
 	}
 
