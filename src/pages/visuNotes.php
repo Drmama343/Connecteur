@@ -50,7 +50,7 @@
 					echo "    <table id=\"etudiantsTable\">\n";
 					echo "    <thead id=\"tableHeader\">\n";
 					echo "        <tr>\n";
-					echo "            <th>Code NIP</th>\n";
+					echo "            <th id=\"code\">Code NIP</th>\n";
 					
 					foreach ($tRes as $r) {
 						if (isset($ressourcesAvecNotes[$r->getIdRess()])) {
@@ -76,7 +76,7 @@
 						// Si l'étudiant a des notes pour cette année, l'afficher dans le tableau
 						if ($notesExist) {
 							echo "    <tr>\n";
-							echo "        <td>" . $e->getCode() . "</td>\n";
+							echo "        <td id=\"code\">" . $e->getCode() . "</td>\n";
 							
 							foreach ($tRes as $r) {
 								if (isset($ressourcesAvecNotes[$r->getIdRess()])) {
@@ -93,6 +93,13 @@
 
 					echo "    </tbody>\n";
 					echo "    </table>\n";
+				}
+				else {
+					echo "<header>\n";
+					echo "	<h1>Visualisation des notes</h1>\n";
+					echo "</header>\n";
+					echo "<section>\n";
+					echo "<h2>Veuillez selectionner une annee</h2>";
 				}
 				
 				echo "</section>\n";
@@ -116,7 +123,7 @@
 				echo "  <input type=\"text\" id=\"searchInput\" placeholder=\"Rechercher...\">\n";
 				echo "</footer>\n";
 
-				echo '<script src="../JS/ModifEtu.js"></script>' . "\n";
+				echo '<script src="../JS/ModifNote.js"></script>' . "\n";
 			}
 			catch (Exception $e) {
 				echo $e->getMessage();
