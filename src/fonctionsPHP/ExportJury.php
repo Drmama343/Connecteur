@@ -65,6 +65,8 @@ else {
 		// Créer un objet Writer pour exporter le fichier Excel
 		$writer = new Xlsx($spreadsheet);
 
+		$db->MettreAJourRangsSemestre($semestre, $annee);
+
 		$avisSem = [];
 		$etudiant = [];
 		$mcs = [];
@@ -74,7 +76,7 @@ else {
 		$lettreFinComps = ' ';
 
 		$nbEtu = [];
-		$nbEtu = $db->getJurySemByAnneeSem ($annee, $semestre);
+		$nbEtu = $db->getJurySemByAnneeSem ($annee, $semestre);	
 
 		$nbComp = [];
 		$nbComp = $db->getCompBySem($semestre);
@@ -166,6 +168,17 @@ else {
 				}
 
 				if ( $semestre == 5 ) {
+					$jurySem = $db->getJurySemByEtudSem($codenip, $semestre);
+					avisCompAnnee($lettre, $ligneDebut, $mcs, $nbComp, $codenip, 4,         $db, $sheet, anneeMoins($annee, 1), $anneebut);
+					$lettre = chr (ord($lettre) + 6);
+					$juryAnnee = $db->getJuryAnnee($codenip, $anneebut, $annee);
+					$sheet	->setCellValue('AA'.$ligneDebut, $juryAnnee[0]->getDecision());
+					$sheet	->setCellValue($lettre++.$ligneDebut, $jurySem[0]->getUE())
+							->setCellValue($lettre++.$ligneDebut, $jurySem[0]->getMoySem());
+					moyenneCompSem($lettre, $ligneDebut, $mcs, $nbComp, $codenip, $semestre, $db, $sheet);
+				}
+
+				if ( $semestre == 6 ) {
 					avisCompAnnee($lettre, $ligneDebut, $mcs, $nbComp, $codenip, 4,         $db, $sheet, anneeMoins($annee, 1), $anneebut);
 					$lettre = chr (ord($lettre) + 6);
 				}
@@ -185,7 +198,10 @@ else {
 function moyenneCompSem ($lettre, $ligne, $mcs, $nbComp, $codenip, $semestre, $db, $sheet) {
 	$cpt = 0;
 	for ($cpt = 0; $cpt < count($nbComp); $cpt++) {
-		$mcs = $db->getAvisSem($codenip, $nbComp[$cpt]->getIdComp(), $semestre);
+		if ($semestre >= 5 && $cpt == 2 ) {
+			$cpt = 5;
+		}
+		$mcs = $db->getAvisSem($codenip, $nbComp[$cpt+1]->getIdComp(), $semestre);
 		$sheet->setCellValue($lettre.$ligne, $mcs[0]->getMoyCompSem());
 		$lettre++;
 	}
@@ -205,8 +221,7 @@ function avisCompAnnee ($lettre, $ligne, $mca, $nbComp, $codenip, $semestre, $db
 	$cpt = 0;
 	for ($cpt = 0; $cpt < count($nbComp); $cpt++) {
 		if ($semestre >= 5 && $cpt == 2 ) {
-			$cpt = 6;
-			$mca = $db->getMoyCompAnneeByComp($codenip, $anneebut, $annee, $cpt);
+			$cpt = 5;
 		}
 		$mca = $db->getMoyCompAnneeByComp($codenip, $anneebut, $annee, $cpt+1);
 		$sheet->setCellValue($lettre.$ligne, $mca[0]->getAvis());
