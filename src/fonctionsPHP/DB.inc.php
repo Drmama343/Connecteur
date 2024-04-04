@@ -216,7 +216,7 @@ class DB {
 	}
 
 	public function getAllMoyRess() {
-		$requete = "SELECT * from MoyRess";
+		$requete = "SELECT DISTINCT * from MoyRess";
 		return $this->execQuery($requete,null,'MoyRess');
 	}
 
@@ -224,7 +224,12 @@ class DB {
 		$requete = "SELECT * from MoyCompSem WHERE codenip = '$code' AND idcomp = '$competence' AND idsem = '$semestre'";
 		return $this->execQuery($requete,null,'MoyCompSem');
 	}
-	
+
+	public function getMoyRessByEtu($code, $idRess, $annee) {
+		$requete = "SELECT * from MoyRess WHERE codenip = '$code' AND idRess = '$idRess' AND anneePromo = '$annee'";
+		return $this->execQuery($requete,null,'MoyRess');
+	}
+
 	public function getMoyCompSemByCodeAnneeCompSem($code, $anneepromo, $competence, $semestre) {
 		$requete = "SELECT * from MoyCompSem WHERE codenip = '$code' and anneepromo = '$anneepromo' AND idcomp = '$competence' AND idsem = '$semestre'";
 		return $this->execQuery($requete,null,'MoyCompSem');
@@ -283,6 +288,12 @@ class DB {
 		$requete = "SELECT avis FROM MoyCompSem mcs JOIN Etudiant e ON mcs.codenip = e.codenip WHERE idComp = '$idComp'";
 		return $this->execQuery($requete,null,null);
 	}
+
+	public function getPromotions() {
+		$requete = "SELECT * FROM Promotion";
+		return $this->execQuery($requete,null,'Promotion');
+	}
+
 
 	  // public function deleteAchat($idcli,$np) {
 	  //       $requete = 'delete from achat where ncli = ? and np = ?';

@@ -7,114 +7,83 @@
 	
 	echo enTete("Visualisation",["../styles/classique.css", "../styles/visualisation.css"]);
 	echo menu($_SESSION['nom'], $_SESSION['droitAcces']);
-	if ( $_SESSION['droitAcces'] === 2 )
-		contenuAdmin();
-	else
-		contenuUser();
+	contenu();
 	echo pied();
 
-	function contenuUser() {
+	function contenu() {
 		$db = DB::getInstance();
 		if ($db == null) {
 			echo "Impossible de se connecter";
 		}
 		else {
 			try {
-				$t = $db->getEtudiants();
-			} //fin try
-			catch (Exception $e) {
-				echo $e->getMessage();
-			}  
-			$db->close();
-		} //fin du else connexion reussie
+				$tRes = $db->getRessources();
+				$tEtu = $db->getEtudiants();
 
-		echo "<header>";
-		echo "<h1>Visualisation des etudiants</h1>";
-		echo "</header>";
+				echo "<header>\n";
+				echo "	<h1>Visualisation</h1>\n";
+				echo "</header>\n";
 
-		echo "		<section>
-			<table>
-				<thead>
-					<tr>
-						<th>Code NIP</th>
-						<th>Nom</th>
-						<th>Prénom</th>
-						<th>Cursus</th>
-						<th>Parcours</th>
-						<th>Apprentissage</th>
-						<th>Avis Ingénieur</th>
-						<th>Avis Master</th>
-						<th>Commentaire</th>
-						<th>Mobilité étrangère</th>
-					</tr>
-				</thead>
-				<tbody>\n";
+				echo "<section>\n";
+				echo "	<table id=\"etudiantsTable\">\n";
+				echo "	<thead id=\"tableHeader\">\n";
+				echo "		<tr>\n";
+				echo "			<th>Code NIP</th>\n";
+			
+				foreach ($tRes as &$v) {
+					echo "		<th>" . $v->getIdRess() . "</th>\n";
+				}
+			
+				echo "		</tr>\n";
+				echo "	</thead>\n";
+				echo "	<tbody id=\"tableBody\">\n";
 
-		foreach ($t as &$v) {
+				// Vérifie si une année a été sélectionnée dans le formulaire
+				if (isset($_GET['annee']) && !empty($_GET['annee'])) {
+					$annee = $_GET['annee'];
 
-			echo "<td>" . $v->getCode() . "</td>\n";
-			echo "<td>" . $v->getNom() . "</td>\n";
-			echo "<td>" . $v->getPrenom() . "</td>\n";
-			echo "<td>" . $v->getCursus() . "</td>\n";
-			echo "<td>" . $v->getParcours() . "</td>\n";
-			echo "<td>" . $v->getApprentissage() . "</td>\n";
-			echo "<td>" . $v->getAvisInge() . "</td>\n";
-			echo "<td>" . $v->getAvisMaster() . "</td>\n";
-			echo "<td>" . $v->getCommentaire() . "</td>\n";
-			echo "<td>" . $v->getMobEtrang() . "</td>\n";
+					foreach ($tEtu as &$e) {
+						echo "		<tr>\n";
+						echo "			<td>" . $e->getCode() . "</td>\n";
+						foreach ($tRes as &$r) {
+							$tmoy = $db->getMoyRessByEtu($e->getCode(),$r->getIdRess(),$annee);
+							foreach ($tmoy as &$moy) {
+								echo "			<td>" . $moy->getMoyRess() . "</td>\n";
+							}
+						}
+						echo "		</tr>\n";
+					}
+				}
 
-			echo "</tr>\n";
-		}
+				echo "	</tbody>\n";
+				echo "	</table>\n";
+				echo "</section>\n";
 
-		echo "
-					</tbody>
-				</table>
-			</section>\n";
-	}
+				echo "<footer>\n";
+				echo "  <form action=\"./visuNotes.php\" method=\"GET\">\n"; // L'action est la même page actuelle
+				echo "      <select name=\"annee\" id=\"yearSelect\">\n";
+				echo "          <option value=\"\">Sélectionner une année</option>\n";
 
-	function contenuAdmin () {
-		$db = DB::getInstance();
-		if ($db == null) {
-			echo "Impossible de se connecter";
-		}
-		else {
-			try {
-				$t = $db->getAllMoyRess();
+				// Récupérer les promotions depuis la base de données
+				$promotions = $db->getPromotions();
+
+				// Afficher les options de la liste déroulante
+				foreach ($promotions as $promotion) {
+					echo "          <option value=\"" . $promotion->getAnneePromo() . "\">" . $promotion->getAnneePromo() . "</option>\n";
+				}
+
+				echo "      </select>\n";
+				echo "      <input type=\"submit\" value=\"Changer\">\n";
+				echo "  </form>\n";
+				echo "  <input type=\"text\" id=\"searchInput\" placeholder=\"Rechercher...\">\n";
+				echo "</footer>\n";
+
+				echo '<script src="../JS/ModifEtu.js"></script>' . "\n";
 			}
 			catch (Exception $e) {
 				echo $e->getMessage();
-			}  
+			}
 			$db->close();
 		}
-	
-		echo "<header>\n";
-		echo "	<h1>Visualisation</h1>\n";
-		echo "</header>\n";
-
-		echo "<section>\n";
-		echo "	<table id=\"etudiantsTable\">\n";
-		echo "	<thead id=\"tableHeader\">\n";
-		echo "		<tr>\n";
-		echo "			<th>Code NIP</th>\n";
-	
-		foreach ($t as &$v) {
-			echo "		<th>" . $v->getIdRess() . "</th>\n";
-		}
-	
-		echo "		</tr>\n";
-		echo "	</thead>\n";
-		echo "	<tbody id=\"tableBody\">\n";
-
-		foreach ($t as &$v) {
-			echo "		<tr>\n";
-			echo "		</tr>\n";
-		}
-
-		echo "	</tbody>\n";
-		echo "	</table>\n";
-		echo "</section>\n";
-		echo "<footer>\n";
-		echo "	<input type=\"text\" id=\"searchInput\" placeholder=\"Rechercher...\">\n";
-		echo "</footer>\n";
 	}
 ?>
