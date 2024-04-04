@@ -155,9 +155,9 @@ class DB {
 		$stmt_rang = $this->connect->prepare("SELECT RangMaths(:nip_param, :nomannee_param, :annee_param)");
 
 		// Remplacement des paramètres de la fonction de rang
-		$stmt_moyenne->bindParam(':nip_param', $codenip, PDO::PARAM_INT);
-		$stmt_moyenne->bindParam(':nomannee_param', $nomannee, PDO::PARAM_STR);
-		$stmt_moyenne->bindParam(':annee_param', $annee, PDO::PARAM_STR);
+		$stmt_rang->bindParam(':nip_param', $codenip, PDO::PARAM_INT);
+		$stmt_rang->bindParam(':nomannee_param', $nomannee, PDO::PARAM_STR);
+		$stmt_rang->bindParam(':annee_param', $annee, PDO::PARAM_STR);
 
 		// Exécution de la requête de rang
 		$stmt_rang->execute();
@@ -187,9 +187,9 @@ class DB {
 		$stmt_rang = $this->connect->prepare("SELECT RangAnglais(:nip_param, :nomannee_param, :annee_param)");
 
 		// Remplacement des paramètres de la fonction de rang
-		$stmt_moyenne->bindParam(':nip_param', $codenip, PDO::PARAM_INT);
-		$stmt_moyenne->bindParam(':nomannee_param', $nomannee, PDO::PARAM_STR);
-		$stmt_moyenne->bindParam(':annee_param', $annee, PDO::PARAM_STR);
+		$stmt_rang->bindParam(':nip_param', $codenip, PDO::PARAM_INT);
+		$stmt_rang->bindParam(':nomannee_param', $nomannee, PDO::PARAM_STR);
+		$stmt_rang->bindParam(':annee_param', $annee, PDO::PARAM_STR);
 
 		// Exécution de la requête de rang
 		$stmt_rang->execute();
