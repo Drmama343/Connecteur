@@ -106,7 +106,7 @@ BEGIN
 	SET rang = Classement.rang
 	FROM (
 		SELECT codeNip, anneePromo, idSem,
-			   RANK() OVER (PARTITION BY idSem ORDER BY moySem DESC) AS rang
+			   ROW_NUMBER() OVER (PARTITION BY idSem ORDER BY moySem DESC) AS rang
 		FROM JurySem
 		WHERE anneePromo = annee_param
 		AND idSem = semestre_param
@@ -116,3 +116,26 @@ BEGIN
 	AND j.idSem = Classement.idSem;
 END;
 $$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION MettreAJourMoyenneAnnee(nomannee_param VARCHAR, annee_param VARCHAR)
+RETURNS VOID AS $$
+BEGIN
+	UPDATE JuryAnnee AS ja
+	SET moyAnnee = subquery.moyenne
+	FROM (
+		SELECT mca.codeNip, CAST(AVG(mca.moyCompAnnee) AS DECIMAL(10,2)) AS moyenne
+		FROM MoyCompAnnee mca
+		INNER JOIN Annee a ON a.semestre1 = mca.numcomp OR a.semestre2 = mca.numcomp
+		WHERE mca.nomAnnee = nomannee_param
+		AND mca.anneePromo = annee_param
+		GROUP BY mca.codeNip
+	) AS subquery
+	WHERE ja.codeNip = subquery.codeNip
+	AND ja.nomAnnee = nomannee_param
+	AND ja.anneePromo = annee_param;
+END;
+$$ LANGUAGE plpgsql;
+
+
+
+

@@ -214,12 +214,28 @@ class DB {
 		return $result;
 	}
 
-	public function MettreAJourRangsSemestre($nomannee, $annee) {
+	public function MettreAJourRangsSemestre($semestre, $annee) {
 		// Préparation de la requête pour appeler la fonction
-		$stmt = $this->connect->prepare("SELECT MettreAJourRangsSemestre(:nomannee_param, :annee_param)");
+		$stmt = $this->connect->prepare("SELECT MettreAJourRangsSemestre(:semestre_param, :annee_param)");
 
 		// Remplacement des paramètres de la fonction de rang
-		$stmt->bindParam(':nomannee_param', $nomannee, PDO::PARAM_STR);
+		$stmt->bindParam(':semestre_param', $semestre, PDO::PARAM_INT);
+		$stmt->bindParam(':annee_param', $annee, PDO::PARAM_STR);
+
+		// Exécution de la requête
+		$stmt->execute();
+		
+		// Récupération du résultat
+		$result = $stmt->fetch(PDO::FETCH_ASSOC);
+		return $result;
+	}
+
+	public function MettreAJourMoyenneAnnee($semestre, $annee) {
+		// Préparation de la requête pour appeler la fonction
+		$stmt = $this->connect->prepare("SELECT MettreAJourMoyenneAnnee(:nomannee_param, :annee_param)");
+
+		// Remplacement des paramètres de la fonction de rang
+		$stmt->bindParam(':nomannee_param', $semestre, PDO::PARAM_STR);
 		$stmt->bindParam(':annee_param', $annee, PDO::PARAM_STR);
 
 		// Exécution de la requête
