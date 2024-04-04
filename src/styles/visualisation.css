@@ -10,11 +10,11 @@ th, td {
 }
 
 th {
-    background-color: #f2f2f2;
+    background-color: rgb(121, 175, 121);
 }
 
-button {
-	background-color: olivedrab;
+button, input[type=submit] {
+	background-color: rgb(121, 175, 121);
 	text-decoration: none;
 	color: black;
 	border-radius: 25px;
@@ -37,6 +37,19 @@ button {
 }
 
 input[type=text] {
-    width: 95px; /* Vous pouvez ajuster cette valeur selon vos préférences */
+    width: 200px; /* Vous pouvez ajuster cette valeur selon vos préférences */
 	float: left;
+}
+
+#tableHeader {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+#code {
+    position: sticky;
+    left: 0;
+    z-index: 0;
+    background-color: rgb(121, 175, 121);
 }
