@@ -136,42 +136,68 @@ class DB {
 	   * Fonctions qui peuvent être utilisées dans les scripts PHP
 	   *************************************************************************/
 
-	public function MoyenneMathsParAnnee($codenip, $annee) {
-		 // Préparation de la requête pour appeler la fonction
-		 $stmt = $this->connect->prepare("SELECT MoyenneMathsParAnnee(:nip_param, :annee_param)");
-    
-		 // Remplacement des paramètres de la fonction
-		 $stmt->bindParam(':nip_param', $codenip, PDO::PARAM_INT);
-		 $stmt->bindParam(':annee_param', $annee, PDO::PARAM_STR);
-		 
-		 // Exécution de la requête
-		 $stmt->execute();
-		 
-		 // Récupération du résultat
-		 $result = $stmt->fetch(PDO::FETCH_ASSOC);
-		 return $result;
+	public function MoyenneEtRangMathsParAnnee($codenip, $annee) {
+		// Préparation de la requête pour appeler la fonction de moyenne
+		$stmt_moyenne = $this->connect->prepare("SELECT MoyenneMathsParAnnee(:nip_param, :annee_param)");
+
+		// Remplacement des paramètres de la fonction de moyenne
+		$stmt_moyenne->bindParam(':nip_param', $codenip, PDO::PARAM_INT);
+		$stmt_moyenne->bindParam(':annee_param', $annee, PDO::PARAM_STR);
+
+		// Exécution de la requête de moyenne
+		$stmt_moyenne->execute();
+
+		// Récupération de la moyenne
+		$result['moyenne'] = $stmt_moyenne->fetchColumn();
+
+		// Préparation de la requête pour appeler la fonction de rang
+		$stmt_rang = $this->connect->prepare("SELECT RangMaths(:nip_param, :annee_param)");
+
+		// Remplacement des paramètres de la fonction de rang
+		$stmt_rang->bindParam(':nip_param', $codenip, PDO::PARAM_INT);
+		$stmt_rang->bindParam(':annee_param', $annee, PDO::PARAM_STR);
+
+		// Exécution de la requête de rang
+		$stmt_rang->execute();
+
+		// Récupération du rang
+		$result['rang'] = $stmt_rang->fetchColumn();
+
+		return $result;
 	}
 
-	public function MoyenneAnglaisParAnnee($codenip, $annee) {
-		// Préparation de la requête pour appeler la fonction
-		$stmt = $this->connect->prepare("SELECT MoyenneAnglaisParAnnee(:nip_param, :annee_param)");
-   
-		// Remplacement des paramètres de la fonction
-		$stmt->bindParam(':nip_param', $codenip, PDO::PARAM_INT);
-		$stmt->bindParam(':annee_param', $annee, PDO::PARAM_STR);
-		
-		// Exécution de la requête
-		$stmt->execute();
-		
-		// Récupération du résultat
-		$result = $stmt->fetch(PDO::FETCH_ASSOC);
-		return $result;
-    }
+	public function MoyenneEtRangAnglaisParAnnee($codenip, $annee) {
+		// Préparation de la requête pour appeler la fonction de moyenne
+		$stmt_moyenne = $this->connect->prepare("SELECT MoyenneAnglaisParAnnee(:nip_param, :annee_param)");
+
+		// Remplacement des paramètres de la fonction de moyenne
+		$stmt_moyenne->bindParam(':nip_param', $codenip, PDO::PARAM_INT);
+		$stmt_moyenne->bindParam(':annee_param', $annee, PDO::PARAM_STR);
+
+		// Exécution de la requête de moyenne
+		$stmt_moyenne->execute();
+
+		// Récupération de la moyenne
+		$result['moyenne'] = $stmt_moyenne->fetchColumn();
+
+		// Préparation de la requête pour appeler la fonction de rang
+		$stmt_rang = $this->connect->prepare("SELECT RangAnglais(:nip_param, :annee_param)");
+
+		// Remplacement des paramètres de la fonction de rang
+		$stmt_rang->bindParam(':nip_param', $codenip, PDO::PARAM_INT);
+		$stmt_rang->bindParam(':annee_param', $annee, PDO::PARAM_STR);
+
+		// Exécution de la requête de rang
+		$stmt_rang->execute();
+
+		// Récupération du rang
+		$result['rang'] = $stmt_rang->fetchColumn();
+	}
 
 	public function MettreAJourRangsCompetencesParAnnee($annee) {
 		// Préparation de la requête pour appeler la fonction
 		$stmt = $this->connect->prepare("SELECT MettreAJourRangsCompetencesParAnnee(:annee_param)");
-   
+	
 		// Remplacement des paramètres de la fonction
 		$stmt->bindParam(':annee_param', $annee, PDO::PARAM_STR);
 		
@@ -181,16 +207,28 @@ class DB {
 		// Récupération du résultat
 		$result = $stmt->fetch(PDO::FETCH_ASSOC);
 		return $result;
-   }
+	}
 	
 	public function getEtudiants() {
 		$requete = 'SELECT * from Etudiant';
 		return $this->execQuery($requete,null,'Etudiant');
 	}
 
+	public function getEtudiantsSemestreAnnee($semestre, $annee) {
+		$requete = "SELECT e.* from Etudiant e JOIN JurySem j ON e.codenip = j.codenip WHERE j.anneePromo = '$annee' AND j.idSem = $semestre";
+		return $this->execQuery($requete,null,'Etudiant');
+	}
+
 	public function getEtudiantsByCode($code) {
 		$requete = "SELECT * from Etudiant where codenip = '$code'";
 		return $this->execQuery($requete,null,'Etudiant');
+	}
+
+	public function getNbEtudAnneeAnnee($annee, $nomAnnee) {
+		$requete = "SELECT COUNT(e.*) from Etudiant e JOIN JuryAnnee j ON e.codenip = j.codenip WHERE j.anneePromo = '$annee' AND j.nomAnnee = '$nomAnnee'";
+		$stmt = $this->connect->prepare($requete);
+		$stmt->execute();
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
 
 	//fonction de toivimic 

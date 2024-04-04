@@ -23,10 +23,17 @@ else {
 	}
 	else {
 		try {
-			$etus = $db->getEtudiants();
+			$etus = $db->getEtudiantsSemestreAnnee(5, $annee);
 		} //fin try
 		catch (Exception $e) {
 			$_SESSION['info_poursuite'] = $e->getMessage();
+			header("Location: ../pages/export.php");
+			exit();
+		}
+
+		$nbEtud3 = count($etus);
+		if($nbEtud3 < 1) {
+			$_SESSION['info_poursuite'] = "Il n'y a aucun étudiant pouvant posséder une fiche de poursuite d'études";
 			header("Location: ../pages/export.php");
 			exit();
 		}
@@ -53,6 +60,8 @@ else {
 				$db->MettreAJourRangsCompetencesParAnnee('BUT1');
 				$db->MettreAJourRangsCompetencesParAnnee('BUT2');
 				$db->MettreAJourRangsCompetencesParAnnee('BUT3');
+				$nbEtud1 = $db->getNbEtudAnneeAnnee($annee, 'BUT1');
+				$nbEtud2 = $db->getNbEtudAnneeAnnee($annee, 'BUT2');
 				$note1 = $db->getMoyCompAnnee($etudiant->getCode(), 'BUT1');
 				$note2 = $db->getMoyCompAnnee($etudiant->getCode(), 'BUT2');
 				$note3 = $db->getMoyCompAnnee($etudiant->getCode(), 'BUT3');
@@ -65,8 +74,7 @@ else {
 				$anglais1 = $db->MoyenneEtRangAnglaisParAnnee($etudiant->getCode(), 'BUT1');
 				$anglais2 = $db->MoyenneEtRangAnglaisParAnnee($etudiant->getCode(), 'BUT2');
 				/*$avisInge = ;
-				$avisMaster = ;
-				$nbEtud = ;*/
+				$avisMaster = ;*/
 			} //fin try
 			catch (Exception $e) {
 				$_SESSION['info_poursuite'] = $e->getMessage();
@@ -134,27 +142,27 @@ else {
 			$pdf->SetXY(80, 114);
 			$pdf->Cell(10, 10, (count($note1) >= 6 ? $note1[5]->getMoyCompAnnee() : "~"), 0, 0, 'L');
 			$pdf->SetXY(80, 119);
-			$pdf->Cell(10, 10, (count($maths1) >= 1 && $maths1["moyenne"] > 0 ? $maths1["moyenne"] : "~"), 0, 0, 'L');
+			$pdf->Cell(10, 10, ($maths1 != null && count($maths1) >= 1 && $maths1["moyenne"] > 0 ? $maths1["moyenne"] : "~"), 0, 0, 'L');
 			$pdf->SetXY(80, 124);
-			$pdf->Cell(10, 10, (count($anglais1) >= 1 && $anglais1["moyenne"] > 0 ? $anglais1["moyenne"] : "~"), 0, 0, 'L');
+			$pdf->Cell(10, 10, ($anglais1 != null && count($anglais1) >= 1 && $anglais1["moyenne"] > 0 ? $anglais1["moyenne"] : "~"), 0, 0, 'L');
 
 			//BUT1 - Rang
 			$pdf->SetXY(93, 88);
-			$pdf->Cell(10, 10, (count($note1) >= 1 ? $note1[0]->getRang() : "~"), 0, 0, 'L');
+			$pdf->Cell(10, 10, (count($note1) >= 1 ? $note1[0]->getRang() : "~") . "/" . $nbEtud1[0]["count"], 0, 0, 'L');
 			$pdf->SetXY(93, 93);
-			$pdf->Cell(10, 10, (count($note1) >= 2 ? $note1[1]->getRang() : "~"), 0, 0, 'L');
+			$pdf->Cell(10, 10, (count($note1) >= 2 ? $note1[1]->getRang() : "~") . "/" . $nbEtud1[0]["count"], 0, 0, 'L');
 			$pdf->SetXY(93, 98);
-			$pdf->Cell(10, 10, (count($note1) >= 3 ? $note1[2]->getRang() : "~"), 0, 0, 'L');
+			$pdf->Cell(10, 10, (count($note1) >= 3 ? $note1[2]->getRang() : "~") . "/" . $nbEtud1[0]["count"], 0, 0, 'L');
 			$pdf->SetXY(93, 103);
-			$pdf->Cell(10, 10, (count($note1) >= 4 ? $note1[3]->getRang() : "~"), 0, 0, 'L');
+			$pdf->Cell(10, 10, (count($note1) >= 4 ? $note1[3]->getRang() : "~") . "/" . $nbEtud1[0]["count"], 0, 0, 'L');
 			$pdf->SetXY(93, 108.5);
-			$pdf->Cell(10, 10, (count($note1) >= 5 ? $note1[4]->getRang() : "~"), 0, 0, 'L');
+			$pdf->Cell(10, 10, (count($note1) >= 5 ? $note1[4]->getRang() : "~") . "/" . $nbEtud1[0]["count"], 0, 0, 'L');
 			$pdf->SetXY(93, 114);
-			$pdf->Cell(10, 10, (count($note1) >= 6 ? $note1[5]->getRang() : "~"), 0, 0, 'L');
+			$pdf->Cell(10, 10, (count($note1) >= 6 ? $note1[5]->getRang() : "~") . "/" . $nbEtud1[0]["count"], 0, 0, 'L');
 			$pdf->SetXY(93, 119);
-			$pdf->Cell(10, 10, (count($maths1) >= 1 && $maths1["moyenne"] > 0 ? $maths1["rang"] : "~"), 0, 0, 'L');
+			$pdf->Cell(10, 10, ($maths1 != null && count($maths1) >= 1 && $maths1["moyenne"] > 0 ? $maths1["rang"] : "~") . "/" . $nbEtud1[0]["count"], 0, 0, 'L');
 			$pdf->SetXY(93, 124);
-			$pdf->Cell(10, 10, (count($anglais1) >= 1 && $anglais1["moyenne"] > 0 ? $anglais1["rang"] : "~"), 0, 0, 'L');
+			$pdf->Cell(10, 10, ($anglais1 != null && count($anglais1) >= 1 && $anglais1["moyenne"] > 0 ? $anglais1["rang"] : "~") . "/" . $nbEtud1[0]["count"], 0, 0, 'L');
 
 			//BUT2 - Moy
 			$pdf->SetXY(105, 88);
@@ -170,27 +178,27 @@ else {
 			$pdf->SetXY(105, 114);
 			$pdf->Cell(10, 10, (count($note2) >= 6 ? $note2[5]->getMoyCompAnnee() : "~"), 0, 0, 'L');
 			$pdf->SetXY(105, 119);
-			$pdf->Cell(10, 10, (count($maths2) >= 1 && $maths2["moyenne"] > 0 ? $maths2["moyenne"] : "~"), 0, 0, 'L');
+			$pdf->Cell(10, 10, ($maths2 != null && count($maths2) >= 1 && $maths2["moyenne"] > 0 ? $maths2["moyenne"] : "~"), 0, 0, 'L');
 			$pdf->SetXY(105, 124);
-			$pdf->Cell(10, 10, (count($anglais2) >= 1 && $anglais2["moyenne"] > 0 ? $anglais2["moyenne"] : "~"), 0, 0, 'L');
+			$pdf->Cell(10, 10, ($anglais2 != null && count($anglais2) >= 1 && $anglais2["moyenne"] > 0 ? $anglais2["moyenne"] : "~"), 0, 0, 'L');
 
 			//BUT2 - Rang
 			$pdf->SetXY(118, 88);
-			$pdf->Cell(10, 10, (count($note2) >= 1 ? $note2[0]->getRang() : "~"), 0, 0, 'L');
+			$pdf->Cell(10, 10, (count($note2) >= 1 ? $note2[0]->getRang() : "~") . "/" . $nbEtud2[0]["count"], 0, 0, 'L');
 			$pdf->SetXY(118, 93);
-			$pdf->Cell(10, 10, (count($note2) >= 2 ? $note2[1]->getRang() : "~"), 0, 0, 'L');
+			$pdf->Cell(10, 10, (count($note2) >= 2 ? $note2[1]->getRang() : "~") . "/" . $nbEtud2[0]["count"], 0, 0, 'L');
 			$pdf->SetXY(118, 98);
-			$pdf->Cell(10, 10, (count($note2) >= 3 ? $note2[2]->getRang() : "~"), 0, 0, 'L');
+			$pdf->Cell(10, 10, (count($note2) >= 3 ? $note2[2]->getRang() : "~") . "/" . $nbEtud2[0]["count"], 0, 0, 'L');
 			$pdf->SetXY(118, 103);
-			$pdf->Cell(10, 10, (count($note2) >= 4 ? $note2[3]->getRang() : "~"), 0, 0, 'L');
+			$pdf->Cell(10, 10, (count($note2) >= 4 ? $note2[3]->getRang() : "~") . "/" . $nbEtud2[0]["count"], 0, 0, 'L');
 			$pdf->SetXY(118, 108.5);
-			$pdf->Cell(10, 10, (count($note2) >= 5 ? $note2[4]->getRang() : "~"), 0, 0, 'L');
+			$pdf->Cell(10, 10, (count($note2) >= 5 ? $note2[4]->getRang() : "~") . "/" . $nbEtud2[0]["count"], 0, 0, 'L');
 			$pdf->SetXY(118, 114);
-			$pdf->Cell(10, 10, (count($note2) >= 6 ? $note2[5]->getRang() : "~"), 0, 0, 'L');
+			$pdf->Cell(10, 10, (count($note2) >= 6 ? $note2[5]->getRang() : "~") . "/" . $nbEtud2[0]["count"], 0, 0, 'L');
 			$pdf->SetXY(118, 119);
-			$pdf->Cell(10, 10, (count($maths2) >= 1 && $maths2["moyenne"] > 0 ? $maths2["rang"] : "~"), 0, 0, 'L');
+			$pdf->Cell(10, 10, ($maths2 != null && count($maths2) >= 1 && $maths2["moyenne"] > 0 ? $maths2["rang"] : "~") . "/" . $nbEtud2[0]["count"], 0, 0, 'L');
 			$pdf->SetXY(118, 124);
-			$pdf->Cell(10, 10, (count($anglais2) >= 1 && $anglais2["moyenne"] > 0 ? $anglais2["rang"] : "~"), 0, 0, 'L');
+			$pdf->Cell(10, 10, ($anglais2 != null && count($anglais2) >= 1 && $anglais2["moyenne"] > 0 ? $anglais2["rang"] : "~") . "/" . $nbEtud2[0]["count"], 0, 0, 'L');
 
 			//Absences
 			$pdf->SetXY(80, 129.5);
@@ -206,17 +214,17 @@ else {
 			$pdf->SetXY(91, 173);
 			$pdf->Cell(10, 10, (count($note3) >= 3 ? $note3[2]->getMoyCompAnnee() : "~"), 0, 0, 'L');
 			$pdf->SetXY(91, 178);
-			$pdf->Cell(10, 10, (count($maths3) >= 1 && $maths3["moyenne"] > 0 ? $maths3["moyenne"] : "~"), 0, 0, 'L');
+			$pdf->Cell(10, 10, ($maths3 != null && count($maths3) >= 1 && $maths3["moyenne"] > 0 ? $maths3["moyenne"] : "~"), 0, 0, 'L');
 
 			//BUT3 - Rang
 			$pdf->SetXY(111, 147);
-			$pdf->Cell(10, 10, (count($note3) >= 1 ? $note3[0]->getRang() : "~"), 0, 0, 'L');
+			$pdf->Cell(10, 10, (count($note3) >= 1 ? $note3[0]->getRang() : "~") . "/" . $nbEtud3, 0, 0, 'L');
 			$pdf->SetXY(111, 153);
-			$pdf->Cell(10, 10, (count($note3) >= 2 ? $note3[1]->getRang() : "~"), 0, 0, 'L');
+			$pdf->Cell(10, 10, (count($note3) >= 2 ? $note3[1]->getRang() : "~") . "/" . $nbEtud3, 0, 0, 'L');
 			$pdf->SetXY(111, 173);
-			$pdf->Cell(10, 10, (count($note3) >= 3 ? $note3[2]->getRang() : "~"), 0, 0, 'L');
+			$pdf->Cell(10, 10, (count($note3) >= 3 ? $note3[2]->getRang() : "~") . "/" . $nbEtud3, 0, 0, 'L');
 			$pdf->SetXY(111, 178);
-			$pdf->Cell(10, 10, (count($maths3) >= 1 && $maths3["moyenne"] > 0 ? $maths3["rang"] : "~"), 0, 0, 'L');
+			$pdf->Cell(10, 10, ($maths3 != null && count($maths3) >= 1 && $maths3["moyenne"] > 0 ? $maths3["rang"] : "~") . "/" . $nbEtud3, 0, 0, 'L');
 
 			//Absences
 			$pdf->SetXY(91, 183.5);
@@ -275,7 +283,7 @@ else {
 
 			//Total promo
 			$pdf->SetXY(28, 240.9);
-			$pdf->Cell(10, 10, '53', 0, 0, 'L');
+			$pdf->Cell(10, 10, $nbEtud3, 0, 0, 'L');
 
 			//Nb avis (ingé)
 			$pdf->SetXY(70, 230.2);
