@@ -10,4 +10,4 @@ admin -> pwdadmin
 Notre application est déposé sur le répertoire public_html de tout les membres de l'équipe avec l'arboresence suivante : 
 ```public_html/Connecteur/src/connexion.php```
 ## Accès au code
-Notre application ce trouve dans public_html sous le nom de Connecteur et il est disponible sur github à cet URL ```https://github.com/Drmama343/Connecteur/Projet-Test``` 
+Notre application ce trouve dans public_html sous le nom de Connecteur et il est disponible sur github à cet URL ```https://github.com/Drmama343/Connecteur/Projet-Test](https://github.com/Drmama343/Connecteur/tree/Projet-Test``` 
