@@ -29,7 +29,6 @@ else {
 		$filename = 'PV Jury S' . $semestre . ' ' . $annee . '.xlsx';
 
 		$sheet = $spreadsheet->getActiveSheet();
-		$incr = 0;
 		switch ($semestre) {
 			case '1' :
 				$comp = 'BIN11';
@@ -70,7 +69,6 @@ else {
 		// Créer un objet Writer pour exporter le fichier Excel
 		$writer = new Xlsx($spreadsheet);
 		$db->MettreAJourMoyenneAnnee($anneebut, $annee);
-		//$db->MettreAJourRangsSemestre($semestre, $annee);
 		$db->MettreAJourRangsAnnee($anneebut, $annee);
 
 		$avisSem = [];
@@ -86,7 +84,6 @@ else {
 
 		$nbComp = [];
 		$nbComp = $db->getCompBySem($semestre);
-
 		
 
 		if ( $semestre == 1 )
@@ -139,10 +136,6 @@ else {
 						->setCellValue('E'.$ligneDebut, $etudiant->getParcours())
 						->setCellValue('F'.$ligneDebut, $etudiant->getCursus());
 				$lettre = 'G';
-				//avisCompAnnee($lettre, $ligneDebut, $mca, $nbComp, $codenip, 2,         $db, $sheet, anneeMoins($annee, $incr), $anneebut);
-				//$lettre = chr (ord($lettre) + 6);
-			
-
 
 				if ( $semestre == 2 ) {
 					$sheet->setCellValue('G'.$ligneDebut, $juryAnnee[0]->getRCUE());
@@ -223,9 +216,6 @@ else {
 
 function moyenneCompSem ($lettre, $ligne, $mcs, $nbComp, $codenip, $semestre, $db, $sheet) {
 	for ($cpt = 0; $cpt < count($nbComp); $cpt++) {
-		// if ($semestre >= 5 && $cpt == 2 ) {
-		// 	$cpt = 5;
-		// }
 		$mcs = $db->getAvisSem($codenip, $nbComp[$cpt]->getIdComp(), $semestre);
 		$sheet->setCellValue($lettre.$ligne, $mcs[0]->getMoyCompSem());
 		$lettre++;
