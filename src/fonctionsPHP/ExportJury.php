@@ -143,12 +143,14 @@ else {
 					$sheet->setCellValue('G'.$ligneDebut, $juryAnnee[0]->getRCUE());
 					$lettre++;
 				}
-				avisCompAnnee($lettre, $ligneDebut, $mca, $nbComp, $codenip, 2,         $db, $sheet, anneeMoins($annee, $incr), $anneebut);
-				$lettre = chr (ord($lettre) + 6);
+				//avisCompAnnee($lettre, $ligneDebut, $mca, $nbComp, $codenip, 2,         $db, $sheet, anneeMoins($annee, $incr), $anneebut);
+				//$lettre = chr (ord($lettre) + 6);
 			
 
 
 				if ( $semestre == 2 ) {
+					avisCompAnnee($lettre, $ligneDebut, $mca, $nbComp, $codenip, 2,         $db, $sheet, anneeMoins($annee, 0), $anneebut);
+					$lettre = chr (ord($lettre) + 6);
 					$juryAnnee = $db->getJuryAnnee($codenip, $anneebut, $annee);
 					$sheet	->setCellValue($lettre++.$ligneDebut, $juryAnnee[0]->getMoyAnnee());
 					moyenneCompAnnee ($lettre, $ligneDebut, $mca, $nbComp, $codenip, $semestre, $db, $sheet, $annee, $anneebut );
@@ -157,6 +159,7 @@ else {
 				}
 				
 				if ( $semestre == 3 ) {
+					avisCompAnnee($lettre, $ligneDebut, $mca, $nbComp, $codenip, 2,         $db, $sheet, anneeMoins($annee, 1), 'BUT1');
 					$jurySem = $db->getJurySemByEtudSem($codenip, $semestre);
 					$sheet	->setCellValue('M'.$ligneDebut, $jurySem[0]->getUE())
 							->setCellValue('N'.$ligneDebut, $jurySem[0]->getMoySem());
@@ -164,19 +167,24 @@ else {
 				}
 
 				if ( $semestre == 4 ) {
-					$juryAnnee = $db->getJuryAnnee($codenip, $anneebut, $annee);
+					avisCompAnnee($lettre, $ligneDebut, $mca, $nbComp, $codenip, 2,         $db, $sheet, anneeMoins($annee, 1), 'BUT1');
+					$lettre = chr (ord($lettre) + 6);
 					avisCompAnnee($lettre, $ligneDebut, $mca, $nbComp, $codenip, $semestre, $db, $sheet, $annee, $anneebut);
 					$lettre = chr (ord($lettre) + 6);
+					$juryAnnee = $db->getJuryAnnee($codenip, $anneebut, $annee);
 					$sheet	->setCellValue($lettre++.$ligneDebut, $juryAnnee[0]->getMoyAnnee());
 					moyenneCompAnnee ($lettre, $ligneDebut, $mca, $nbComp, $codenip, $semestre, $db, $sheet, $annee, $anneebut );
-					$lettre = chr (ord($lettre) + 6);
 					$sheet	->setCellValue('AA'.$ligneDebut, $juryAnnee[0]->getDecision());
 				}
 
 				if ( $semestre == 5 ) {
-					$jurySem = $db->getJurySemByEtudSem($codenip, $semestre);
-					avisCompAnnee($lettre, $ligneDebut, $mca, $nbComp, $codenip, 4,         $db, $sheet, anneeMoins($annee, 1), $anneebut);
+					$lettre = 'G';
+					$nbCompTemp = $db->getCompBySem(2);
+					avisCompAnnee($lettre, $ligneDebut, $mca, $nbCompTemp, $codenip, 2,         $db, $sheet, anneeMoins($annee, 2), 'BUT1');
 					$lettre = chr (ord($lettre) + 6);
+					avisCompAnnee($lettre, $ligneDebut, $mca, $nbCompTemp, $codenip, 4,         $db, $sheet, anneeMoins($annee, 1), 'BUT2');
+					$lettre = chr (ord($lettre) + 6);
+					$jurySem = $db->getJurySemByEtudSem($codenip, $semestre);
 					$juryAnnee = $db->getJuryAnnee($codenip, $anneebut, $annee);
 					$sheet	->setCellValue($lettre++.$ligneDebut, $juryAnnee[0]->getDecision());
 					$sheet	->setCellValue($lettre++.$ligneDebut, $jurySem[0]->getUE())
@@ -185,8 +193,19 @@ else {
 				}
 
 				if ( $semestre == 6 ) {
-					avisCompAnnee($lettre, $ligneDebut, $mcs, $nbComp, $codenip, 4,         $db, $sheet, anneeMoins($annee, 1), $anneebut);
+					$lettre = 'H';
+					$nbCompTemp = $db->getCompBySem(2);
+					avisCompAnnee($lettre, $ligneDebut, $mca, $nbCompTemp, $codenip, 2,         $db, $sheet, anneeMoins($annee, 2), 'BUT1');
 					$lettre = chr (ord($lettre) + 6);
+					avisCompAnnee($lettre, $ligneDebut, $mca, $nbCompTemp, $codenip, 4,         $db, $sheet, anneeMoins($annee, 1), 'BUT2');
+					$lettre = chr (ord($lettre) + 6);
+					avisCompAnnee($lettre, $ligneDebut, $mca, $nbCompTemp, $codenip, 6,         $db, $sheet, anneeMoins($annee, 0), 'BUT3');
+					$lettre = chr (ord($lettre) + 6);
+					$jurySem = $db->getJurySemByEtudSem($codenip, $semestre);
+					$juryAnnee = $db->getJuryAnnee($codenip, $anneebut, $annee);
+					$sheet	->setCellValue($lettre++.$ligneDebut, $juryAnnee[0]->getDecision());
+					$sheet	->setCellValue($lettre++.$ligneDebut, $juryAnnee[0]->getMoyAnnee());
+					moyenneCompAnnee ($lettre, $ligneDebut, $mca, $nbComp, $codenip, $semestre, $db, $sheet, $annee, $anneebut );
 				}
 			}
 		}
@@ -214,6 +233,9 @@ function moyenneCompSem ($lettre, $ligne, $mcs, $nbComp, $codenip, $semestre, $d
 
 function moyenneCompAnnee ($lettre, $ligne, $mca, $nbComp, $codenip, $semestre, $db, $sheet, $annee, $anneebut) {
 	for ($cpt = 0; $cpt < count($nbComp); $cpt++) {
+		if ($semestre >= 5 && $cpt == 2 ) {
+			$cpt = 5;
+		}
 		$mca = $db->getMoyCompAnneeByComp($codenip, $anneebut, $annee, $cpt+1);
 		$sheet->setCellValue($lettre.$ligne, $mca[0]->getMoyCompAnnee());
 		$lettre++;
@@ -222,11 +244,11 @@ function moyenneCompAnnee ($lettre, $ligne, $mca, $nbComp, $codenip, $semestre, 
 
 
 function avisCompAnnee ($lettre, $ligne, $mca, $nbComp, $codenip, $semestre, $db, $sheet, $annee, $anneebut) {
-	for ($cpt = 0; $cpt < count($nbComp); $cpt++) {
-		if ($semestre >= 5 && $cpt == 2 ) {
+	for ($cpt = 1; $cpt <= count($nbComp); $cpt++) {
+		/*if ($semestre >= 5 && $cpt == 2 ) {
 			$cpt = 5;
-		}
-		$mca = $db->getMoyCompAnneeByComp($codenip, $anneebut, $annee, $cpt+1);
+		}*/
+		$mca = $db->getMoyCompAnneeByComp($codenip, $anneebut, $annee, $cpt);
 		if ( !empty($mca) )
 			$sheet->setCellValue($lettre.$ligne, $mca[0]->getAvis());
 		$lettre++;
