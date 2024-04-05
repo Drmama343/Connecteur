@@ -58,8 +58,8 @@
 				<div class=\"sous-menu-wrapper\" onmouseover=\"afficherSousMenu('sousMenuUser')\" onmouseout=\"masquerSousMenu('sousMenuUser')\">
 					<p>Visualisation</p>
 					<div id=\"sousMenuUser\" style=\"display: none;\">
-						<a href=\"./visualisation.php\">Par Etudiant</a>
-						<a href=\"#\">Par Notes</a>
+						<a href=\"./visuEtudiant.php\">Par Etudiant</a>
+						<a href=\"./visuNotes.php\">Par Notes</a>
 					</div>
 				</div>
 				<hr class=\"hrmenu\">
@@ -84,7 +84,7 @@
 	}	
 
 	function isLoginOK($login) {
-		$tab = ["user"=>"0","admin"=>"0"];
+		$tab = ["user"=>"pwduser","admin"=>"pwdadmin"];
 		foreach ($tab as $key=>$value) {
 			if ($login === $key)
 				{
@@ -95,7 +95,7 @@
 	}
 
 	function isMotDePasseOK ($login,$mdp) {
-		$tab = ["user"=>"0","admin"=>"0"];
+		$tab = ["user"=>"pwduser","admin"=>"pwdadmin"];
 		foreach ($tab as $key=>$value) {
 			if ($login === $key && $mdp === $value)
 				return true;

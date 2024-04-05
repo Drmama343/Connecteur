@@ -178,7 +178,7 @@ else {
 					avisCompAnnee($lettre, $ligneDebut, $mca, $nbComp, $codenip, 4,         $db, $sheet, anneeMoins($annee, 1), $anneebut);
 					$lettre = chr (ord($lettre) + 6);
 					$juryAnnee = $db->getJuryAnnee($codenip, $anneebut, $annee);
-					$sheet	->setCellValue('AA'.$ligneDebut, $juryAnnee[0]->getDecision());
+					$sheet	->setCellValue($lettre++.$ligneDebut, $juryAnnee[0]->getDecision());
 					$sheet	->setCellValue($lettre++.$ligneDebut, $jurySem[0]->getUE())
 							->setCellValue($lettre++.$ligneDebut, $jurySem[0]->getMoySem());
 					moyenneCompSem($lettre, $ligneDebut, $mcs, $nbComp, $codenip, $semestre, $db, $sheet);
@@ -202,19 +202,17 @@ else {
 }
 
 function moyenneCompSem ($lettre, $ligne, $mcs, $nbComp, $codenip, $semestre, $db, $sheet) {
-	$cpt = 0;
 	for ($cpt = 0; $cpt < count($nbComp); $cpt++) {
-		if ($semestre >= 5 && $cpt == 2 ) {
-			$cpt = 5;
-		}
-		$mcs = $db->getAvisSem($codenip, $nbComp[$cpt+1]->getIdComp(), $semestre);
+		// if ($semestre >= 5 && $cpt == 2 ) {
+		// 	$cpt = 5;
+		// }
+		$mcs = $db->getAvisSem($codenip, $nbComp[$cpt]->getIdComp(), $semestre);
 		$sheet->setCellValue($lettre.$ligne, $mcs[0]->getMoyCompSem());
 		$lettre++;
 	}
 }
 
 function moyenneCompAnnee ($lettre, $ligne, $mca, $nbComp, $codenip, $semestre, $db, $sheet, $annee, $anneebut) {
-	$cpt = 0;
 	for ($cpt = 0; $cpt < count($nbComp); $cpt++) {
 		$mca = $db->getMoyCompAnneeByComp($codenip, $anneebut, $annee, $cpt+1);
 		$sheet->setCellValue($lettre.$ligne, $mca[0]->getMoyCompAnnee());
@@ -224,13 +222,13 @@ function moyenneCompAnnee ($lettre, $ligne, $mca, $nbComp, $codenip, $semestre, 
 
 
 function avisCompAnnee ($lettre, $ligne, $mca, $nbComp, $codenip, $semestre, $db, $sheet, $annee, $anneebut) {
-	$cpt = 0;
 	for ($cpt = 0; $cpt < count($nbComp); $cpt++) {
 		if ($semestre >= 5 && $cpt == 2 ) {
 			$cpt = 5;
 		}
 		$mca = $db->getMoyCompAnneeByComp($codenip, $anneebut, $annee, $cpt+1);
-		$sheet->setCellValue($lettre.$ligne, $mca[0]->getAvis());
+		if ( !empty($mca) )
+			$sheet->setCellValue($lettre.$ligne, $mca[0]->getAvis());
 		$lettre++;
 	}
 }

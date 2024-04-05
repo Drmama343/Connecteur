@@ -363,17 +363,17 @@ class DB {
 
 	// les fonctions du ydro qui a besoin d'un stage
 	public function getCompBySem($idSem) {
-		$requete = "SELECT * FROM CompSem WHERE idSem = '$idSem'";
+		$requete = "SELECT * FROM CompSem WHERE idSem = $idSem";
 		return $this->execQuery($requete,null,'CompSem');
 	}
 	
 	public function getAvisSem($codenip, $idComp, $idSem) {
-		$requete = "SELECT * FROM MoyCompSem mcs JOIN Etudiant e ON mcs.codenip = e.codenip WHERE idComp = '$idComp' AND idSem = '$idSem' AND mcs.codenip = $codenip";
+		$requete = "SELECT * FROM MoyCompSem mcs JOIN Etudiant e ON mcs.codenip = e.codenip WHERE idComp = '$idComp' AND idSem = $idSem AND mcs.codenip = $codenip";
 		return $this->execQuery($requete,null,'MoyCompSem');
 	}
 
 	public function getMoyCompAnneeByComp($codenip, $nomannee, $annee, $idComp) {
-		$requete = "SELECT * from MoyCompAnnee WHERE nomAnnee = '$nomannee' AND codenip = $codenip AND anneePromo = '$annee' AND numComp = '$idComp'";
+		$requete = "SELECT * from MoyCompAnnee WHERE nomAnnee = '$nomannee' AND codeNip = $codenip AND anneePromo = '$annee' AND numComp = $idComp";
 		return $this->execQuery($requete,null,'MoyCompAnnee');
 	}
 
