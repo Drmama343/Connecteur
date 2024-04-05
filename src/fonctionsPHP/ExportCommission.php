@@ -43,7 +43,10 @@ if ($db == null) {
 		// Ignorer la première ligne (en-tête)
 		if ($row->getRowIndex() == 6) {
 			foreach ($row->getCellIterator() as $cell) {
-				$libelles[] = $cell->getValue();
+				if ($cell->getValue() !== null)
+				{
+					$libelles[] = $cell->getValue();
+				}
 				$rowData[] = $cell->getColumn();
 			}
 			continue; // Une fois que nous avons obtenu les libellés, nous quittons la boucle
@@ -108,12 +111,14 @@ if ($db == null) {
 				}
 				else {
 					if ($ress !== ""){
-						try {
-							$sheet->setCellValue($rowData[$ii].$ligne, $db->getMoyRessByCodeAnneeIdRess($etudiant[0]->getCode(), $annee, $libelles[$ii])[0]->getMoyRess());
-						} catch (\Throwable $th) {
-							$_SESSION['info_commission'] = "Il manque des données, veuillez insérez des fichiers moyenne à ce semestre";
-							header("Location: ../pages/export.php");
-						}
+						$aaa = $db->getMoyRessByCodeAnneeIdRess($etudiant[0]->getCode(), $annee, $libelles[$ii]);
+						//try {
+						foreach($aaa as $aa) {$a = $aa;break;}
+						$sheet->setCellValue($rowData[$ii].$ligne, $a->getMoyRess());
+						//} catch (\Throwable $th) {
+						//	$_SESSION['info_commission'] = "Il manque des données, veuillez insérez des fichiers moyenne à ce semestre";
+						//	header("Location: ../pages/export.php");
+						//}
 						
 					}
 				}
